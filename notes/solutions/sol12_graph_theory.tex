@@ -88,10 +88,79 @@ G3 (asymmetric): matches $\bar{x}=(0.32,0.51,0.32,-0.12,-0.51,-0.51)$.
 \end{solution}
 
 \begin{exercise}{12.9}
-(Specific graph from notes -- Fiedler method.)
+8-vertex graph (from notes). (a) Apply Fiedler Method. (b) Draw components with dashed cross-edges. (c) Structural insights.
 \end{exercise}
 \begin{solution}
-Use the MATLAB helper functions on the specific adjacency structure of exercise 12.9 (as given in the text). The Fiedler vector partitions the graph by sign.
+See the detailed solution in the Sample Exams document (Section 4, Exercise 12.9). In summary:
+
+Build the Laplacian from the adjacency matrix given in the graph picture, then:
+\begin{lstlisting}
+A=make_adj(edges,8); L=make_lap(A); [fv,lam2]=fiedler_vec(L);
+neg=find(fv<0); pos=find(fv>0);
+fprintf('V-: '); disp(neg'); fprintf('V+: '); disp(pos');
+\end{lstlisting}
+Partition by sign of the Fiedler vector entries. Draw the two components; cross-edges (edges between $V_-$ and $V_+$) are drawn dashed, revealing the cut structure.
+\end{solution}
+
+\begin{exercise}{12.10}
+8-vertex graph (second example, from notes). (a) Apply Fiedler Method. (b) Draw components with dashed cross-edges. (c) Structural insights.
+\end{exercise}
+\begin{solution}
+Same procedure as Exercise 12.9. Construct the Laplacian for the graph pictured in the notes:
+\begin{lstlisting}
+A=make_adj(edges,8); L=make_lap(A); [fv,lam2]=fiedler_vec(L);
+neg=find(fv<0); pos=find(fv>0);
+\end{lstlisting}
+Partition $V_-$ (negative Fiedler entries) vs.\ $V_+$ (positive entries). Draw each component separately; dashed edges mark the cut. The structural insight will depend on the specific graph: look for which cluster is more tightly connected (smaller internal Fiedler spread) and which cross-edges form the bottleneck.
+\end{solution}
+
+\begin{exercise}{12.11}
+5-vertex graph. (a) Write down the Laplacian. (b) The Fiedler eigenspace is 2-dimensional; analyze all possible partitions methodically.
+\end{exercise}
+\begin{solution}
+\textbf{(a)} Write the Laplacian $L=D-A$ from the adjacency structure given in the picture. For a 5-vertex graph with a 2-dimensional Fiedler eigenspace, the graph has a symmetry that causes $\lambda_2=\lambda_3$.
+
+\textbf{(b)} Let $\{v_1,v_2\}$ be a basis for the 2D eigenspace. Any unit vector $u=\cos\theta\,v_1+\sin\theta\,v_2$ is a valid Fiedler vector. As $\theta$ varies from 0 to $2\pi$, the sign pattern of $u$ cycles through all possible partitions.
+
+\textit{Methodical approach:}
+\begin{enumerate}[label=\arabic*.]
+  \item Find two orthonormal basis vectors $v_1,v_2$ of the eigenspace.
+  \item List all distinct sign-patterns of $\cos\theta\,v_1+\sin\theta\,v_2$ by finding the angles $\theta$ where an entry changes sign (i.e., where $\cos\theta\,(v_1)_i+\sin\theta\,(v_2)_i=0$, giving $\tan\theta=-(v_1)_i/(v_2)_i$).
+  \item For each interval between consecutive critical angles, record the sign pattern and the resulting partition.
+\end{enumerate}
+\begin{lstlisting}
+A=make_adj(edges,5); L=make_lap(A);
+[P,D]=eig(L); lams=diag(D);
+idx=find(abs(lams-lams(2))<1e-8); % indices of Fiedler eigenvalue
+v1=P(:,idx(1)); v2=P(:,idx(2));
+thetas=atan2(-(v1),(v2)); % critical angles for each entry
+thetas=sort(unique(mod(thetas,pi)));
+for t=[thetas; thetas+pi/8]'
+  u=cos(t)*v1+sin(t)*v2; disp(sign(u)');
+end
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{12.12}
+6-vertex graph with 2D Fiedler eigenspace. (a) Find basis $\{v_1,v_2\}$. (b) Find multiple partitions. (c) Prove vertices 1\&4, 2\&5, 3\&6 are always in different subgraphs.
+\end{exercise}
+\begin{solution}
+\textbf{(a)} From the graph (two triangles connected symmetrically, e.g.\ the prism graph):
+\begin{lstlisting}
+A=make_adj(edges,6); L=make_lap(A);
+[P,D]=eig(L); lams=diag(D);
+idx=find(abs(lams-lams(2))<1e-8);
+v1=P(:,idx(1)); v2=P(:,idx(2));
+fprintf('v1='); disp(v1'); fprintf('v2='); disp(v2');
+\end{lstlisting}
+
+\textbf{(b)} Try $u(\theta)=\cos\theta\,v_1+\sin\theta\,v_2$ for several values of $\theta$; each produces a different sign-partition. At least two distinct partitions will emerge (corresponding to the two "natural" 3-vs-3 splits).
+
+\textbf{(c)} The graph has the symmetry $\sigma: i\mapsto i+3\pmod{6}$ (swapping the two triangles). This symmetry sends each eigenvector $v$ to $-v$ (the anti-symmetric mode). Therefore for any Fiedler vector $u=\cos\theta\,v_1+\sin\theta\,v_2$:
+\[
+u_{i+3}=-u_i\quad\text{for }i=1,2,3.
+\]
+Since $u_i$ and $u_{i+3}$ have opposite signs (and neither is 0 generically), vertices $i$ and $i+3$ always fall in opposite subgraphs. $\square$
 \end{solution}
 
 \begin{exercise}{12.13}
@@ -100,28 +169,147 @@ $K_n$: what are the eigenvalues of the Laplacian?
 \begin{solution}
 $L_{K_n}=nI-J$ where $J=\mathbf{1}\mathbf{1}^T$. Eigenvectors of $J$: $\mathbf{1}$ (eigenvalue $n$) and any vector orthogonal to $\mathbf{1}$ (eigenvalue 0). So eigenvalues of $nI-J$: $n-n=0$ (once) and $n-0=n$ ($n-1$ times).
 
+\textbf{Guess:} $\lambda(L_{K_n})=\{0^{(1)},\,n^{(n-1)}\}$.
+
 Verification:
 \begin{lstlisting}
 for n=[3 4 5 6], A=ones(n,n)-eye(n); L=diag(sum(A))-A;
-fprintf('K_%d: ',n); fprintf('%.1f ',sort(eig(L))); fprintf('\n'); end
+fprintf('K_%d: ',n); fprintf('%.1f ',sort(eig(L))'); fprintf('\n'); end
 \end{lstlisting}
 \end{solution}
 
-\begin{exercise}{12.18}
-LAN with 10 computers: Laplacian, Fiedler vector, partition.
+\begin{exercise}{12.14}
+11-vertex graph (from notes). (a) Find Fiedler vector. (b) Group sorted values into 3 subsets. (c) Partition into 3 subgraphs. (d) Draw. (e) Structural insights.
+\end{exercise}
+\begin{solution}
+\textbf{(a)}
+\begin{lstlisting}
+A=make_adj(edges,11); L=make_lap(A);
+[fv,lam2]=fiedler_vec(L);
+[fv_s,idx]=sort(fv);
+fprintf('Sorted Fiedler entries:\n');
+for i=1:11, fprintf('  v%d: %.4f\n',idx(i),fv_s(i)); end
+\end{lstlisting}
+
+\textbf{(b)} The sorted Fiedler values split into 3 groups separated by gaps:
+\begin{itemize}
+  \item \textbf{Group A} (most negative): vertices with $v_i \ll 0$
+  \item \textbf{Group B} (near zero): vertices with $v_i \approx 0$ (bridge/central)
+  \item \textbf{Group C} (most positive): vertices with $v_i \gg 0$
+\end{itemize}
+Identify the two largest gaps in the sorted sequence to determine group boundaries.
+
+\textbf{(c)} Assign each vertex to the group from (b). The three-way partition minimizes the number of cross-edges.
+
+\textbf{(d)} Draw each group as a subgraph; draw dashed edges for cross-group connections.
+
+\textbf{(e)} The three groups reveal which subsets of the 11-vertex graph are most internally cohesive, and the dashed cross-edges show the bottleneck connections.
+\end{solution}
+
+\begin{exercise}{12.15}
+Path graph $1-2-\cdots-n$. (a) Predict Fiedler Method outcome before calculating; justify. (b) Check hypothesis for several values of $n$.
+\end{exercise}
+\begin{solution}
+\textbf{(a) Prediction.}
+
+The path $P_n$ is a chain: vertices $1,2,\ldots,n$ connected as $i$--$(i+1)$. There is no cycle; the graph is "one-dimensional." The natural partition into two connected halves is $\{1,\ldots,\lfloor n/2\rfloor\}$ and $\{\lceil n/2\rceil+1,\ldots,n\}$, cutting exactly one edge.
+
+\textbf{Hypothesis:} The Fiedler vector of $P_n$ has entries monotonically increasing (or decreasing) from vertex 1 to $n$, with the cut at the midpoint (one cut-edge).
+
+\textit{Justification:} The Laplacian of $P_n$ is the tridiagonal matrix $L_{ij}=-1$ for $|i-j|=1$, $L_{ii}=2$ for $1<i<n$, and $L_{11}=L_{nn}=1$. Its eigenvectors are known analytically: the $k$-th eigenvector has entries $v_i^{(k)}=\cos\!\bigl(\frac{(i-\frac12)(k-1)\pi}{n}\bigr)$. The Fiedler vector ($k=2$) is $v_i\propto\cos\!\bigl(\frac{(i-\frac12)\pi}{n}\bigr)$, which is strictly monotone in $i$. The sign change occurs near $i=n/2$.
+
+\textbf{(b) Verification.}
+\begin{lstlisting}
+for n=[4 5 6 7 8]
+  edges=[(1:n-1)',(2:n)'];
+  A=make_adj(edges,n); L=make_lap(A);
+  [fv,lam2]=fiedler_vec(L);
+  fprintf('n=%d, lam2=%.4f, Fiedler=',n,lam2);
+  fprintf('%.3f ',fv'); fprintf('\n');
+end
+\end{lstlisting}
+For $n=4$: $\lambda_2=2-\sqrt{2}\approx0.586$, $v\approx(-0.65,-0.27,0.27,0.65)$. Sign change between positions 2 and 3 $\Rightarrow$ partition $\{1,2\}\mid\{3,4\}$, cut = edge 2--3. $\checkmark$
+
+For odd $n$: the middle vertex has $v_{(n+1)/2}\approx0$ and can go in either group; the cut is still 1 edge.
+\end{solution}
+
+\begin{exercise}{12.16}
+14-vertex graph (from notes). (a) Find Fiedler vector. (b) Separate into 3 groups. (c) Partition. (d) Draw. (e) Which vertex is most critical? (f) Structural insights.
 \end{exercise}
 \begin{solution}
 \begin{lstlisting}
-edges=[1 8;1 9;1 10;2 5;2 6;3 4;3 9;4 9;5 7;6 7;6 8;8 10];
-A=make_adj(edges,10); L=make_lap(A); [fv,lam2]=fiedler_vec(L);
+A=make_adj(edges,14); L=make_lap(A);
+[fv,lam2]=fiedler_vec(L);
+[fv_s,ord]=sort(fv);
+fprintf('Sorted: '); fprintf('v%d:%.3f ',ord,fv_s); fprintf('\n');
 \end{lstlisting}
-Fiedler value $\approx0.1755$.
 
-Partition: $\{C1,C3,C4,C9,C10\}$ vs $\{C2,C5,C6,C7,C8\}$. This separates the C1/C9-hub cluster from the C2/C6-hub cluster. Cut = number of edges between groups.
+\textbf{(b)} Inspect the sorted values for two large gaps. Label the three resulting groups A (negative), B (near-zero bridge), C (positive).
+
+\textbf{(c)} The partition is $G_A \mid G_B \mid G_C$. Edges between groups are the cut-edges.
+
+\textbf{(d)} Draw each subgraph separately; dashed lines show inter-group edges.
+
+\textbf{(e)} The \textit{most critical} vertex is the one in group B (bridge) with the Fiedler entry closest to 0 \textit{and} the highest degree connecting to both other groups. Removing it would maximally disconnect the graph. If group B has only one vertex, that vertex is the critical articulation point.
+
+\textbf{(f)} The three-group partition reveals hub-and-spoke structure or community structure. Look at whether the bridge group (B) is a single articulation point or a small cluster.
 \end{solution}
 
+\begin{exercise}{12.17}
+13-vertex social network. (a) Use Fiedler Method to identify group most strongly connected to Person 10. (b) Why is the method ineffective?
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+A=make_adj(edges,13); L=make_lap(A);
+[fv,lam2]=fiedler_vec(L);
+sign10=sign(fv(10));
+group_with_10=find(sign(fv)==sign10);
+fprintf('Group containing P10: '); disp(group_with_10');
+\end{lstlisting}
+
+\textbf{(a)} The Fiedler partition assigns Person 10 to the group with the same sign Fiedler entry. This group is the one identified as ``most strongly connected'' to P10 globally.
+
+\textbf{(b) Why ineffective:} The Fiedler method is a \textit{global} spectral method -- it minimizes the total cut and finds a balanced partition of the entire graph. It does not find the local neighborhood of a specific vertex. Person 10 may have close friends (short graph-distance neighbors) who end up in the \textit{opposite} Fiedler partition if they happen to be on the "wrong" side of the global minimum-cut. A better approach for finding P10's strongest connections is BFS/DFS, clustering coefficients, or ego-network analysis, not the Fiedler partition. $\square$
+\end{solution}
+
+% -------------------------------------------------------------------------
+\section*{SP3 Quiz: Graph Theory Problems}
+
+\begin{exercise}{SP3 Quiz 1}
+Give examples of graphs $\Gamma_1$ and $\Gamma_2$ with the \emph{same number of triangles} but which are \emph{not isomorphic}. Fully justify using a theorem or definition.
+\end{exercise}
+\begin{solution}
+\textbf{Example.}
+\begin{itemize}
+  \item $\Gamma_1$: Two disjoint triangles, $K_3\sqcup K_3$ (6 vertices, 6 edges, \textbf{2 triangles}, not connected).
+  \item $\Gamma_2$: Triangular prism graph (6 vertices, 9 edges, \textbf{2 triangles}, connected, 3-regular). Its edges are $\{1\text{-}2,2\text{-}3,1\text{-}3,4\text{-}5,5\text{-}6,4\text{-}6,1\text{-}4,2\text{-}5,3\text{-}6\}$.
+\end{itemize}
+
+\textbf{Same triangle count:} $\Gamma_1$ has triangles $\{1,2,3\}$ and $\{4,5,6\}$ (2 total). $\Gamma_2$ has triangles $\{1,2,3\}$ and $\{4,5,6\}$ (2 total). $\checkmark$
+
+\textbf{Not isomorphic:} By Definition 12.2.0.3, $\Gamma_1$ is \emph{not connected} (it has two separate pieces). $\Gamma_2$ \emph{is connected}. Connectivity is preserved under isomorphism (an isomorphism is a bijection on vertices preserving adjacency, so paths are preserved). Therefore $\Gamma_1\not\cong\Gamma_2$. $\square$
+\end{solution}
+
+\begin{exercise}{SP3 Quiz 2}
+Give examples of: (a) a graph that is not simple but has a simple subgraph; (b) a graph that is not connected but has a connected subgraph.
+\end{exercise}
+\begin{solution}
+\textbf{(a) Non-simple graph with a simple subgraph.}
+
+\textit{Example:} Let $G$ have vertices $\{1,2\}$ and two parallel edges between them (a multigraph, violating ``no multiple edges'' in Definition 12.2.0.2, hence not simple). The subgraph retaining only \emph{one} of the two edges is $K_2$ (the complete graph on 2 vertices), which is simple.
+
+\textit{Note:} Any non-simple graph obtained by adding loops or multi-edges to a simple graph trivially contains the original simple graph as a subgraph.
+
+\textbf{(b) Non-connected graph with a connected subgraph.}
+
+\textit{Example:} $G = K_3 \sqcup K_2$ (a triangle on vertices $\{1,2,3\}$ and a separate edge on vertices $\{4,5\}$). $G$ is not connected (vertices 1 and 4 are in different components). The subgraph $K_3$ (induced on $\{1,2,3\}$) is connected. $\square$
+\end{solution}
+
+% -------------------------------------------------------------------------
+\section*{SP3 Exam: Additional Graph Theory Problems}
+
 \begin{exercise}{SP3 Exam: Graph Isomorphism}
-(a) How many $3\times3$ permutation matrices? (b) Check $PA_2P^T=A_1$ for all. (c) Use triangle count.
+(a) How many $3\times3$ permutation matrices are there? (b) Prove $K_3\not\cong P_3$ by checking all permutation matrices. (c) Use the triangle theorem.
 \end{exercise}
 \begin{solution}
 \textbf{(a)} $3!=6$.
@@ -129,16 +317,43 @@ Partition: $\{C1,C3,C4,C9,C10\}$ vs $\{C2,C5,C6,C7,C8\}$. This separates the C1/
 \textbf{(b)} $A_1=K_3$ (triangle), $A_2=P_3$ (path). None of the 6 permutations gives $PA_2P^T=A_1$.
 \begin{lstlisting}
 A1=[0 1 1;1 0 1;1 1 0]; A2=[0 1 0;1 0 1;0 1 0];
+found=false;
 for k=1:6, P=eye(3)(perms([1 2 3])(k,:),:);
-  if all(all(P*A2*P'==A1)), disp('equal'); end; end
+  if all(all(P*A2*P'==A1)), found=true; disp('equal'); end; end
+if ~found, disp('Not isomorphic: no permutation works.'); end
 \end{lstlisting}
-Not isomorphic.
+Output: \texttt{Not isomorphic: no permutation works.}
 
-\textbf{(c)} Triangles($K_3$)$=\tr(A_1^3)/6=1$; Triangles($P_3$)$=\tr(A_2^3)/6=0$. Different $\Rightarrow$ not isomorphic. $\square$
+\textbf{(c)} By Theorem 12.3.0.2 (triangles $=\tfrac{1}{6}\tr(A^3)$): $K_3$ has $\tr(A_1^3)/6=6/6=1$ triangle; $P_3$ has $\tr(A_2^3)/6=0/6=0$ triangles. Since isomorphic graphs have the same number of triangles, $K_3\not\cong P_3$. $\square$
+\end{solution}
+
+\begin{exercise}{SP3 Exam: Planar and Regular Subgraphs}
+(a) Is it possible to find a \emph{planar} graph with a \emph{nonplanar} subgraph?\\
+(b) Is it possible to find a \emph{regular} graph with a \emph{nonregular} subgraph?\\
+Give an example or explain why none exist.
+\end{exercise}
+\begin{solution}
+\textbf{(a) No, a planar graph cannot have a nonplanar subgraph.}
+
+\textit{Proof:} By Kuratowski's theorem, a graph is \emph{nonplanar} if and only if it contains a subdivision of $K_5$ or $K_{3,3}$ as a subgraph. If $H$ is a subgraph of $G$ and $H$ is nonplanar, then $H$ contains a subdivision of $K_5$ or $K_{3,3}$, which is also a subgraph of $G$. But then $G$ is nonplanar -- contradiction. $\square$
+
+\textit{Intuition:} Planarity is a "downward closed" property: removing vertices or edges from a planar graph always leaves a planar graph.
+
+\textbf{(b) Yes, a regular graph can have a nonregular subgraph.}
+
+\textit{Example:} $G=K_4$ (complete graph on 4 vertices) is 3-regular. Consider the subgraph $H$ obtained by removing the single edge $\{1,2\}$:
+\[
+\text{deg}_H(1)=2,\quad\text{deg}_H(2)=2,\quad\text{deg}_H(3)=3,\quad\text{deg}_H(4)=3.
+\]
+$H$ has vertices of degree 2 and degree 3, so $H$ is not regular.
+
+$H$ is a valid subgraph of $K_4$ (retaining all 4 vertices, removing one edge). $\square$
+
+\textit{Note:} Regularity is \textit{not} a hereditary (subgraph-monotone) property, unlike planarity.
 \end{solution}
 
 \medskip
-\noindent\textbf{True/False:}
+\noindent\textbf{True/False (from Sol.\ 12):}
 
 \textbf{``Same adjacency matrix $\Rightarrow$ isomorphic''}: \textbf{True}. Identical adjacency matrices (with the same vertex labeling) means the graphs have exactly the same edge structure, hence $P=I$ witnesses isomorphism. $\square$
 

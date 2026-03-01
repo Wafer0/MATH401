@@ -14,6 +14,9 @@ OUT_DIR="$CODE_DIR/output"
 
 mkdir -p "$LOG_DIR" "$OUT_DIR"
 
+# Clear old logs before each build
+rm -f "$LOG_DIR"/*.log "$LOG_DIR"/*.aux "$LOG_DIR"/*.toc "$LOG_DIR"/*.out
+
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 
 OCTAVE_ONLY=false

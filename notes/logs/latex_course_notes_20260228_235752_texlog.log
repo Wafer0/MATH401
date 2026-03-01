@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.4)  28 FEB 2026 23:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.4)  28 FEB 2026 23:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,42 +395,40 @@ File: microtype.cfg 2025/02/11 v3.2a microtype main configuration file (RS)
 )
 LaTeX Info: Redefining \microtypesetup on input line 3065.
 )
-(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty
-Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks35
-\verbatim@line=\toks36
-\verbatim@in@stream=\read2
-)
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-\c@exnum=\count314
+\c@definition=\count314
+\c@example=\count315
+\c@theorem=\count316
+\c@fact=\count317
+\c@remark=\count318
 )
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count315
+\l__color_backend_stack_int=\count319
 \l__pdf_internal_box=\box60
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -466,41 +464,41 @@ LaTeX Font Info:    ... okay on input line 11.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 11.
+Package hyperref Info: Link coloring OFF on input line 12.
 (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-\c@lstlisting=\count316
+\c@lstlisting=\count320
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count317
+\scratchcounter=\count321
 \scratchdimen=\dimen184
 \scratchbox=\box61
-\nofMPsegments=\count318
-\nofMParguments=\count319
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count320
+\nofMPsegments=\count322
+\nofMParguments=\count323
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count324
 \MPscratchDim=\dimen185
-\MPnumerator=\count321
-\makeMPintoPDFobject=\count322
-\everyMPtoPDFconversion=\toks38
+\MPnumerator=\count325
+\makeMPintoPDFobject=\count326
+\everyMPtoPDFconversion=\toks36
 )
-LaTeX Info: Redefining \microtypecontext on input line 11.
-Package microtype Info: Applying patch `item' on input line 11.
-Package microtype Info: Applying patch `toc' on input line 11.
-Package microtype Info: Applying patch `eqnum' on input line 11.
-Package microtype Info: Applying patch `footnote' on input line 11.
-Package microtype Info: Applying patch `verbatim' on input line 11.
-LaTeX Info: Redefining \microtypesetup on input line 11.
+LaTeX Info: Redefining \microtypecontext on input line 12.
+Package microtype Info: Applying patch `item' on input line 12.
+Package microtype Info: Applying patch `toc' on input line 12.
+Package microtype Info: Applying patch `eqnum' on input line 12.
+Package microtype Info: Applying patch `footnote' on input line 12.
+Package microtype Info: Applying patch `verbatim' on input line 12.
+LaTeX Info: Redefining \microtypesetup on input line 12.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 11.
+LaTeX Info: Redefining \showhyphens on input line 12.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -508,7 +506,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -517,7 +515,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 14.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -530,172 +528,181 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc
+
+[2
+
+])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
 
 
-[2
-
-] (./sol03_least_squares.tex
+[3] (./ch00_review.tex
 Chapter 1.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 14.
 
 
-[3
+[4
 
 
-]
-Overfull \hbox (23.94533pt too wide) in paragraph at lines 98--100
-[]\OT1/cmr/bx/n/10.95 (-20) (b) Nor-mal equa-tions: $\OML/cmm/m/it/10.95 A[]A \
-OT1/cmr/m/n/10.95 (-20) = []$, $\OML/cmm/m/it/10.95 A[]\OT1/cmr/bx/n/10.95 (-20
-) b \OT1/cmr/m/n/10.95 (-20) = []$. $[] = 19$. $[] = [] [] [] =
- []
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
+[5])
 
-
-[4])
-
-[5] (./sol04_curve_fitting.tex
+[6] (./ch03_least_squares.tex
 Chapter 2.
 
 
-[6
+[7
 
 
 ]
 
-[7])
+[8])
 
-[8] (./sol05_team_ranking.tex
+[9] (./ch04_curve_fitting.tex
 Chapter 3.
 
 
-[9
+[10
 
 
-])
+]
 
-[10]
+[11])
 
-[11] (./sol12_graph_theory.tex
+[12] (./ch05_team_ranking.tex
 Chapter 4.
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 50.
 
-[12
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 50.
+
+
+
+[13
 
 
 ]
-Overfull \hbox (21.11015pt too wide) in paragraph at lines 63--65
-\OT1/cmr/m/it/10.95 (-20) Solution. $\OML/cmm/m/it/10.95 V[] \OT1/cmr/m/n/10.95
- (-20) = \OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (-20) 1\OML/cmm/m/it/10.95 ; \
-OT1/cmr/m/n/10.95 (-20) 2\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 3\OMS/c
-msy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 (-20) (neg-a-tive en-tries), $\OML/cmm/m/it
-/10.95 V[] \OT1/cmr/m/n/10.95 (-20) = \OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (
--20) 4\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 5\OMS/cmsy/m/n/10.95 g$ \O
-T1/cmr/m/n/10.95 (-20) (pos-i-tive en-tries). Par-ti-tion: $(\OMS/cmsy/m/n/10.9
-5 f\OT1/cmr/m/n/10.95 (-20) 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 2\O
-ML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 3\OMS/cmsy/m/n/10.95 g\OML/cmm/m/i
-t/10.95 ; \OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (-20) 4\OML/cmm/m/it/10.95 ; 
-\OT1/cmr/m/n/10.95 (-20) 5\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 (-20) )$.
- []
 
+[14])
 
-Overfull \hbox (56.28595pt too wide) in paragraph at lines 82--84
-\OT1/cmr/m/it/10.95 (-20) Solution. \OT1/cmr/m/n/10.95 (-20) G2 (lin-ear chain)
-: Fiedler vec-tor is mono-tone $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 (-20)
- matches $[] = (\OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/
-10.95 :\OT1/cmr/m/n/10.95 (-20) 56\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@
-\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 41\OML/
-cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it
-/10.95 :\OT1/cmr/m/n/10.95 (-20) 15\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-2
-0) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 15\OML/cmm/m/it/10.95 ; \OT1/
-cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 41\OML/cmm/m
-/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (
--20) 56)$. 
- []
-
-
-Overfull \hbox (16.07974pt too wide) in paragraph at lines 85--86
-[]\OT1/cmr/m/n/10.95 (-20) G1 (sym-met-ric 2-wing): Two equal clus-ters $\OMS/c
-msy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 (-20) matches $[] = (0\OML/cmm/m/it/10.95 :
-\OT1/cmr/m/n/10.95 (-20) 46\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML
-/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 46\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/
-10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 26\OML/cmm/m/it/10.9
-5 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/
-cmr/m/n/10.95 (-20) 26\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n
-/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 46\OML/cmm/m/it/10.
-95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1
-/cmr/m/n/10.95 (-20) 46)$. 
- []
-
-
-
-[13])
-
-[14] (./sol06_markov_chains.tex
+[15] (./ch12_graph_theory.tex
 Chapter 5.
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 41.
 
-[15
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 41.
+
+
+
+[16
 
 
 ]
 
-[16])
+[17])
 
-[17] (./sol07_pagerank.tex
+[18] (./ch06_markov_chains.tex
 Chapter 6.
 
 
-[18
+[19
 
 
 ]
 
-[19])
+[20]
 
-[20] (./main.aux)
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 136.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 136.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 136.
+
+
+Overfull \hbox (3.87793pt too wide) in paragraph at lines 181--182
+[][]\OT1/cmr/bx/n/10.95 (-20) Example 6.7.1 \OT1/cmr/m/n/10.95 (-20) (Ran-dom W
+alk with Ab-sorb-ing Bound-aries)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.
+95 (-20) For the ran-dom walk on $\OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (-20)
+ 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 2\OML/cmm/m/it/10.95 ; \OT1/cm
+r/m/n/10.95 (-20) 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 4\OML/cmm/m/i
+t/10.95 ; \OT1/cmr/m/n/10.95 (-20) 5\OMS/cmsy/m/n/10.95 g$
+ []
+
+
+
+[21])
+
+[22] (./ch07_pagerank.tex
+Chapter 7.
+
+
+[23
+
+
+]
+Overfull \hbox (8.14429pt too wide) in paragraph at lines 87--88
+[][]\OT1/cmr/bx/n/10.95 (-20) Example 7.5.3 \OT1/cmr/m/n/10.95 (-20) (Dan-gling
+ Node)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.95 (-20) Page $\OML/cmm/m/i
+t/10.95 n$ \OT1/cmr/m/n/10.95 (-20) has no out-bound links. Its col-umn in $\OM
+L/cmm/m/it/10.95 S$ \OT1/cmr/m/n/10.95 (-20) is $(1\OML/cmm/m/it/10.95 =n; [] ;
+ \OT1/cmr/m/n/10.95 (-20) 1\OML/cmm/m/it/10.95 =n\OT1/cmr/m/n/10.95 (-20) )[]$
+ []
+
+)
+
+[24] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 319B1A933EEA68F82240D72F7AF48904;1080.
+(rerunfilecheck)             Checksum: EC05AC9929AB0E25F225BF28D3848007;9500.
  ) 
 Here is how much of TeX's memory you used:
- 15536 strings out of 475171
- 230824 string characters out of 5767096
- 1000763 words of memory out of 5000000
- 37979 multiletter control sequences out of 15000+600000
- 576328 words of font info for 177 fonts, out of 8000000 for 9000
+ 14850 strings out of 475171
+ 224475 string characters out of 5767096
+ 858039 words of memory out of 5000000
+ 37208 multiletter control sequences out of 15000+600000
+ 581407 words of font info for 213 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 80i,8n,82p,1001b,1996s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,15n,82p,1001b,716s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr
-/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (20 pages, 293460 bytes).
+ts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
+></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on main.pdf (24 pages, 323411 bytes).
 PDF statistics:
- 398 PDF objects out of 1000 (max. 8388607)
- 336 compressed objects within 4 object streams
- 174 named destinations out of 1000 (max. 500000)
- 37937 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 654 PDF objects out of 1000 (max. 8388607)
+ 584 compressed objects within 6 object streams
+ 209 named destinations out of 1000 (max. 500000)
+ 51633 words of extra memory for PDF output out of 61914 (max. 10000000)
 
