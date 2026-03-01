@@ -1,0 +1,54 @@
+\contentsline {chapter}{\numberline {1}Linear Algebra Review}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Matrices and Vectors}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Determinants}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Systems of Equations}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Linear Independence}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Vector Spaces and Bases}{5}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Orthogonality and Orthonormality}{5}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Eigenvalues and Eigenvectors}{5}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Diagonalizable Matrices}{6}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Linear Transformations}{6}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Least Squares}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Motivation}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}The Normal Equation}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Definitions and Main Theorem}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Method: Orthogonal Projection via Gram-Schmidt}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Worked Examples}{8}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Common Misconceptions}{9}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Curve Fitting}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Least-Squares Line}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}General Function Fitting: What Works?}{10}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Common Fitting Templates}{11}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Worked Examples}{11}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Using the Best-Fit Function}{12}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Team Ranking: Massey's Method}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Setup}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Massey's Method}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Shortcut: Building $M\hat {\mathbf {r}}=\bar {q}$ Directly}{14}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Worked Examples}{14}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Special Situations}{14}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Prediction Formula}{15}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Graph Theory and the Fiedler Method}{16}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Graph Basics}{16}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Matrix Representations}{16}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Walks and Powers of $A$}{16}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Graph Isomorphism}{17}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Graph Partitioning}{17}{section.5.5}%
+\contentsline {section}{\numberline {5.6}The Fiedler Method}{17}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Markov Chains}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introduction and Motivation}{19}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Ehrenfest Diffusion Model (Lay-McDonald 10.1)}{19}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Random Walks (Lay-McDonald 10.1)}{20}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Steady States and Limits}{20}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Finding the Steady State}{21}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Proof for the $2\times 2$ Case}{21}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Communication Classes (Lay-McDonald 10.3)}{21}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Directed Graphs and Markov Chains (Lay-McDonald 10.1)}{22}{section.6.8}%
+\contentsline {chapter}{\numberline {7}Google PageRank}{23}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The Random Websurfer Model}{23}{section.7.1}%
+\contentsline {section}{\numberline {7.2}The PageRank Transition Matrix (Lay-McDonald 10.2)}{23}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Interpretation}{23}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Computing PageRank}{24}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Special Cases and Examples}{24}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Effect of the Damping Factor}{24}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Chain Internet}{24}{section.7.7}%

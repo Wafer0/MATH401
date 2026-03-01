@@ -1,0 +1,179 @@
+\chapter{Linear Algebra Review}
+
+This chapter summarizes the prerequisite linear algebra needed for this course.
+Source: Justin Wyss-Gallifent, \textit{Math~401/431: Linear Algebra Review}.
+
+%% ================================================================
+\section{Matrices and Vectors}
+%% ================================================================
+
+\begin{definition}[Matrix]
+A \textbf{matrix} is a rectangular array of numbers. An $n\times m$ matrix has $n$ rows and $m$ columns. A \textbf{vector} is an $n\times 1$ matrix.
+\end{definition}
+
+\begin{definition}[Matrix--Vector Product]
+If $A$ is $n\times m$ and $\mathbf{b}$ is $m\times 1$, the product $A\mathbf{b}$ is the linear combination of columns of $A$ weighted by the entries of $\mathbf{b}$:
+\[
+  A\mathbf{b} = b_1\mathbf{a}_1 + \cdots + b_m\mathbf{a}_m.
+\]
+\end{definition}
+
+\begin{definition}[Transpose, Symmetry, Inverse]
+\mbox{}
+\begin{itemize}
+  \item The \textbf{transpose} $A^T$ is obtained by swapping rows and columns: $(A^T)_{ij} = A_{ji}$.
+  \item $A$ is \textbf{symmetric} if $A^T = A$.
+  \item A square matrix $A$ is \textbf{invertible} if there exists $A^{-1}$ with $AA^{-1} = A^{-1}A = I$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[$2\times2$ Inverse]
+$\begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1} = \dfrac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$
+provided $ad-bc\neq 0$.
+\end{theorem}
+
+\begin{definition}[Dot Product and Norm]
+For $\mathbf{v},\mathbf{w}\in\R^n$:
+\[
+  \mathbf{v}\cdot\mathbf{w} = \mathbf{v}^T\mathbf{w} = v_1w_1+\cdots+v_nw_n, \qquad
+  \|\mathbf{v}\| = \sqrt{v_1^2+\cdots+v_n^2}.
+\]
+\end{definition}
+
+%% ================================================================
+\section{Determinants}
+%% ================================================================
+
+\begin{definition}[Determinant]
+For a $2\times2$ matrix: $\det\begin{pmatrix}a&b\\c&d\end{pmatrix} = ad-bc$.
+For larger matrices, expand along the first row:
+\[
+  \det(A) = a_{11}\det(A_{11}) - a_{12}\det(A_{12}) + \cdots \pm a_{1n}\det(A_{1n}),
+\]
+where $A_{1j}$ is the matrix with row 1 and column $j$ removed.
+\end{definition}
+
+\begin{theorem}
+A square matrix $A$ is invertible if and only if $\det(A)\neq 0$.
+\end{theorem}
+
+%% ================================================================
+\section{Systems of Equations}
+%% ================================================================
+
+\begin{theorem}
+Any linear system $a_{i1}x_1+\cdots+a_{in}x_n=b_i$ can be written as $A\mathbf{x}=\mathbf{b}$. It has:
+\begin{itemize}
+  \item Exactly one solution if $A$ is invertible (then $\mathbf{x}=A^{-1}\mathbf{b}$).
+  \item No solution or infinitely many solutions otherwise.
+\end{itemize}
+\end{theorem}
+
+%% ================================================================
+\section{Linear Independence}
+%% ================================================================
+
+\begin{definition}
+A set $\{\mathbf{v}_1,\ldots,\mathbf{v}_n\}$ is \textbf{linearly independent} if $a_1\mathbf{v}_1+\cdots+a_n\mathbf{v}_n=\mathbf{0}$ implies $a_1=\cdots=a_n=0$. Otherwise it is \textbf{linearly dependent} (one vector is a linear combination of the others).
+\end{definition}
+
+%% ================================================================
+\section{Vector Spaces and Bases}
+%% ================================================================
+
+\begin{definition}[Vector Space]
+A nonempty set $V$ of vectors is a \textbf{vector space} (subspace of $\R^n$) if it contains $\mathbf{0}$, is closed under addition, and is closed under scalar multiplication.
+\end{definition}
+
+\begin{definition}[Span, Basis, Column Space]
+\mbox{}
+\begin{itemize}
+  \item $\operatorname{span}(S) = \{a_1\mathbf{v}_1+\cdots+a_k\mathbf{v}_k \mid a_i\in\R\}$ for $S=\{\mathbf{v}_1,\ldots,\mathbf{v}_k\}$.
+  \item A \textbf{basis} for $V$ is a linearly independent set $B$ with $\operatorname{span}(B)=V$.
+  \item The \textbf{column space} of $A$ is $\col(A)=\operatorname{span}(\text{columns of }A)=\{A\mathbf{x}\mid\mathbf{x}\in\R^m\}$.
+  \item The \textbf{dimension} $\dim(V)$ is the number of vectors in any basis of $V$.
+\end{itemize}
+\end{definition}
+
+%% ================================================================
+\section{Orthogonality and Orthonormality}
+%% ================================================================
+
+\begin{definition}[Orthogonal and Orthonormal Sets]
+\mbox{}
+\begin{itemize}
+  \item $\{\mathbf{v}_1,\ldots,\mathbf{v}_n\}$ is \textbf{orthogonal} if $\mathbf{v}_i\cdot\mathbf{v}_j=0$ for $i\neq j$.
+  \item It is \textbf{orthonormal} if additionally $\|\mathbf{v}_i\|=1$ for all $i$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Orthogonal Matrix]
+A square matrix is \textbf{orthogonal} if its columns form an orthonormal set, equivalently $A^T A = AA^T = I$, i.e., $A^{-1}=A^T$.
+\end{definition}
+
+\begin{remark}
+Orthogonal matrices are computationally convenient because $A^{-1}=A^T$ is trivially obtained. They arise naturally in QR decompositions used for least-squares computation.
+\end{remark}
+
+%% ================================================================
+\section{Eigenvalues and Eigenvectors}
+%% ================================================================
+
+\begin{definition}[Eigenvalue and Eigenvector]
+If $A$ is $n\times n$, then $\lambda$ is an \textbf{eigenvalue} and $\mathbf{v}\neq\mathbf{0}$ is the corresponding \textbf{eigenvector} if $A\mathbf{v}=\lambda\mathbf{v}$.
+\end{definition}
+
+\begin{definition}[Characteristic Polynomial]
+$\operatorname{char}(A) = \det(\lambda I - A)$. The eigenvalues of $A$ are the roots of $\operatorname{char}(A)$.
+\end{definition}
+
+\begin{fact}
+For a $2\times2$ matrix: $\operatorname{char}(A) = \lambda^2 - \operatorname{tr}(A)\lambda + \det(A)$.
+For a triangular matrix: eigenvalues are the diagonal entries.
+\end{fact}
+
+\begin{example}
+$A=\begin{pmatrix}4&7\\1&-2\end{pmatrix}$. Then $\operatorname{char}(A)=\lambda^2-2\lambda-15=(\lambda-5)(\lambda+3)$. Eigenvalues: $\lambda_1=5$ with eigenvector $\begin{pmatrix}7\\1\end{pmatrix}$; $\lambda_2=-3$ with eigenvector $\begin{pmatrix}1\\-1\end{pmatrix}$.
+\end{example}
+
+\begin{theorem}
+The eigenspace for eigenvalue $\lambda$ (the set of all eigenvectors plus $\mathbf{0}$) is a vector space with dimension $\leq$ multiplicity of $\lambda$ as a root of $\operatorname{char}(A)$.
+\end{theorem}
+
+%% ================================================================
+\section{Diagonalizable Matrices}
+%% ================================================================
+
+\begin{definition}
+$A$ is \textbf{diagonalizable} if $A = PDP^{-1}$ for invertible $P$ and diagonal $D$. The columns of $P$ are eigenvectors and the diagonal of $D$ contains corresponding eigenvalues.
+\end{definition}
+
+\begin{theorem}
+$A$ is diagonalizable $\iff$ the dimension of each eigenspace equals the multiplicity of the eigenvalue.
+\end{theorem}
+
+\begin{theorem}[Orthogonal Diagonalization]
+$A$ is \textbf{orthogonally diagonalizable} (i.e., $A=QDQ^T$ with $Q$ orthogonal) if and only if $A$ is symmetric.
+\end{theorem}
+
+\begin{remark}
+Diagonalization is useful for computing powers: $A^k = PD^kP^{-1}$. Since $D$ is diagonal, $D^k = \operatorname{diag}(\lambda_1^k,\ldots,\lambda_n^k)$ is easy to compute. This is fundamental to analyzing Markov chain convergence.
+\end{remark}
+
+%% ================================================================
+\section{Linear Transformations}
+%% ================================================================
+
+\begin{definition}
+$T:\R^n\to\R^m$ is \textbf{linear} if $T(\alpha\mathbf{v}+\beta\mathbf{w})=\alpha T(\mathbf{v})+\beta T(\mathbf{w})$ for all scalars $\alpha,\beta$ and vectors $\mathbf{v},\mathbf{w}$.
+\end{definition}
+
+\begin{theorem}
+Every linear transformation $T:\R^n\to\R^m$ is represented by an $m\times n$ matrix $A=[T(\mathbf{e}_1)\;\cdots\;T(\mathbf{e}_n)]$, so $T(\mathbf{v})=A\mathbf{v}$ for all $\mathbf{v}$.
+\end{theorem}
+
+\begin{example}
+$T(x_1,x_2)=(2x_1,\,x_2-x_1,\,3x_1)$ is linear with matrix $A=\begin{pmatrix}2&0\\-1&1\\3&0\end{pmatrix}$.
+
+Note: $T(\mathbf{0})=\mathbf{0}$ is a necessary condition for linearity. If $T(\mathbf{0})\neq\mathbf{0}$ (e.g., $T(x)=x+2$), the transformation is not linear.
+\end{example}

@@ -1,0 +1,72 @@
+=== Exercise 5.1 ===
+Rankings: T1=0.1250, T2=2.3750, T3=-1.1250, T4=-1.3750
+(b) T1 vs T4 expected score diff: 1.5000 (T1 wins if positive)
+
+=== Exercise 5.2 ===
+Rankings: T1=13.5000, T2=-5.3333, T3=-5.6667, T4=-2.5000
+(b) T2 vs T4 expected score diff: -2.8333
+
+=== Exercise 5.3 ===
+(a) Number of teams: 4
+(b) Games T4 played: 1 (only against T2, since |m_{24}|=1)
+(c) T1 played 3 games: against T2(1), T3(2) [since m12=-1, m13=-2]
+(d) Total games = (sum of diagonal)/2 = (11)/2 = 5.5
+Rankings: T1=7.3125, T2=1.8125, T3=7.0625, T4=-16.1875
+
+=== Exercise 5.4 ===
+Before replacing final row, M = A^T*A.
+The diagonal entry m_{ii} = number of games team i played.
+Sum of diagonal = sum of all teams' game counts = 2 * (total games).
+Since each game involves exactly 2 teams, it is counted twice.
+Hence the sum of diagonal = 2*G (where G = total games) => always even.
+
+=== Exercise 5.5 ===
+(a) Rankings (no home): T1=6.5000, T2=-4.0000, T3=2.0000, T4=-4.5000
+Check sum: 21.50
+(b) Rankings (with home): T1=4.1250, T2=-4.3750, T3=-1.1250, T4=1.3750
+Rankings changed from (a) to (b).
+
+=== Exercise 5.6 ===
+With k=7: rankings = [0.0000, 0.0000, 0.0000] (all equal = 0)
+
+=== Exercise 5.10 ===
+(a) [T1 beats T3 once by 2]: r=[0.3333; -1.6667; -2.6667]
+(b) [T1 beats T3 twice by 1]: r=[-0.2667; -1.6667; -2.0667]
+(c) Conclusion: Beating twice by 1 gives T1 ranking -0.2667 vs 0.3333. Twice by 1 gives higher T1 ranking in this example.
+
+=== Exercise 5.11 ===
+(a) Ranking as function of n (T1 beats T2 by n once):
+  n=  1: r1=0.0000, r2=0.0000, r3=0.0000
+  n=  5: r1=1.3333, r2=-1.3333, r3=0.0000
+  n= 10: r1=3.0000, r2=-3.0000, r3=0.0000
+  n=100: r1=33.0000, r2=-33.0000, r3=0.0000
+
+(b) T1 beats T2 by 1 n times, T2 beats T3 by 1, T3 beats T1 by 1:
+  n=  1: r1=0.0000, r2=0.0000, r3=0.0000
+  n=  5: r1=0.3636, r2=-0.3636, r3=0.0000
+  n= 10: r1=0.4286, r2=-0.4286, r3=-0.0000
+  n=100: r1=0.4925, r2=-0.4925, r3=-0.0000
+
+=== Exercise 5.12 ===
+(a) With alpha=beta=gamma=3: all rankings = 0: [0.0000,0.0000,0.0000]
+(a) General: alpha=2,beta=3,gamma=4: r=[-0.6667;0.3333;0.3333]
+
+=== Exercise 5.13 ===
+(b) Group {T1,T2,T3}: r=[2.3333; 0.3333; -2.6667]
+    Group {T4,T5,T6}: r=[2.3333; 0.3333; -2.6667]
+(c) All 6 teams after T3 beats T4 by 1:
+    T1=5.3333
+    T2=3.3333
+    T3=0.3333
+    T4=-0.6667
+    T5=-2.6667
+    T6=-5.6667
+
+=== Exercise 5.16 ===
+Example: 2 teams, T1 beats T2 by k. Then r1-r2=k.
+The matrix equation A*r = p is just [1,-1]*[r1;r2] = [k].
+This is ONE equation with two unknowns => infinitely many solutions.
+After Massey modification: M=[1,-1;1,1], q=[k;0] => unique solution.
+No LS needed since M is now invertible.
+k=5: r1=2.5000, r2=-2.5000
+The sum constraint r1+r2=0 is still necessary to get a unique solution.

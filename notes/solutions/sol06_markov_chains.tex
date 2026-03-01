@@ -1,0 +1,166 @@
+\chapter{Markov Chains --- Solutions}
+
+\begin{exercise}{6.1}
+Population diagram (3 states): (a) transition matrix; (b) asymmetry; (c) 1 and 2 iterations; (d) steady state; (e) smallest $k$ for 4-decimal accuracy.
+\end{exercise}
+\begin{solution}
+$T=\begin{pmatrix}0.80&0.05&0.25\\0.12&0.90&0.05\\0.08&0.05&0.70\end{pmatrix}$, $\mathbf{x}_0=(0.6,0.2,0.2)^T$.
+
+\textbf{(b)} $T$ not symmetric $\Rightarrow$ movement rates differ by direction.
+
+\textbf{(c)} $\mathbf{x}_1=T\mathbf{x}_0=(0.540,0.262,0.198)^T$; $\mathbf{x}_2=T^2\mathbf{x}_0\approx(0.497,0.303,0.200)^T$.
+
+\textbf{(d)} Solve $(T-I)\mathbf{x}^*=\mathbf{0}$ with $\sum x_i=1$:
+$\mathbf{x}^*\approx(0.416,0.416,0.168)^T$.
+
+\textbf{(e)}
+\begin{lstlisting}
+T=[0.80 0.05 0.25;0.12 0.90 0.05;0.08 0.05 0.70];
+x=T^1*[0.6;0.2;0.2]; xs=steady_state(T); k=1;
+while max(abs(x-xs))>5e-5, k=k+1; x=T*x; end; fprintf('k=%d\n',k);
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{6.2}
+$6\times6$ transition matrix: (a) diagram; (b) regular?
+\end{exercise}
+\begin{solution}
+$T=\begin{pmatrix}0.9&0&0.05&0&0.15&0.05\\
+0&0.8&0.05&0.2&0.05&0.05\\
+0.01&0.1&0.5&0&0&0.05\\
+0.02&0.1&0.1&0.75&0&0.05\\
+0.07&0&0.1&0&0.7&0.05\\
+0&0&0.2&0.05&0.1&0.75\end{pmatrix}$.
+
+\textbf{(b)} Regular, since $T^2$ has all positive entries. All states communicate (every state can reach every other state in at most 2 steps).
+\end{solution}
+
+\begin{exercise}{6.3}
+Construct a 3-state regular symmetric transition matrix.
+\end{exercise}
+\begin{solution}
+$T=\begin{pmatrix}0.6&0.2&0.2\\0.2&0.6&0.2\\0.2&0.2&0.6\end{pmatrix}$.
+
+Symmetric (equal migration rates), regular (all entries positive). Steady state: $\mathbf{x}^*=(1/3,1/3,1/3)^T$ by symmetry.
+\end{solution}
+
+\begin{exercise}{6.4}
+Large diagram: transition matrix, entries of $T^k$, zero entries for all $k$.
+\end{exercise}
+\begin{solution}
+$T$ is block upper-triangular (states 4,5,6 cannot reach states 1,2,3).
+
+\textbf{(a)} Entry $(3,2)$ of $T^1$: read directly from diagram.
+\textbf{(b)} Entry $(3,2)$ of $T^2$: $\sum_\ell T_{3\ell}T_{\ell2}$.
+\textbf{(c)} Entry $(1,3)$ of $T^2$: 0 if 3 cannot reach 1 in 2 steps.
+\textbf{(d)} Smallest $k$ for nonzero $(5,3)$: path length $3\to4\to5$ or $3\to5$.
+\textbf{(e)} $(i,j)$ zero for all $k$: if state $j$ is in the "absorbing" block unreachable from $i$ \emph{or} vice versa.
+\textbf{(f)} Long term: population drains into states 4,5,6.
+\end{solution}
+
+\begin{exercise}{6.5}
+Transition matrix with $T^7=I$ but $T^k\neq I$ for $k<7$.
+\end{exercise}
+\begin{solution}
+Use a 7-state chain cycling $1\to2\to3\to\cdots\to7\to1$ deterministically:
+$T_{i+1,i}=1$ (and $T_{1,7}=1$), 0 elsewhere. Then $T^7=I$. This is not regular (period 7).
+\end{solution}
+
+\begin{exercise}{6.6}
+$5\times5$ non-regular $T$ with all states converging to a unique steady state.
+\end{exercise}
+\begin{solution}
+States $\{1,2,3\}$ form a regular sub-chain; states 4,5 always transition into $\{1,2,3\}$. Example:
+\[T=\begin{pmatrix}0.7&0.1&0.2&0.5&0.5\\0.1&0.8&0.1&0.3&0.3\\0.2&0.1&0.7&0.2&0.2\\0&0&0&0&0\\0&0&0&0&0\end{pmatrix}.\]
+Non-regular (states 4,5 are absorbing-like and $T_{i4}=T_{i5}=0$ for $i>3$). But all states eventually drain to $\{1,2,3\}$, which has a unique steady state.
+\end{solution}
+
+\begin{exercise}{6.7}
+3-state diagram: T, iterations, steady state.
+\end{exercise}
+\begin{solution}
+$T=\begin{pmatrix}0.70&0.05&0.02\\0.28&0.85&0.03\\0.02&0.10&0.95\end{pmatrix}$, $\mathbf{x}_0=(0.1,0,0.9)^T$.
+
+\textbf{(a) Transition matrix:} as above.
+
+\textbf{(b)} $\mathbf{x}_1=T\mathbf{x}_0=(0.088,0.113,0.799)^T$; compute further iterations programmatically.
+
+\textbf{(c)} Steady state: solve $(T-I)\mathbf{x}^*=\mathbf{0}$, $\sum x_i=1$.
+\begin{lstlisting}
+T=[0.70 0.05 0.02;0.28 0.85 0.03;0.02 0.10 0.95];
+x0=[0.1;0;0.9]; [V,D]=eig(T); idx=find(abs(diag(D)-1)<1e-9);
+xs=real(V(:,idx)); xs=abs(xs)/sum(abs(xs));
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{6.8}
+Find eigenvalues of $T=\begin{pmatrix}a&0&1-c\\1-a&b&0\\0&1-b&c\end{pmatrix}$ (columns sum to 1).
+\end{exercise}
+\begin{solution}
+$\lambda=1$ is always an eigenvalue (columns sum to 1). The characteristic polynomial gives:
+\[
+\operatorname{char}(T) = (\lambda-1)\bigl(\lambda^2 - (a+b+c-1)\lambda + (ab+bc+ca-a-b-c+1)\bigr).
+\]
+The other two eigenvalues are roots of the quadratic factor. Their values depend on $a,b,c$.
+\end{solution}
+
+\begin{exercise}{6.9}
+Find a $2\times2$ regular $T$ and $\mathbf{x}_0$ where $\mathbf{x}_{1000}$ still differs from $\mathbf{x}^*$ at the first decimal place.
+\end{exercise}
+\begin{solution}
+Slow convergence requires $|\lambda_2|=|a+b-1|$ close to 1. Take $a=0.9999$ and $b=0.9999$:
+\[T=\begin{pmatrix}0.9999&0.0001\\0.0001&0.9999\end{pmatrix}.\]
+$\lambda_2=0.9998$. $\lambda_2^{1000}=0.9998^{1000}\approx0.819$. Deviation is $\approx0.5\times0.819\approx0.41$, so first decimal place still differs. $\mathbf{x}_0=(1,0)^T$, $\mathbf{x}^*=(0.5,0.5)^T$.
+\end{solution}
+
+\begin{exercise}{6.10}
+Transition matrix for a disconnected diagram.
+\end{exercise}
+\begin{solution}
+Two disconnected 3-state chains:
+\[T=\begin{pmatrix}0.7&0.1&0.2&0&0&0\\0.1&0.8&0.1&0&0&0\\0.2&0.1&0.7&0&0&0\\0&0&0&0.6&0.3&0.1\\0&0&0&0.2&0.5&0.3\\0&0&0&0.2&0.2&0.6\end{pmatrix}.\]
+\end{solution}
+
+\begin{exercise}{6.11}
+Disconnected $T$: one component with steady state, one without.
+\end{exercise}
+\begin{solution}
+Component 1: regular (has steady state). Component 2: $T_2=\begin{pmatrix}0&1\\1&0\end{pmatrix}$ (non-regular, oscillates). Block-diagonal:
+\[T=\begin{pmatrix}T_1&0\\0&T_2\end{pmatrix}.\]
+\end{solution}
+
+\begin{exercise}{6.12}
+Define: probability vector, transition matrix, regular transition matrix.
+\end{exercise}
+\begin{solution}
+\textbf{Probability vector:} A non-negative vector whose entries sum to 1.
+
+\textbf{Transition (stochastic) matrix:} A matrix whose columns are all probability vectors. Entry $T_{ij}=$ fraction of population moving from state $j$ to state $i$ per step.
+
+\textbf{Regular transition matrix:} A transition matrix $T$ such that $T^k$ has all strictly positive entries for some integer $k\geq1$.
+\end{solution}
+
+\begin{exercise}{6.13}
+For any $n$: can some entry of $T^k$ be 0 for $k<n$ but nonzero at $k=n$?
+\end{exercise}
+\begin{solution}
+\textbf{Yes.} Use the $n$-cycle transition matrix: $T_{i+1,i}=1$ cyclically. Then $(T^k)_{1,1}=0$ for $1\leq k<n$ (no closed walk of length $<n$ starting and ending at state 1), but $(T^n)_{1,1}=1$.
+\end{solution}
+
+\begin{exercise}{6.14}
+Two-state: (a) transition matrix; (b) steady state; (c) restrictions.
+\end{exercise}
+\begin{solution}
+$T=\begin{pmatrix}\alpha&\beta\\1-\alpha&1-\beta\end{pmatrix}$ where $\alpha$ = stay at 1, $1-\beta$ = stay at 2.
+
+\textbf{(b)} Steady state: $(T-I)\mathbf{x}=\mathbf{0}$, $x_1+x_2=1$:
+\[x_1^*=\frac{\beta}{(1-\alpha)+\beta},\quad x_2^*=\frac{1-\alpha}{(1-\alpha)+\beta}.\]
+\textbf{(c)} If $\alpha=1,\beta=1$ (no movement): $T=I$, any probability vector is a steady state ($\infty$ many). If $\alpha=0,\beta=0$: $T=\begin{pmatrix}0&0\\1&1\end{pmatrix}$, state 2 is absorbing -- unique steady state $\mathbf{x}^*=(0,1)^T$ but not ``limiting'' from all starts. Without the restrictions, steady states can be non-unique or non-convergent.
+\end{solution}
+
+\begin{exercise}{6.15}
+If $T^k$ has all nonzero entries, show $T^j$ does too for $j>k$.
+\end{exercise}
+\begin{solution}
+Since $T$ is a transition matrix, all entries $T_{ij}\geq0$ and each column sums to 1 (so at least one entry per column is $>0$). For $j=k+1$: $(T^{k+1})_{ij}=\sum_\ell T_{i\ell}(T^k)_{\ell j}$. Since $(T^k)_{\ell j}>0$ for all $\ell,j$ and $T_{i\ell}\geq0$ with $\sum_\ell T_{i\ell}=1>0$, at least one term is positive. So $(T^{k+1})_{ij}>0$. By induction, $T^j$ has all positive entries for all $j\geq k$. $\square$
+\end{solution}

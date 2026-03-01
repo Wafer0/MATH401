@@ -1,0 +1,107 @@
+\chapter{Google PageRank}
+
+%% ================================================================
+\section{The Random Websurfer Model}
+%% ================================================================
+
+PageRank models a \textbf{Random Websurfer (RW)} navigating the internet:
+\begin{enumerate}
+  \item The RW is at some page.
+  \item If the page has outbound links: with probability $0.85$ the RW follows a uniformly random link; with probability $0.15$ the RW jumps to a uniformly random page anywhere.
+  \item If the page has \textbf{no outbound links} (dangling node): the RW jumps uniformly to any page.
+\end{enumerate}
+
+This is a Markov chain. The state space is the set of all webpages.
+
+%% ================================================================
+\section{The PageRank Transition Matrix (Lay-McDonald 10.2)}
+%% ================================================================
+
+\begin{definition}[Link Matrix $S$]
+Let $n$ be the number of pages. The \textbf{link matrix} $S$ is $n\times n$ with:
+\[
+  S_{ij} = \begin{cases}
+    1/k & \text{page } j \text{ links to page } i \text{ and } j \text{ has } k \text{ outbound links},\\
+    1/n & \text{page } j \text{ has no outbound links (dangling node)}.
+  \end{cases}
+\]
+\end{definition}
+
+\begin{definition}[Google Matrix / PageRank Transition Matrix]
+\[
+  T = \frac{0.15}{n}\,\mathbf{1}\mathbf{1}^T + 0.85\, S,
+\]
+where $\mathbf{1}\mathbf{1}^T$ is the $n\times n$ all-ones matrix $J$.
+\end{definition}
+
+\begin{theorem}
+$T$ is a regular transition matrix (all entries $\geq 0.15/n>0$, so $T^1$ has all positive entries).
+\end{theorem}
+
+By Theorem~\ref{thm:markov-convergence} (the Convergence Theorem for regular Markov chains), $T$ has a unique steady-state vector $\mathbf{x}^*$, which is the \textbf{PageRank vector}.
+
+\begin{definition}[PageRank]
+The \textbf{PageRank} of page $i$ is the $i$-th entry of the steady-state vector $\mathbf{x}^*$ satisfying $T\mathbf{x}^*=\mathbf{x}^*$, $\sum x_i^*=1$.
+\end{definition}
+
+%% ================================================================
+\section{Interpretation}
+%% ================================================================
+
+The PageRank of page $i$ equals the long-run fraction of time the Random Websurfer spends at page $i$. Pages with higher PageRank are considered more important.
+
+\textbf{Why this is better than counting inbound links:}
+\begin{itemize}
+  \item Being linked by an important page contributes more than being linked by a trivial one.
+  \item Importance is defined \textit{recursively}: a page is important if important pages link to it.
+  \item This self-referential definition is captured by $T\mathbf{x}^*=\mathbf{x}^*$ (eigenvector equation).
+\end{itemize}
+
+\begin{remark}[Outbound Links]
+Outbound links affect where traffic \emph{leaves} your page, not where it arrives. Adding or removing outbound links does not change your PageRank.
+\end{remark}
+
+%% ================================================================
+\section{Computing PageRank}
+%% ================================================================
+
+\textbf{Eigenvector method:} Solve $T\mathbf{x}=\mathbf{x}$ (i.e., $(T-I)\mathbf{x}=\mathbf{0}$) with the constraint $\sum x_i=1$. Since $T$ is regular, $\lambda=1$ is the unique eigenvalue of maximum modulus.
+
+\textbf{Power iteration:} Start with any probability vector $\mathbf{x}_0$ (e.g., $\mathbf{x}_0=(1/n,\ldots,1/n)^T$) and compute $\mathbf{x}_{k+1}=T\mathbf{x}_k$. Since $T$ is regular, this converges to $\mathbf{x}^*$.
+
+\textbf{Scalability note:} For the actual web ($n\sim10^{10}$), we do not compute eigenvalues of $T$ (an $n\times n$ characteristic polynomial). Power iteration only requires matrix-vector products, which is far more tractable.
+
+%% ================================================================
+\section{Special Cases and Examples}
+%% ================================================================
+
+\begin{example}[Two Symmetric Pages]
+P1 $\leftrightarrow$ P2. By symmetry, both pages have PageRank $0.5$.
+\end{example}
+
+\begin{example}[Fully Connected Internet]
+All $n$ pages link to all $n-1$ others. The uniform vector $\mathbf{u}=(1/n,\ldots,1/n)^T$ satisfies $T\mathbf{u}=\mathbf{u}$. All pages have equal PageRank $1/n$.
+\end{example}
+
+\begin{example}[Dangling Node]
+Page $n$ has no outbound links. Its column in $S$ is $(1/n,\ldots,1/n)^T$ (uniform random jump). The 0.15 random-jump term already covers 15\% of this; the remaining 85\% becomes the dangling contribution.
+\end{example}
+
+\begin{example}[Disconnected Internet]
+Without the random-jump term (i.e., $d=1$), a disconnected internet may have no regular transition matrix and no unique steady state. The random jump ($d=0.85$) adds $0.15/n>0$ to every entry of $T$, making it regular and ensuring convergence.
+\end{example}
+
+%% ================================================================
+\section{Effect of the Damping Factor}
+%% ================================================================
+
+The damping factor $d=0.85$ (probability of following a link vs.\ jumping randomly) was chosen by Brin and Page empirically. Changing $d$ generally preserves the ranking order but affects the magnitudes of PageRanks. As $d\to1$, the ranking becomes more sensitive to link structure; as $d\to0$, it approaches uniform $1/n$.
+
+%% ================================================================
+\section{Chain Internet}
+%% ================================================================
+
+For the chain $P_1\to P_2\to\cdots\to P_n$: page $P_n$ is a dangling node (no outbound links), contributing random jumps to all pages. The transition matrix is:
+\[
+T = \frac{0.15}{n}J + 0.85\,S, \quad S_{ij}=\begin{cases}1 & j\to i \text{ is an edge, }j<n\\1/n & j=n\end{cases}.
+\]

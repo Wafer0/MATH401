@@ -1,0 +1,140 @@
+\chapter{Curve Fitting --- Solutions}
+
+\begin{exercise}{4.1}
+Points $(-1,0),(1,2),(2,2)$: (a) find LS line; (b) what is minimized?
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}-1&1\\1&1\\2&1\end{pmatrix}$, $\vb=\begin{pmatrix}0\\2\\2\end{pmatrix}$.
+$A^TA=\begin{pmatrix}6&2\\2&3\end{pmatrix}$, $A^T\vb=\begin{pmatrix}5\\4\end{pmatrix}$, $\det=14$.
+$\hat{\mathbf{c}}=\frac{1}{14}\begin{pmatrix}3&-2\\-2&6\end{pmatrix}\begin{pmatrix}5\\4\end{pmatrix}=\begin{pmatrix}1/2\\11/7\end{pmatrix}$.
+
+\textbf{LS line:} $f(x)=\tfrac{1}{2}x+\tfrac{11}{7}$.
+
+\textbf{(b)} The LS line minimizes $\sum(y_i-f(x_i))^2$, the sum of squared \emph{vertical} distances.
+\end{solution}
+
+\begin{exercise}{4.2}
+Points $(1,1),(5,2),(6,2),(8,3)$: (a) LS line; (c) estimate $y$ at $x=20$.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+pts=[1 1;5 2;6 2;8 3]; A=[pts(:,1),ones(4,1)]; b=pts(:,2);
+x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$m\approx0.2692$, $b_0\approx0.6538$. \textbf{Line:} $f(x)\approx0.269x+0.654$.
+
+\textbf{(c):} $f(20)\approx0.269(20)+0.654\approx6.04$.
+\end{solution}
+
+\begin{exercise}{4.3}
+Points $(-1,3),(0,1),(1,2),(3,9)$: (a) LS parabola; (c) solve $f(x)=10$.
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}1&-1&1\\0&0&1\\1&1&1\\9&3&1\end{pmatrix}$.
+\begin{lstlisting}
+pts=[-1 3;0 1;1 2;3 9]; A=[pts(:,1).^2,pts(:,1),ones(4,1)]; b=pts(:,2);
+x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$a\approx1.045$, $b\approx-0.555$, $c\approx1.291$. \textbf{Parabola:} $f(x)\approx1.045x^2-0.555x+1.291$.
+
+\textbf{(c):} $1.045x^2-0.555x+1.291=10 \Rightarrow 1.045x^2-0.555x-8.709=0$.
+$x=\frac{0.555\pm\sqrt{0.308+36.41}}{2.09}\Rightarrow x\approx3.16$ or $x\approx-2.63$.
+\end{solution}
+
+\begin{exercise}{4.4}
+Points $(-2,0),(0,3),(4,4)$: LS $f(x)=ae^x+b$; estimate $f'(1)$.
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}e^{-2}&1\\1&1\\e^4&1\end{pmatrix}$.
+\begin{lstlisting}
+pts=[-2 0;0 3;4 4]; A=[exp(pts(:,1)),ones(3,1)]; b=pts(:,2);
+x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$a\approx0.04693$, $b\approx1.4615$. \textbf{Function:} $f(x)\approx0.04693e^x+1.4615$.
+
+$f'(1)=ae\approx0.04693\times2.718\approx0.128$.
+\end{solution}
+
+\begin{exercise}{4.5}
+Points $(-2,6.3),(3,1.2),(5,7.1),(8,-2.8),(9,-0.05)$: LS $f(x)=a+b\sin x$, estimate $f(\pi/2)$.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+pts=[-2 6.3;3 1.2;5 7.1;8 -2.8;9 -0.05];
+A=[ones(5,1),sin(pts(:,1))]; b=pts(:,2);
+x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$a\approx2.026$, $b\approx-4.974$.
+
+$f(\pi/2)=2.026-4.974\sin(\pi/2)=2.026-4.974\approx-2.948$.
+\end{solution}
+
+\begin{exercise}{4.6}
+Points $(-3,-2,45),(2,-2,30),(0,1,6),(-2,3,55),(6,5,230)$: LS $f(x,y)=ax^2+by^2$; estimate $f(3,5)$.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+pts=[-3 -2 45;2 -2 30;0 1 6;-2 3 55;6 5 230];
+A=[pts(:,1).^2,pts(:,2).^2]; b=pts(:,3);
+x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$a\approx3.027$, $b\approx4.818$.
+
+$f(3,5)\approx3.027(9)+4.818(25)\approx27.24+120.45\approx147.7$.
+\end{solution}
+
+\begin{exercise}{4.7}
+Points $(0,0),(0,1),(1,1)$: find LS line $y=mx+b$ \textbf{and} $x=ny+c$. Show they differ.
+\end{exercise}
+\begin{solution}
+\textbf{Line $y=mx+b$:} $A_1=\begin{pmatrix}0&1\\0&1\\1&1\end{pmatrix}$, $\vb_1=\begin{pmatrix}0\\1\\1\end{pmatrix}$.
+$A_1^TA_1=\begin{pmatrix}1&1\\1&3\end{pmatrix}$, $A_1^T\vb_1=\begin{pmatrix}1\\2\end{pmatrix}$. $\hat{m}=1/2$, $\hat{b}=1/2$. \textbf{Line 1:} $y=\tfrac{1}{2}x+\tfrac{1}{2}$.
+
+\textbf{Line $x=ny+c$:} Swap roles. $\hat{n}=1$, $\hat{c}=-1/3$. \textbf{Line 2:} $x=y-\tfrac{1}{3}$, i.e., $y=x+\tfrac{1}{3}$ (slope 1).
+
+Line 1 has slope $1/2$; line 2 has slope 1. \textbf{Different}, because they minimize different distances (vertical vs.\ horizontal).
+\end{solution}
+
+\begin{exercise}{4.8}
+Orbital data $(\theta^\circ, r)$: $(23,152),(50,135),(100,102),(110,110),(152,137)$. Fit $Ar^2\cos^2\theta+Br^2\sin^2\theta=1$.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+data=[23 152;50 135;100 102;110 110;152 137];
+theta=data(:,1)*pi/180; r=data(:,2);
+A=[(r.*cos(theta)).^2,(r.*sin(theta)).^2];
+b=ones(5,1); x_hat=inv(A'*A)*A'*b;
+\end{lstlisting}
+$A\approx3.976\times10^{-5}$, $B\approx7.215\times10^{-5}$.
+
+\textbf{(b):} At $\theta=225^\circ$: both $\cos^2,\sin^2=1/2$, so $r^2=2/(A+B)\approx r\approx136.5$ Mmiles.
+
+\textbf{(c):} $r$ is maximized when $A\cos^2\theta+B\sin^2\theta$ is minimized. Since $A<B$, minimum at $\theta=0$: $r_{\max}=1/\sqrt{A}\approx158.6$ Mmiles.
+\end{solution}
+
+\begin{exercise}{4.10}
+Points $(1,1),(2,1),(3,2),\ldots,(3,2)$ ($n$ times). Find $\lim_{n\to\infty}\hat{\mathbf{c}}_n$.
+\end{exercise}
+\begin{solution}
+With $n+2$ points: $A^TA=\begin{pmatrix}9n+5&3n+3\\3n+3&n+2\end{pmatrix}$, $A^T\vb=\begin{pmatrix}6n+3\\2n+2\end{pmatrix}$.
+
+$\det=5n+1$. Computing: $m_n=\dfrac{3n}{5n+1}\to\dfrac{3}{5}$, $b_n=\dfrac{n+1}{5n+1}\to\dfrac{1}{5}$.
+
+$\lim_{n\to\infty}\hat{\mathbf{c}}_n = \begin{pmatrix}3/5\\1/5\end{pmatrix}$.
+
+\textit{Check:} $y(3)=\tfrac{9}{5}+\tfrac{1}{5}=2$ $\checkmark$ (line passes through $(3,2)$ in the limit, as expected from infinite weight).
+\end{solution}
+
+\begin{exercise}{4.13}
+Which function templates allow LS?
+\end{exercise}
+\begin{solution}
+LS requires all unknowns to appear \emph{linearly}.
+\begin{enumerate}[label=(\alph*)]
+  \item $ax^2+bx^c$: \textbf{No} ($c$ is a nonlinear unknown exponent).
+  \item $ae^x+bx$: \textbf{Yes} (linear in $a,b$; matrix column $i$: $(e^{x_i},x_i)$).
+  \item $e^{ax}+bx$: \textbf{No} ($a$ appears in the exponent).
+  \item $a\sin x+b\cos x+c$: \textbf{Yes} (linear in $a,b,c$).
+  \item $a\sin(bx)+c$: \textbf{No} ($b$ appears inside sine).
+\end{enumerate}
+\end{solution}

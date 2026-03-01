@@ -1,0 +1,91 @@
+=== Exercise 7.1 ===
+(a) By symmetry, both pages should have the same pagerank.
+(b) Pageranks: P1=0.5000, P2=0.5000
+(c) No disparity: symmetric structure => equal ranks.
+
+=== Exercise 7.2 ===
+(b) Pageranks:
+  P1: 0.1901
+  P2: 0.1058
+  P3: 0.1058
+  P4: 0.2049
+  P5: 0.1991
+  P6: 0.1943
+Ranking order: P4 P5 P6 P1 P2 P3 
+
+=== Exercise 7.3 ===
+(a) Example: P1->P2, P2->P1 (two pages swap). T=[0 1;1 0], non-regular, oscillates.
+    T^2 = I: 1
+    T^1000 * [1;0] = [1;0] (returns to start, does not converge)
+(b) Example: P1->P2, P2->P3, P3->P2 (P3 and P2 form sink, P1 has rank 0 long-term).
+    T (100/0) =
+   0   0   0
+   1   0   1
+   0   1   0
+    Pageranks: P1=0.0000, P2=0.5000, P3=0.5000
+    P1 has zero rank: all traffic leaves P1 and never returns.
+
+=== Exercise 7.4 ===
+Pageranks (two disconnected triangles):
+  P1: 0.1667
+  P2: 0.1667
+  P3: 0.1667
+  P4: 0.1667
+  P5: 0.1667
+  P6: 0.1667
+Note: 15% random jump connects the components; all 6 pages can be reached.
+
+=== Exercise 7.5 ===
+Smallest k (T^k and T^(k-1) agree to 4 decimals): 62
+
+=== Exercise 7.6 ===
+For K_5 (fully connected): pageranks = 0.2000 0.2000 0.2000 0.2000 0.2000 
+T * [1/n,...,1/n]: max deviation = 0.00e+00
+The uniform vector is an eigenvector for lambda=1 because:
+  T = (0.15/n)*J + 0.85*(1/(n-1))*(J-I)  (all links equally distributed)
+  T*(1/n)*1 = (0.15/n + 0.85/(n-1)*(n-1)/n)*1 = (1/n)*1.
+
+=== Exercise 7.7 ===
+(b) 85/15: P1=0.3878 P2=0.2148 P3=0.3974
+    60/40: P1=0.3670 P2=0.2434 P3=0.3895
+    Ranking 85/15: P3>P1>P2; Ranking 60/40: P3>P1>P2
+(c) 100/0 split: P1=0.4000 P2=0.2000 P3=0.4000
+
+=== Exercise 7.8 ===
+Pageranks:
+  P1: 0.1688
+  P2: 0.0867
+  P3: 0.0867
+  P4: 0.1256
+  P5: 0.1052
+  P6: 0.0684
+  P7: 0.1335
+  P8: 0.0441
+  P9: 0.0717
+  P10: 0.1092
+Ranking order: P1 P7 P4 P10 P5 P2 P3 P9 P6 P8 
+
+=== Exercise 7.9 ===
+PageRank is determined by who links TO your page, not where your page links to.
+Outbound links determine where traffic flows OUT of your page.
+They have no effect on how much traffic flows INTO your page.
+Hence, adding or removing outbound links does not change your PageRank.
+
+=== Exercise 7.10 ===
+Transition matrix for chain P1->P2->...->P5:
+   0.030000   0.030000   0.030000   0.030000   0.200000
+   0.880000   0.030000   0.030000   0.030000   0.200000
+   0.030000   0.880000   0.030000   0.030000   0.200000
+   0.030000   0.030000   0.880000   0.030000   0.200000
+   0.030000   0.030000   0.030000   0.880000   0.200000
+Note: P_n is a dangling node (no outbound links), so it links randomly to all pages.
+
+=== Exercise 7.11 ===
+Simply counting inbound links ignores page quality:
+  - A spam site might have 1000 inbound links from low-quality pages.
+  - A reference paper might have 50 inbound links from high-impact journals.
+Google PageRank is more reasonable because:
+  1. It weights inbound links by the PageRank of the linking page.
+  2. Being linked by an important page transfers more PageRank to you.
+  3. This recursive definition captures the notion of "importance by association".
+  4. The steady-state of the random surfer model naturally reflects this weighting.

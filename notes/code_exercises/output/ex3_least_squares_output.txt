@@ -1,0 +1,47 @@
+=== Exercise 3.1 ===
+Least-squares solution x_hat:
+   0.361949
+   0.928074
+   0.095128
+Least-squares error: 3.003478
+
+=== Exercise 3.2 ===
+Least-squares solution x_hat:
+   1.2857
+  -0.3878
+Projection (vector in Col(A) closest to b):
+   0.5102
+   1.1633
+   0.2449
+LS error: 0.571429
+
+=== Exercise 3.3 ===
+Least-squares solution x_hat:
+  -0.3333
+   0.2222
+Closest vector in span:
+   3.3333e-01
+  -1.1102e-16
+   3.3333e-01
+   6.6667e-01
+
+=== Exercise 3.6 ===
+Scalar x_hat = 3.000000
+Closest vector = [3.000000; 6.000000]
+
+=== Exercise 3.7 ===
+Parameter t_hat = 1.100000
+Closest point on y=3x: (1.100000, 3.300000)
+
+=== Exercise 3.10 ===
+(a) c1 = [1;-1;0]
+    c2_orth = [1.5000;1.5000;3.0000]
+    Pr_ColA(b) = [-0.3333;1.6667;1.3333]
+(b) x_hat via normal equations = [-1.222222; 0.444444]
+
+=== Exercise 3.11 ===
+(a) c2_orth = [-2.6667;3.6667;1.6667]
+    Pr_ColA(b) = [-1.0857;2.7429;1.4286]
+(b) x_hat = [0.114286; 0.657143]
+    LS error = 0.507093
+

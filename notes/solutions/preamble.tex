@@ -1,0 +1,52 @@
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{verbatim}
+
+\geometry{margin=1in}
+
+\lstset{
+  language=Matlab,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red!70!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  breaklines=true,
+  tabsize=2
+}
+
+\theoremstyle{remark}
+\newtheorem*{solution}{Solution}
+
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\hx}{\hat{\mathbf{x}}}
+\newcommand{\hr}{\hat{\mathbf{r}}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\col}{\operatorname{Col}}
+\newcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcounter{exnum}[chapter]
+\renewcommand{\theexnum}{\thechapter.\arabic{exnum}}
+\newenvironment{exercise}[1]{%
+  \refstepcounter{exnum}%
+  \medskip\noindent\textbf{Exercise #1.}\quad\ignorespaces}%
+  {\par\smallskip}
+
+\renewenvironment{solution}{%
+  \noindent\textit{Solution.}\quad\ignorespaces}%
+  {\hfill$\square$\par\bigskip}

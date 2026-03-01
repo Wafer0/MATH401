@@ -1,0 +1,212 @@
+\chapter{Markov Chains}
+
+This chapter covers Markov chains from two sources:
+(1) Justin Wyss-Gallifent's notes (Ch.~6), and
+(2) Lay \& McDonald, \textit{Linear Algebra and Its Applications}, Chapter~10, Sections 10.1--10.3.
+
+%% ================================================================
+\section{Introduction and Motivation}
+%% ================================================================
+
+\subsection*{Two-State Example}
+
+Suppose a total population of 1 is split between two states: 0.7 in State 1 and 0.3 in State 2. Each year, 10\% of State 1 moves to State 2, and 5\% of State 2 moves to State 1. After one year:
+\[
+  \text{State 1} = 0.90(0.7)+0.05(0.3)=0.645, \qquad
+  \text{State 2} = 0.10(0.7)+0.95(0.3)=0.355.
+\]
+
+In matrix form with transition matrix $T$:
+\[
+  T=\begin{pmatrix}0.90&0.05\\0.10&0.95\end{pmatrix}, \quad
+  \mathbf{x}_1 = T\mathbf{x}_0, \quad \mathbf{x}_n = T^n\mathbf{x}_0.
+\]
+
+\textbf{Column convention:} Column $j$ of $T$ is an ``exit vector'' from state $j$. Entry $T_{ij}$ = fraction moving from state $j$ to state $i$ in one step.
+
+\subsection*{Lay-McDonald 10.1: Finite-State Markov Chains}
+
+A \textbf{finite-state Markov chain} is a mathematical model satisfying:
+\begin{enumerate}
+  \item The next state depends \textbf{only} on the current state (Markov property -- no memory).
+  \item Transition probabilities do not change with time (time-homogeneous).
+\end{enumerate}
+
+Applications include signal transmission, gas diffusion (Ehrenfest model), and random walks.
+
+%% ================================================================
+\section{Ehrenfest Diffusion Model (Lay-McDonald 10.1)}
+%% ================================================================
+
+\textbf{Setup:} Two urns (A and B) containing $2k$ molecules total. At each step, pick one molecule uniformly at random and move it to the other urn. Track the number of molecules in urn A.
+
+For $k=3$ (6 molecules), states are $0,1,\ldots,6$. Transition probabilities from state $i$:
+\[
+  P(i\to i+1) = \frac{6-i}{6}, \qquad P(i\to i-1) = \frac{i}{6}.
+\]
+States 0 and 6 transition deterministically to 1 and 5 respectively. The resulting $7\times7$ transition matrix has a checkered structure.
+
+\begin{remark}
+The Ehrenfest model does not reach a unique steady state because it is not regular (the transition matrix alternates between two classes of states). Long-term behavior depends on the parity of the initial state.
+\end{remark}
+
+%% ================================================================
+\section{Random Walks (Lay-McDonald 10.1)}
+%% ================================================================
+
+\textbf{Random walk on $\{1,2,\ldots,n\}$:} At each step, move left with probability $p$ or right with probability $1-p$.
+
+\begin{itemize}
+  \item \textbf{Absorbing boundaries:} States 1 and $n$ are absorbing (once reached, stay there).
+  \item \textbf{Reflecting boundaries:} States 1 and $n$ bounce back inward.
+\end{itemize}
+
+Transition matrices:
+\[
+P_{\text{absorbing}} = \begin{pmatrix}1&p&0&\cdots\\0&0&p&\cdots\\0&1-p&0&\cdots\\\vdots&&&\ddots\end{pmatrix}, \qquad
+P_{\text{reflecting}} = \begin{pmatrix}0&p&0&\cdots\\1&0&p&\cdots\\0&1-p&0&\cdots\\\vdots&&&\ddots\end{pmatrix}.
+\]
+
+\textbf{Random walk on a directed graph:} States are vertices; at each step, follow a uniformly random outgoing edge. This is the basis for Google PageRank.
+
+%% ================================================================
+\section{Steady States and Limits}
+%% ================================================================
+
+\begin{definition}[Probability Vector]
+A vector $\mathbf{x}$ with non-negative entries summing to 1.
+\end{definition}
+
+\begin{definition}[Transition Matrix (Stochastic Matrix)]
+A matrix $T$ whose columns are each probability vectors. Entry $T_{ij}$ = fraction of population moving from state $j$ to state $i$ per step.
+\end{definition}
+
+\begin{definition}[Steady-State Vector]
+A probability vector $\mathbf{x}^*$ with $T\mathbf{x}^*=\mathbf{x}^*$, i.e., an eigenvector of $T$ for eigenvalue $\lambda=1$.
+\end{definition}
+
+\begin{definition}[Regular Transition Matrix]
+$T$ is \textbf{regular} if $T^k$ has all positive entries for some $k\geq1$.
+\end{definition}
+
+\begin{theorem}[Convergence -- Wyss-Gallifent \& Lay-McDonald 10.2]\label{thm:markov-convergence}
+If $T$ is a regular transition matrix, then:
+\begin{enumerate}
+  \item $T$ has a \textbf{unique} steady-state vector $\mathbf{x}^*$.
+  \item For any probability vector $\mathbf{x}_0$: $\lim_{k\to\infty}T^k\mathbf{x}_0=\mathbf{x}^*$.
+  \item $\lim_{k\to\infty}T^k$ exists and has all columns equal to $\mathbf{x}^*$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of (3) given (2)]
+Let $\mathbf{e}_i$ be the $i$-th standard basis vector. By (2), $\lim_{k\to\infty}T^k\mathbf{e}_i=\mathbf{x}^*$ for each $i$. Hence:
+\[
+\lim_{k\to\infty}T^k = \lim_{k\to\infty}T^k[\mathbf{e}_1\;\cdots\;\mathbf{e}_n] = [\mathbf{x}^*\;\cdots\;\mathbf{x}^*]. \qed
+\]
+\end{proof}
+
+\begin{remark}[Non-Regular Matrices]
+A non-regular $T$ may have multiple steady-state vectors or no convergence. Examples:
+\begin{itemize}
+  \item $T=\begin{pmatrix}0&1\\1&0\end{pmatrix}$: oscillates forever, does not converge except from $\mathbf{x}_0=(0.5,0.5)^T$.
+  \item A block upper-triangular $T$: population drains into absorbing bottom-right block.
+\end{itemize}
+\end{remark}
+
+\subsection*{Meaning of $T^k_{ij}$}
+
+The $(i,j)$-entry of $T^k$ equals the fraction of the population starting in state $j$ that is in state $i$ after exactly $k$ steps. This follows from the matrix product formula for $T^k$.
+
+%% ================================================================
+\section{Finding the Steady State}
+%% ================================================================
+
+\textbf{Method 1 (Eigenvalue):} Solve $(T-I)\mathbf{x}=\mathbf{0}$ with $\sum x_i=1$. Software gives a unit eigenvector; divide by its entry-sum to get the probability vector.
+
+\textbf{Method 2 (Iteration):} Compute $T^k\mathbf{x}_0$ for large $k$; the result converges to $\mathbf{x}^*$ by Theorem~\ref{thm:markov-convergence}.
+
+\textbf{Method 3 (Column of $T^k$):} Pick any column of $T^k$ for large $k$; it converges to $\mathbf{x}^*$.
+
+\begin{example}[Three States]
+$T=\begin{pmatrix}0.90&0.10&0.20\\0.06&0.80&0.10\\0.04&0.10&0.70\end{pmatrix}$.
+Eigenvalues: $1, 0.763, 0.637$. Eigenvector for $\lambda=1$ (normalized): $\mathbf{x}^*\approx(0.581, 0.256, 0.163)^T$.
+\end{example}
+
+%% ================================================================
+\section{Proof for the $2\times2$ Case}
+%% ================================================================
+
+\begin{theorem}
+If $T=\begin{pmatrix}a&1-b\\1-a&b\end{pmatrix}$ is a regular transition matrix ($0<a,b<1$, $(a,b)\neq(0,0),(1,1)$), then $\lim_{n\to\infty}T^n\mathbf{x}_0=\mathbf{x}^*$ for all probability vectors $\mathbf{x}_0$.
+\end{theorem}
+
+\begin{proof}
+The eigenpairs of $T$ are:
+\[
+  \left(\lambda_1=1,\; \mathbf{v}_1=\begin{pmatrix}b-1\\a-1\end{pmatrix}\right), \qquad
+  \left(\lambda_2=a+b-1,\; \mathbf{v}_2=\begin{pmatrix}-1\\1\end{pmatrix}\right).
+\]
+Regularity forces $-1<\lambda_2=a+b-1<1$, so $\lambda_2^n\to0$. Diagonalizing:
+\[
+T^n = P\begin{pmatrix}1&0\\0&\lambda_2^n\end{pmatrix}P^{-1} \;\xrightarrow{n\to\infty}\; P\begin{pmatrix}1&0\\0&0\end{pmatrix}P^{-1} = \begin{pmatrix}\frac{b-1}{a+b-2}&\frac{b-1}{a+b-2}\\\frac{a-1}{a+b-2}&\frac{a-1}{a+b-2}\end{pmatrix}.
+\]
+Multiplying by any probability vector $\mathbf{x}_0=\begin{pmatrix}c\\1-c\end{pmatrix}$ yields $\begin{pmatrix}\frac{b-1}{a+b-2}\\\frac{a-1}{a+b-2}\end{pmatrix}=\mathbf{x}^*$ (independent of $c$). $\square$
+\end{proof}
+
+%% ================================================================
+\section{Communication Classes (Lay-McDonald 10.3)}
+%% ================================================================
+
+\begin{definition}[Communicating States]
+States $i$ and $j$ \textbf{communicate} (written $i\leftrightarrow j$) if the chain can reach state $i$ from state $j$ \textit{and} state $j$ from state $i$ (in some number of steps). Communication is an equivalence relation, and its equivalence classes are called \textbf{communication classes}.
+\end{definition}
+
+\begin{definition}[Absorbing State]
+State $i$ is \textbf{absorbing} if $T_{ii}=1$ (once entered, never left). Equivalently, state $i$ forms its own communication class and has no outgoing transitions to other states.
+\end{definition}
+
+\begin{definition}[Absorbing Markov Chain]
+A Markov chain is an \textbf{absorbing Markov chain} if:
+\begin{enumerate}
+  \item It has at least one absorbing state, and
+  \item From every non-absorbing state, it is possible to reach some absorbing state.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Absorbing Chains Converge]
+In an absorbing Markov chain, the chain is absorbed with probability 1 (eventually reaches an absorbing state and stays there).
+\end{theorem}
+
+\begin{example}[Random Walk with Absorbing Boundaries]
+For the random walk on $\{1,2,3,4,5\}$ with states 1 and 5 absorbing: states 2, 3, 4 are transient (eventually leave and never return). The chain is always eventually absorbed at state 1 or state 5. The probability of absorption at state 1 vs.\ state 5 depends on the starting state and the step probability $p$.
+\end{example}
+
+\begin{remark}[Standard Form for Absorbing Chains]
+Reorder states so absorbing states come first. The transition matrix takes the standard form:
+\[
+P = \begin{pmatrix}I & R \\ 0 & Q\end{pmatrix}
+\]
+where $I$ is the identity on absorbing states, $Q$ is the transition matrix among transient states, and $R$ is the matrix of transitions from transient to absorbing states.
+\end{remark}
+
+\begin{remark}[Non-Absorbing Non-Regular Chains]
+A chain can be neither regular nor absorbing. The Ehrenfest diffusion model is an example: it does not converge to a steady state from all starting points, yet it has no absorbing states. Such chains typically have periodic behavior.
+\end{remark}
+
+%% ================================================================
+\section{Directed Graphs and Markov Chains (Lay-McDonald 10.1)}
+%% ================================================================
+
+\begin{definition}[Directed Graph]
+A \textbf{directed graph} (digraph) has edges with direction: an edge from $i$ to $j$ means we can go from $i$ to $j$ but not necessarily from $j$ to $i$.
+\end{definition}
+
+The transition matrix for a random walk on a directed graph: if vertex $j$ has out-degree $d_j$, then $T_{ij}=1/d_j$ if there is an edge $j\to i$, and $T_{ij}=0$ otherwise.
+
+\begin{example}[Signal Transmission]
+Each bit (0 or 1) passes through a noisy channel. With probability $p$, a bit passes correctly; with probability $1-p$, it flips. The transition matrix is:
+\[
+P=\begin{pmatrix}p&1-p\\1-p&p\end{pmatrix}.
+\]
+After two stages, the probability a 0 remains a 0 is $(P^2)_{00}=p^2+(1-p)^2$. For $p=0.99$: $(P^2)_{00}=0.9802$.
+\end{example}

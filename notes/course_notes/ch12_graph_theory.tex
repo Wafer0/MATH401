@@ -1,0 +1,162 @@
+\chapter{Graph Theory and the Fiedler Method}
+
+%% ================================================================
+\section{Graph Basics}
+%% ================================================================
+
+\begin{definition}[Graph, Simple Graph, Connected]
+A \textbf{graph} $G=(V,E)$ is a set of \textbf{vertices} (nodes) $V$ and \textbf{edges} $E$ (pairs of vertices). A graph is:
+\begin{itemize}
+  \item \textbf{Simple}: no loops (edges from a vertex to itself) and no multiple edges.
+  \item \textbf{Connected}: there is a path between every pair of vertices.
+  \item \textbf{$k$-regular}: every vertex has exactly $k$ neighbors (degree $k$).
+\end{itemize}
+\end{definition}
+
+%% ================================================================
+\section{Matrix Representations}
+%% ================================================================
+
+\begin{definition}[Adjacency Matrix]
+The \textbf{adjacency matrix} $A$ of a simple graph on $n$ vertices is the $n\times n$ symmetric matrix with $a_{ij}=1$ if $\{i,j\}\in E$ and $a_{ij}=0$ otherwise.
+\end{definition}
+
+\begin{definition}[Degree Matrix and Laplacian]
+\[
+  D = \operatorname{diag}(\deg v_1,\ldots,\deg v_n), \qquad L = D - A.
+\]
+$L$ is the \textbf{Laplacian matrix}.
+\end{definition}
+
+\begin{example}
+For the path graph $1-2-3$:
+\[
+A=\begin{pmatrix}0&1&0\\1&0&1\\0&1&0\end{pmatrix}, \quad
+D=\begin{pmatrix}1&0&0\\0&2&0\\0&0&1\end{pmatrix}, \quad
+L=\begin{pmatrix}1&-1&0\\-1&2&-1\\0&-1&1\end{pmatrix}.
+\]
+\end{example}
+
+%% ================================================================
+\section{Walks and Powers of $A$}
+%% ================================================================
+
+\begin{definition}[Walk]
+A \textbf{walk} of length $k$ from vertex $i$ to vertex $j$ is a sequence of $k$ edges starting at $i$ and ending at $j$ (vertices and edges may repeat).
+\end{definition}
+
+\begin{theorem}[Walks via $A^k$]
+$(A^k)_{ij}$ = number of walks of length $k$ from vertex $i$ to vertex $j$.
+\end{theorem}
+
+\begin{proof}
+Induction on $k$. Base: $(A^1)_{ij}=a_{ij}=$ number of walks of length 1 (0 or 1). Step: $(A^{k+1})_{ij}=\sum_\ell(A^k)_{i\ell}a_{\ell j}$ sums walks of length $k$ to $\ell$ followed by one edge $\ell\to j$.
+\end{proof}
+
+\begin{definition}[Trace]
+$\tr(M)=\sum_i m_{ii}$.
+\end{definition}
+
+\begin{theorem}[Triangle Count]
+Number of triangles $= \dfrac{1}{6}\tr(A^3)$.
+\end{theorem}
+
+\begin{proof}
+A closed walk of length 3 from $v$ to $v$ in a simple graph must traverse exactly one triangle. Each triangle has 3 vertices and can be traversed in 2 directions, contributing $2$ to each of the 3 diagonal entries. So $\tr(A^3)=6\times(\text{triangles})$.
+\end{proof}
+
+\begin{remark}[Why Not $\tr(A^4)$ for Squares?]
+Closed walks of length 4 include both squares \textit{and} backtracks ($v\!\to\!u\!\to\!v\!\to\!u\!\to\!v$) and triangle-backtracks. Unlike triangles, not all closed 4-walks are squares, so $\tr(A^4)$ overcounts. The triangle formula works because the only closed walk of length 3 in a simple graph \emph{is} a triangle.
+\end{remark}
+
+%% ================================================================
+\section{Graph Isomorphism}
+%% ================================================================
+
+\begin{definition}[Isomorphism]
+Graphs $G_1$ and $G_2$ (both on $n$ vertices) are \textbf{isomorphic} ($G_1\cong G_2$) if there exists a permutation matrix $P$ such that $PA_1P^T=A_2$, i.e., the vertices can be relabeled to make the adjacency matrices equal.
+\end{definition}
+
+\begin{theorem}[Triangle Count Invariant]
+If $G_1\cong G_2$ then $\tfrac{1}{6}\tr(A_1^3)=\tfrac{1}{6}\tr(A_2^3)$.
+\end{theorem}
+
+\begin{example}[Non-Isomorphic Graphs]
+The triangle $K_3$ has adjacency matrix $\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix}$ (1 triangle), while the path $P_3$ has $\begin{pmatrix}0&1&0\\1&0&1\\0&1&0\end{pmatrix}$ (0 triangles). They are not isomorphic.
+\end{example}
+
+\begin{remark}
+The converse does not hold: two non-isomorphic graphs can have the same triangle count. For example, $K_4$ and two disjoint $K_3$ triangles both have 4 triangles but are not isomorphic ($K_4$ is connected, $K_3\sqcup K_3$ is not).
+\end{remark}
+
+%% ================================================================
+\section{Graph Partitioning}
+%% ================================================================
+
+\begin{definition}[Partition and Cut]
+A \textbf{2-partition} $(V_1,V_2)$ of $V$ divides the vertices into two nonempty disjoint sets. The \textbf{cut} is the number of edges between $V_1$ and $V_2$.
+\end{definition}
+
+\textbf{Goal:} Find a balanced partition (roughly $|V_1|\approx|V_2|$) with minimum cut.
+
+\begin{lemma}
+Assign $x_i=+1$ for $i\in V_1$ and $x_i=-1$ for $i\in V_2$. Then $\operatorname{cut}(V_1,V_2)=\tfrac{1}{4}\sum_{\{i,j\}\in E}(x_i-x_j)^2$.
+\end{lemma}
+
+%% ================================================================
+\section{The Fiedler Method}
+%% ================================================================
+
+\begin{fact}[Laplacian Eigenvalues]
+For a simple connected graph on $n$ vertices, the eigenvalues of $L$ satisfy:
+\[
+  0 = \lambda_1 < \lambda_2 \leq \lambda_3 \leq \cdots \leq \lambda_n.
+\]
+The smallest eigenvalue is always 0 (eigenvector $\mathbf{1}=(1,1,\ldots,1)^T$). The graph is connected $\iff \lambda_2>0$.
+\end{fact}
+
+\begin{definition}[Fiedler Value and Fiedler Vector]
+\begin{itemize}
+  \item The \textbf{Fiedler value} (algebraic connectivity) is $\lambda_2$.
+  \item A \textbf{Fiedler vector} is any eigenvector corresponding to $\lambda_2$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Fiedler Partitioning Method]
+Compute the Fiedler vector $\mathbf{v}$. Partition:
+\[
+  V_+ = \{i : v_i > 0\}, \qquad V_- = \{i : v_i < 0\}.
+\]
+Vertices with $v_i=0$ may go in either group.
+\end{theorem}
+
+\textbf{Algorithm:}
+\begin{enumerate}
+  \item Build $L=D-A$.
+  \item Compute eigenpairs of $L$; sort eigenvalues.
+  \item The eigenvector for the second smallest eigenvalue is the Fiedler vector.
+  \item Partition by sign.
+\end{enumerate}
+
+\begin{example}[Triangle with Pendant]
+Graph: 1--2, 1--3, 2--3, 3--4.
+\[
+L=\begin{pmatrix}2&-1&-1&0\\-1&2&-1&0\\-1&-1&3&-1\\0&0&-1&1\end{pmatrix}.
+\]
+Eigenvalues: $0,1,3,4$. Fiedler vector: $\approx(-0.408,-0.408,0,0.816)^T$.
+
+Partition: $V_-=\{1,2\}$ (negative), $V_0=\{3\}$ (zero, bridge vertex), $V_+=\{4\}$ (positive). This correctly identifies the triangle group vs.\ the pendant vertex.
+\end{example}
+
+\begin{example}[Complete Graph $K_n$]
+The Laplacian of $K_n$ is $L=nI-J$ where $J$ is the all-ones matrix. Eigenvalues: $0$ (once) and $n$ ($n-1$ times). So $\lambda_2=n$ and the Fiedler value equals the number of vertices.
+\end{example}
+
+\begin{remark}[Useful Facts about the Fiedler Vector]
+\begin{itemize}
+  \item Since $L$ is symmetric, it has real eigenvalues and an orthonormal eigenbasis.
+  \item The Fiedler vector is orthogonal to $\mathbf{1}$, so its entries sum to 0.
+  \item The partition produced approximately minimizes cut while balancing group sizes.
+  \item If the eigenspace for $\lambda_2$ has dimension $>1$, multiple Fiedler vectors exist; each can give a (potentially different but equally valid) partition.
+\end{itemize}
+\end{remark}

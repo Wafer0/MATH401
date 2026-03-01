@@ -1,0 +1,115 @@
+\chapter{Team Ranking: Massey's Method}
+
+%% ================================================================
+\section{Setup}
+%% ================================================================
+
+Given $T$ teams and game outcomes (each described by a winning margin), assign rankings $r_1,\ldots,r_T$.
+
+\textbf{Key premise:} If team $i$ beats team $j$ by $p$ points, the rankings should satisfy $r_i - r_j = p$.
+
+For each game, write one equation. This gives $A\mathbf{r}=\mathbf{p}$ where each row of $A$ has $+1$ in column $i$, $-1$ in column $j$, and $0$ elsewhere.
+
+Since game results are often inconsistent, $A\mathbf{r}=\mathbf{p}$ rarely has an exact solution. We use least squares.
+
+%% ================================================================
+\section{Massey's Method}
+%% ================================================================
+
+\subsection*{The Massey Matrix}
+
+The least-squares normal equation is $M\hat{\mathbf{r}}=\bar{q}$ where $M=A^TA$ and $\bar{q}=A^T\mathbf{p}$.
+
+\textbf{Structure of $M$:}
+\begin{itemize}
+  \item $m_{ii}$ = total games team $i$ played.
+  \item $m_{ij}$ = $-($ number of games between teams $i$ and $j)$ for $i\neq j$.
+  \item $M$ is symmetric. Its rows all sum to zero $\Rightarrow$ $M$ is singular.
+\end{itemize}
+
+\textbf{Structure of $\bar{q}$:}
+\begin{itemize}
+  \item $q_i$ = sum of all point margins for team $i$ (wins positive, losses negative).
+  \item Note: $\sum_i q_i = 0$ always (each game contributes $+p$ to one team and $-p$ to the other).
+\end{itemize}
+
+\begin{fact}
+The sum of diagonal entries of $M$ is always even, since it equals $2G$ (twice the total number of games $G$), as each game contributes $+1$ to exactly two diagonal entries.
+\end{fact}
+
+\subsection*{Fixing Singularity: The Sum Constraint}
+
+Since $M$ is singular, modify as follows:
+\begin{enumerate}
+  \item Replace the \textbf{last row} of $M$ with all 1s.
+  \item Replace the \textbf{last entry} of $\bar{q}$ with 0.
+\end{enumerate}
+This enforces $r_1+\cdots+r_T=0$ (rankings centered at zero). The modified system is invertible and has a unique solution.
+
+%% ================================================================
+\section{Shortcut: Building $M\hat{\mathbf{r}}=\bar{q}$ Directly}
+%% ================================================================
+
+Rather than assembling $A$ first:
+\begin{itemize}
+  \item Set $m_{ii}$ = games played by team $i$ (for $i<T$).
+  \item Set $m_{ij} = -($ games between $i$ and $j)$ for $i\neq j$ (for $i<T$).
+  \item Last row: all 1s.
+  \item Set $q_i$ = total points won by team $i$ (for $i<T$).
+  \item Last entry of $\bar{q}$: 0.
+\end{itemize}
+
+%% ================================================================
+\section{Worked Examples}
+%% ================================================================
+
+\begin{example}[Four Teams]
+Games: T1--T2 (1 game), T1--T3 (1), T2--T3 (2), T2--T4 (1), T3--T4 (1).
+Results: T1 beats T2 by 7, T1 loses to T3 by 8, T2 ties T3, T2 beats T3 by 15, T2 beats T4 by 5, T3 loses to T4 by 1.
+
+Degrees: T1 plays 2, T2 plays 4, T3 plays 4, T4 plays 2. Point totals: $q_1=7-8=-1$, $q_2=-7+0+15+5=13$, $q_3=8+0-15-1=-8$, $q_4=-5+1=-4$.
+\[
+M=\begin{pmatrix}2&-1&-1&0\\-1&4&-2&-1\\-1&-2&4&-1\\1&1&1&1\end{pmatrix}, \quad
+\bar{q}=\begin{pmatrix}-1\\13\\-8\\0\end{pmatrix}.
+\]
+Solving: $\hat{r}_1\approx0.125$, $\hat{r}_2\approx2.375$, $\hat{r}_3\approx-1.125$, $\hat{r}_4\approx-1.375$.
+
+Order: \textbf{T2 $>$ T1 $>$ T3 $>$ T4}.
+
+Prediction T1 vs T4 (never played): $r_1-r_4=1.5$ (T1 expected to win by 1.5).
+\end{example}
+
+%% ================================================================
+\section{Special Situations}
+%% ================================================================
+
+\subsection*{Symmetric Round Robin}
+
+If T1 beats T2 by $k$, T2 beats T3 by $k$, T3 beats T1 by $k$: the point totals are all zero ($q_1=k-k=0$, etc.), giving all equal rankings $r_1=r_2=r_3=0$. The cyclic symmetry of the results implies no team has a net advantage.
+
+\subsection*{Effect of Repetition}
+
+If T1 beats T2 by $n$ (once) vs.\ beats T2 by 1 ($n$ times):
+\begin{itemize}
+  \item \textbf{Once by $n$:} $r_1=(n-1)/3$ (grows without bound as $n\to\infty$).
+  \item \textbf{$n$ times by 1:} $r_1=(n-1)/(2n+1)\to 1/2$ (bounded).
+\end{itemize}
+One large win counts more than many small wins.
+
+\subsection*{Home Advantage}
+
+Reduce winning margins for home victories by a fixed percentage (e.g., 25\%) before entering the margins into the Massey system.
+
+\subsection*{Disconnected Team Graphs}
+
+If the teams split into two groups with no games between groups, the Massey matrix (before modification) is block-singular and cannot be solved globally. Apply Massey separately to each connected group.
+
+%% ================================================================
+\section{Prediction Formula}
+%% ================================================================
+
+If teams $i$ and $j$ have never played, the expected margin when they meet is:
+\[
+  \hat{p}_{ij} = r_i - r_j.
+\]
+A positive value means team $i$ is expected to win.

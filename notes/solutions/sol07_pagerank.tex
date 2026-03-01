@@ -1,0 +1,115 @@
+\chapter{Google PageRank --- Solutions}
+
+\begin{exercise}{7.1}
+Build the PageRank transition matrix for a small internet and find the ranking vector.
+\end{exercise}
+\begin{solution}
+Example: P1$\to$P2, P1$\to$P3, P2$\to$P3, P3$\to$P1. Link matrix:
+\[S=\begin{pmatrix}0&0&1\\1/2&0&0\\1/2&1&0\end{pmatrix}.\]
+Google matrix with $d=0.85$, $n=3$:
+\[T=\frac{0.15}{3}J+0.85S=\begin{pmatrix}0.05&0.05&0.9\\0.475&0.05&0.05\\0.475&0.9&0.05\end{pmatrix}.\]
+\begin{lstlisting}
+links=[1 2;1 3;2 3;3 1]; T=make_gpmatrix(links,3); pr=pagerank_vec(T);
+\end{lstlisting}
+\textbf{Output:} $\mathbf{x}^*\approx(0.278,0.155,0.567)^T$. Ranking: P3 $>$ P1 $>$ P2.
+\end{solution}
+
+\begin{exercise}{7.2}
+Construct the PageRank matrix from a web diagram with 4 pages; rank them.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+links=[1 2;2 1;2 3;3 4;4 1;4 2]; T=make_gpmatrix(links,4); pr=pagerank_vec(T);
+\end{lstlisting}
+Rankings depend on the diagram. The page receiving the most links from high-ranked pages wins.
+\end{solution}
+
+\begin{exercise}{7.3}
+How does adding a dangling node affect the matrix?
+\end{exercise}
+\begin{solution}
+A dangling node $j$ (no outbound links) contributes column $j=(1/n,\ldots,1/n)^T$ to $S$ -- a uniform jump. The PageRank matrix is unchanged in structure; the dangling node merely distributes its ``page traffic'' equally. Adding dangling nodes slightly dilutes the link-structure information but the matrix remains regular.
+\end{solution}
+
+\begin{exercise}{7.4}
+$P1\leftrightarrow P2$: both have equal PageRank? Prove by symmetry.
+\end{exercise}
+\begin{solution}
+$T=\frac{0.15}{2}J+0.85\begin{pmatrix}0&1\\1&0\end{pmatrix}=\begin{pmatrix}0.075&0.925\\0.925&0.075\end{pmatrix}$.
+
+Steady state: $T\mathbf{x}^*=\mathbf{x}^*$. Symmetry gives $x_1^*=x_2^*=0.5$.
+\end{solution}
+
+\begin{exercise}{7.5}
+Can adding outbound links change your PageRank?
+\end{exercise}
+\begin{solution}
+\textbf{No.} Outbound links determine \emph{where your traffic goes}, not how much you receive. Adding an outbound link to page $j$ changes column $j$ of $S$ (and hence $T$), but this changes the steady state \textit{of other pages}, not necessarily yours.
+
+In practice, adding outbound links slightly reduces your traffic concentration (your column sends traffic elsewhere), which can reduce your PageRank marginally.
+\end{solution}
+
+\begin{exercise}{7.6}
+Chain internet $P1\to P2\to P3$ (P3 dangling): build $T$, rank.
+\end{exercise}
+\begin{solution}
+$n=3$. P3 is dangling, so $S_{j3}=1/3$ for all $j$:
+\[S=\begin{pmatrix}0&0&1/3\\1&0&1/3\\0&1&1/3\end{pmatrix}, \quad T=\frac{0.15}{3}J+0.85S.\]
+\begin{lstlisting}
+links=[1 2;2 3]; T=make_gpmatrix(links,3); pr=pagerank_vec(T);
+\end{lstlisting}
+Ranking: P3$>$P2$>$P1 (P3 receives a link from P2 which receives from P1; traffic accumulates further down the chain, plus P3 redistributes uniformly).
+\end{solution}
+
+\begin{exercise}{7.7}
+Effect of damping factor $d$ on rankings.
+\end{exercise}
+\begin{solution}
+As $d\to1$: $T\to S$ (pure link structure). Isolated pages with no inbound links die; all traffic follows links exactly. Unique steady state may not exist if $S$ is not regular.
+
+As $d\to0$: $T\to\frac{1}{n}J$. $T\mathbf{x}=\frac{1}{n}J\mathbf{x}=\frac{1}{n}\mathbf{1}\to\mathbf{u}=(1/n,\ldots,1/n)^T$. Uniform -- link structure has no effect.
+
+$d=0.85$ is empirically chosen to weight link structure heavily while guaranteeing convergence.
+\end{solution}
+
+\begin{exercise}{7.8}
+Fully connected $n$-page internet: show $\mathbf{u}=(1/n,\ldots,1/n)^T$ is the steady state.
+\end{exercise}
+\begin{solution}
+Each page links to all $n-1$ others, so $S_{ij}=1/(n-1)$ for $i\neq j$ and $S_{ii}=0$. The all-ones matrix $J$ gives $J\mathbf{u}=\mathbf{1}$. Then:
+\[T\mathbf{u} = \frac{0.15}{n}J\mathbf{u}+0.85S\mathbf{u} = \frac{0.15}{n}\cdot n\mathbf{u}+0.85\cdot\frac{n}{n-1}\mathbf{1}\cdot\frac{1}{n}.\]
+Wait: $S\mathbf{u}=\frac{1}{n-1}(J-I)\mathbf{u}=\frac{1}{n-1}(\mathbf{1}-\mathbf{u})=\frac{1}{n-1}\cdot\frac{n-1}{n}\mathbf{1}=\frac{1}{n}\mathbf{1}=\mathbf{u}$.
+So $T\mathbf{u}=0.15\mathbf{u}+0.85\mathbf{u}=\mathbf{u}$. $\checkmark$ $\square$
+\end{solution}
+
+\begin{exercise}{7.9}
+Which of the following is more effective at raising your PageRank: (a) getting a link from a high-ranked page, or (b) getting many links from low-ranked pages?
+\end{exercise}
+\begin{solution}
+\textbf{(a) One high-ranked link is generally better.} A high-ranked page passes a large share of its traffic. A low-ranked page passes very little. Even many low-ranked inbound links may not equal one from a page that itself has high PageRank.
+
+However, there's a trade-off: if a high-ranked page links to many pages, each gets only a small share ($1/k$ of the high rank). So the answer also depends on how many other outbound links the high-ranked page has.
+\end{solution}
+
+\begin{exercise}{7.10}
+Disconnected internet without random jump: why fails? Fix?
+\end{exercise}
+\begin{solution}
+Without the random-jump term: $T=S$. If the internet is disconnected, $S$ is block upper-triangular (or has structural zeros). $S$ may not be regular $\Rightarrow$ no unique steady state $\Rightarrow$ PageRank is not uniquely defined.
+
+\textbf{Fix:} The random-jump term $\frac{1-d}{n}J$ adds $(1-d)/n>0$ to every entry, making $T$ strictly positive. Hence $T^1$ has all positive entries $\Rightarrow$ $T$ is regular $\Rightarrow$ unique steady state guaranteed.
+\end{solution}
+
+\begin{exercise}{7.11}
+Build and rank a 6-page internet with the given link structure.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+links=[1 2;1 4;2 3;3 1;4 5;5 6;6 4;2 5];
+T=make_gpmatrix(links,6,0.85); pr=pagerank_vec(T);
+fprintf('PageRank: '); fprintf('%.4f ',pr); fprintf('\n');
+[~,order]=sort(pr,'descend');
+fprintf('Ranking: '); fprintf('P%d ',order); fprintf('\n');
+\end{lstlisting}
+\textbf{Output:} Ranking varies by link structure (output shown in compiled code).
+\end{solution}

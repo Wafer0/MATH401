@@ -1,0 +1,133 @@
+\chapter{Least Squares}
+
+%% ================================================================
+\section{Motivation}
+%% ================================================================
+
+We study the matrix equation $A\mathbf{x}=\mathbf{b}$. When no exact solution exists (i.e., $\mathbf{b}\notin\col(A)$), we seek the best approximate solution -- the one that makes $A\hat{\mathbf{x}}$ as close as possible to $\mathbf{b}$.
+
+%% ================================================================
+\section{The Normal Equation}
+%% ================================================================
+
+\subsection*{Geometric Idea}
+
+The vector in $\col(A)$ closest to $\mathbf{b}$ is the orthogonal projection $\hat{\mathbf{b}}=\Proj_{\col(A)}\mathbf{b}$. We then seek $\hat{\mathbf{x}}$ such that $A\hat{\mathbf{x}}=\hat{\mathbf{b}}$.
+
+\subsection*{Derivation}
+
+Since $\hat{\mathbf{b}}-\mathbf{b}\perp\col(A)$, for every vector $A\bar{x}\in\col(A)$:
+\[
+  (A\bar{x})\cdot(A\hat{\mathbf{x}}-\mathbf{b}) = 0 \quad \text{for all } \bar{x}
+  \;\implies\; A^T(A\hat{\mathbf{x}}-\mathbf{b})=\mathbf{0}.
+\]
+This gives the \textbf{normal equation}:
+\[
+  \boxed{A^T A\hat{\mathbf{x}} = A^T\mathbf{b}.}
+\]
+
+\subsection*{Pythagorean Justification (Why This Minimizes Error)}
+
+For any $\bar{x}$, write $A\bar{x}-\mathbf{b} = (A\hat{\mathbf{x}}-\mathbf{b}) + A(\bar{x}-\hat{\mathbf{x}})$. Since these two terms are perpendicular:
+\[
+  \|A\bar{x}-\mathbf{b}\|^2 = \|A\hat{\mathbf{x}}-\mathbf{b}\|^2 + \|A(\bar{x}-\hat{\mathbf{x}})\|^2 \geq \|A\hat{\mathbf{x}}-\mathbf{b}\|^2.
+\]
+
+%% ================================================================
+\section{Definitions and Main Theorem}
+%% ================================================================
+
+\begin{definition}[Least-Squares Solution]
+A \textbf{least-squares solution} to $A\mathbf{x}=\mathbf{b}$ is any $\hat{\mathbf{x}}$ satisfying $\|A\hat{\mathbf{x}}-\mathbf{b}\|\leq\|A\bar{x}-\mathbf{b}\|$ for all $\bar{x}$.
+\end{definition}
+
+\begin{definition}[Least-Squares Error]
+The \textbf{least-squares error} is $\|A\hat{\mathbf{x}}-\mathbf{b}\|$.
+\end{definition}
+
+\begin{theorem}[Uniqueness]
+\begin{itemize}
+  \item If the columns of $A$ are \textbf{linearly independent}, the least-squares solution is unique: $\hat{\mathbf{x}}=(A^TA)^{-1}A^T\mathbf{b}$.
+  \item If the columns are \textbf{linearly dependent}, there are infinitely many least-squares solutions.
+\end{itemize}
+\end{theorem}
+
+\begin{corollary}
+If $A$ is invertible, then $(A^TA)^{-1}A^T\mathbf{b} = A^{-1}(A^T)^{-1}A^T\mathbf{b} = A^{-1}\mathbf{b}$, i.e., least squares recovers the exact solution.
+\end{corollary}
+
+\begin{fact}
+The normal equation always has at least one solution (since $A^T\mathbf{b}\in\col(A^TA)$). This is why a least-squares solution always exists.
+\end{fact}
+
+%% ================================================================
+\section{Method: Orthogonal Projection via Gram-Schmidt}
+%% ================================================================
+
+An alternative to the normal equation is to find an orthogonal basis for $\col(A)$ using Gram-Schmidt, then project $\mathbf{b}$ directly:
+
+\textbf{Gram-Schmidt:} Given linearly independent $\mathbf{c}_1, \mathbf{c}_2$:
+\[
+  \mathbf{c}_2^\perp = \mathbf{c}_2 - \frac{\mathbf{c}_1\cdot\mathbf{c}_2}{\mathbf{c}_1\cdot\mathbf{c}_1}\mathbf{c}_1.
+\]
+
+\textbf{Projection:}
+\[
+  \Proj_{\col(A)}\mathbf{b} = \frac{\mathbf{b}\cdot\mathbf{c}_1}{\|\mathbf{c}_1\|^2}\mathbf{c}_1 + \frac{\mathbf{b}\cdot\mathbf{c}_2^\perp}{\|\mathbf{c}_2^\perp\|^2}\mathbf{c}_2^\perp.
+\]
+
+%% ================================================================
+\section{Worked Examples}
+%% ================================================================
+
+\begin{example}[Unique Least-Squares Solution]
+Find $\hat{\mathbf{x}}$ for $\begin{pmatrix}1&2\\1&1\\1&-1\end{pmatrix}\mathbf{x}=\begin{pmatrix}6\\4\\1\end{pmatrix}$.
+
+\textbf{Normal equations:}
+\[
+A^TA=\begin{pmatrix}3&2\\2&6\end{pmatrix}, \quad A^T\mathbf{b}=\begin{pmatrix}11\\15\end{pmatrix}.
+\]
+$\det(A^TA)=14$. Then:
+\[
+\hat{\mathbf{x}}=\frac{1}{14}\begin{pmatrix}6&-2\\-2&3\end{pmatrix}\begin{pmatrix}11\\15\end{pmatrix} = \begin{pmatrix}36/14\\23/14\end{pmatrix} = \begin{pmatrix}18/7\\23/14\end{pmatrix}.
+\]
+\textbf{Error:} $\|A\hat{\mathbf{x}}-\mathbf{b}\|\approx 0.267$.
+\end{example}
+
+\begin{example}[Closest Point on a Line]
+Find the point on $y=3x$ closest to $(2,3)$.
+
+Matrix form: $\begin{pmatrix}1\\3\end{pmatrix}t=\begin{pmatrix}2\\3\end{pmatrix}$.
+
+Normal equation: $10\hat{t}=11 \implies \hat{t}=\frac{11}{10}=1.1$.
+
+\textbf{Closest point:} $(1.1,\;3.3)$.
+\end{example}
+
+\begin{example}[Closest Point on a Plane]
+Find the point on the plane $2x+3y=z$ closest to $\mathbf{b}=(1,0,0)$.
+
+The plane has normal $(2,3,-1)$, but as a subspace $\{(x,y,2x+3y)\}$, it is spanned by $\mathbf{c}_1=(1,0,2)$ and $\mathbf{c}_2=(0,1,3)$.
+
+$A=\begin{pmatrix}1&0\\0&1\\2&3\end{pmatrix}$. Normal equations: $A^TA=\begin{pmatrix}5&6\\6&10\end{pmatrix}$, $A^T\mathbf{b}=\begin{pmatrix}1\\0\end{pmatrix}$.
+
+$\det(A^TA)=14$. $\hat{\mathbf{x}}=\frac{1}{14}\begin{pmatrix}10&-6\\-6&5\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}5/7\\-3/7\end{pmatrix}$.
+
+\textbf{Closest point:} $A\hat{\mathbf{x}}=\begin{pmatrix}5/7\\-3/7\\-1/7\end{pmatrix}$.
+\end{example}
+
+\begin{example}[Infinitely Many Solutions]
+$\begin{pmatrix}1&2\\1&2\end{pmatrix}\mathbf{x}=\begin{pmatrix}4\\3\end{pmatrix}$. The columns are dependent, so $A^TA=\begin{pmatrix}2&4\\4&8\end{pmatrix}$ is singular. Solutions: $\hat{\mathbf{x}}=\begin{pmatrix}7/2-2t\\t\end{pmatrix}$ for $t\in\R$. All give the same projection (and error).
+\end{example}
+
+%% ================================================================
+\section{Common Misconceptions}
+%% ================================================================
+
+\begin{remark}[Why $(A^TA)^{-1}A^T \neq A^{-1}$]
+Writing $(A^TA)^{-1}A^T = A^{-1}(A^T)^{-1}A^T = A^{-1}$ is \textbf{wrong} unless $A$ is square and invertible. In the least-squares setting, $A$ is typically $m\times n$ with $m>n$ (not square), so $A^{-1}$ and $(A^T)^{-1}$ do not exist.
+\end{remark}
+
+\begin{remark}[Switching Columns]
+Switching columns of $A$ (multiplying by a permutation $P$: $A'=AP$) does not change $\col(A)$ or the minimum error. The solution changes as $\hat{\mathbf{x}}' = P^T\hat{\mathbf{x}}$ (just reorders components).
+\end{remark}

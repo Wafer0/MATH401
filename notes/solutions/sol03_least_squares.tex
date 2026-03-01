@@ -1,0 +1,134 @@
+\chapter{Least Squares --- Solutions}
+
+\begin{exercise}{3.1}
+Find the least-squares solution and error for
+$A=\begin{pmatrix}1&2&3\\-1&0&2\\5&1&1\\2&2&0\end{pmatrix}$, $\vb=\begin{pmatrix}1\\2\\3\\4\end{pmatrix}$.
+\end{exercise}
+\begin{solution}
+Normal equations $A^TA\hx=A^T\vb$:
+\[
+A^TA=\begin{pmatrix}31&11&6\\11&9&10\\6&10&14\end{pmatrix}, \quad A^T\vb=\begin{pmatrix}24\\13\\10\end{pmatrix}.
+\]
+\begin{lstlisting}
+A = [1 2 3; -1 0 2; 5 1 1; 2 2 0]; b = [1;2;3;4];
+x_hat = inv(A'*A)*A'*b;  ls_error = norm(A*x_hat-b);
+\end{lstlisting}
+\textbf{Output:} $\hx\approx(0.3619,\;0.9281,\;0.0951)^T$, error $\approx 3.0035$.
+\end{solution}
+
+\begin{exercise}{3.2}
+Find the vector in $\col(A)$ closest to $\vb$ for $A=\begin{pmatrix}1&2\\0&-3\\2&6\end{pmatrix}$, $\vb=\begin{pmatrix}1\\1\\0\end{pmatrix}$.
+\end{exercise}
+\begin{solution}
+$A^TA=\begin{pmatrix}5&14\\14&49\end{pmatrix}$, $A^T\vb=\begin{pmatrix}1\\-1\end{pmatrix}$, $\det=49$.
+\[
+\hx=\frac{1}{49}\begin{pmatrix}49&-14\\-14&5\end{pmatrix}\begin{pmatrix}1\\-1\end{pmatrix}=\begin{pmatrix}9/7\\-19/49\end{pmatrix}.
+\]
+Closest vector: $A\hx=\begin{pmatrix}25/49\\57/49\\12/49\end{pmatrix}\approx\begin{pmatrix}0.510\\1.163\\0.245\end{pmatrix}$.
+\end{solution}
+
+\begin{exercise}{3.3}
+Find the vector in $\operatorname{span}\!\left\{\begin{pmatrix}1\\2\\-1\\0\end{pmatrix},\begin{pmatrix}3\\3\\0\\3\end{pmatrix}\right\}$ closest to $\begin{pmatrix}0\\0\\0\\1\end{pmatrix}$.
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}1&3\\2&3\\-1&0\\0&3\end{pmatrix}$. Normal equations: $A^TA=\begin{pmatrix}6&6\\6&27\end{pmatrix}$, $A^T\vb=\begin{pmatrix}0\\3\end{pmatrix}$.
+$\det=162-36=126$. $\hx=\begin{pmatrix}-1/3\\2/9\end{pmatrix}$.
+Closest vector: $A\hx=\begin{pmatrix}1/3\\0\\1/3\\2/3\end{pmatrix}$.
+\end{solution}
+
+\begin{exercise}{3.4}
+Can $A^TA\mathbf{x}=A^T\vb$ have no solutions?
+\end{exercise}
+\begin{solution}
+\textbf{No.} The projection $\Proj_{\col(A)}\vb$ always exists, so the normal equation always has at least one solution.
+\end{solution}
+
+\begin{exercise}{3.5}
+Can more variables than equations give a unique least-squares solution?
+\end{exercise}
+\begin{solution}
+\textbf{No.} If $A$ is $m\times n$ with $n>m$, the columns of $A$ are linearly dependent (at most $m$ can be independent). Dependent columns $\Rightarrow$ infinitely many least-squares solutions.
+\end{solution}
+
+\begin{exercise}{3.6}
+Find the vector in $\operatorname{span}\!\left\{\begin{pmatrix}1\\2\end{pmatrix}\right\}$ closest to $\begin{pmatrix}5\\5\end{pmatrix}$.
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}1\\2\end{pmatrix}$, $\vb=\begin{pmatrix}5\\5\end{pmatrix}$.
+Normal equation: $5\hat{t}=15 \Rightarrow \hat{t}=3$.
+Closest vector: $\begin{pmatrix}3\\6\end{pmatrix}$.
+\end{solution}
+
+\begin{exercise}{3.7}
+Find the point on $y=3x$ closest to $(2,3)$.
+\end{exercise}
+\begin{solution}
+Matrix form: $\begin{pmatrix}1\\3\end{pmatrix}t=\begin{pmatrix}2\\3\end{pmatrix}$.
+Normal equation: $10\hat{t}=11 \Rightarrow \hat{t}=1.1$.
+\textbf{Closest point:} $(1.1,\;3.3)$.
+\end{solution}
+
+\begin{exercise}{3.8}
+Show the least-squares formula gives the exact solution when $A$ is invertible.
+\end{exercise}
+\begin{solution}
+$(A^TA)^{-1}A^T\vb = A^{-1}(A^T)^{-1}A^T\vb = A^{-1}\vb$. This is the exact solution. $\square$
+\end{solution}
+
+\begin{exercise}{3.9}
+Show $x+2y=4$, $x+2y=3$ has no unique least-squares solution.
+\end{exercise}
+\begin{solution}
+$A=\begin{pmatrix}1&2\\1&2\end{pmatrix}$ has dependent columns. $A^TA=\begin{pmatrix}2&4\\4&8\end{pmatrix}$ is singular. The augmented system row-reduces to $\begin{pmatrix}2&4&|&7\\0&0&|&0\end{pmatrix}$, giving infinitely many solutions $\hx=\begin{pmatrix}7/2-2t\\t\end{pmatrix}$.
+\end{solution}
+
+\begin{exercise}{3.10}
+$A=\begin{pmatrix}1&2\\-1&1\\0&3\end{pmatrix}$, $\vb=\begin{pmatrix}1\\3\\0\end{pmatrix}$. (a) Solve via Gram-Schmidt; (b) via normal equations.
+\end{exercise}
+\begin{solution}
+\textbf{(a) Gram-Schmidt:} $\mathbf{c}_1=(1,-1,0)^T$, $\mathbf{c}_2=(2,1,3)^T$.
+\[
+\mathbf{c}_2^\perp = (2,1,3)^T - \frac{1}{2}(1,-1,0)^T = (3/2,3/2,3)^T.
+\]
+\[
+\hat{\vb} = \frac{-2}{2}(1,-1,0)^T + \frac{3+9/2+0}{9/4+9/4+9}(3/2,3/2,3)^T \approx (-1/3,5/3,4/3)^T.
+\]
+Solving $A\hx=\hat{\vb}$ gives $\hx\approx(-1.222,\;0.444)^T$.
+
+\textbf{(b) Normal equations:} $A^TA=\begin{pmatrix}2&-3\\-3&14\end{pmatrix}$, $A^T\vb=\begin{pmatrix}-2\\5\end{pmatrix}$. $\det=19$.
+$\hx=\frac{1}{19}\begin{pmatrix}14&3\\3&2\end{pmatrix}\begin{pmatrix}-2\\5\end{pmatrix}=\frac{1}{19}\begin{pmatrix}-13\\8\end{pmatrix}\approx\begin{pmatrix}-0.684\\0.421\end{pmatrix}$.
+
+Hmm -- let me re-check: $A^TA=\begin{pmatrix}1^2+1^2&1\cdot2+(-1)\cdot1\\2\cdot1+1\cdot(-1)&2^2+1^2+3^2\end{pmatrix}=\begin{pmatrix}2&1\\1&14\end{pmatrix}$. $A^T\vb=\begin{pmatrix}1-3\\2+3\end{pmatrix}=\begin{pmatrix}-2\\5\end{pmatrix}$. $\det=27$. $\hx=\frac{1}{27}\begin{pmatrix}14&-1\\-1&2\end{pmatrix}\begin{pmatrix}-2\\5\end{pmatrix}=\frac{1}{27}\begin{pmatrix}-33\\12\end{pmatrix}\approx\begin{pmatrix}-1.222\\0.444\end{pmatrix}$.
+Both agree. $\checkmark$
+\end{solution}
+
+\begin{exercise}{3.11}
+$A=\begin{pmatrix}2&-2\\1&4\\1&2\end{pmatrix}$, $\vb=\begin{pmatrix}-1\\3\\1\end{pmatrix}$.
+\end{exercise}
+\begin{solution}
+$A^TA=\begin{pmatrix}6&2\\2&24\end{pmatrix}$, $A^T\vb=\begin{pmatrix}2\\16\end{pmatrix}$. $\det=140$.
+$\hx=\frac{1}{140}\begin{pmatrix}24&-2\\-2&6\end{pmatrix}\begin{pmatrix}2\\16\end{pmatrix}=\frac{1}{140}\begin{pmatrix}16\\92\end{pmatrix}\approx\begin{pmatrix}0.114\\0.657\end{pmatrix}$.
+
+Error: $\norm{A\hx-\vb}\approx 0.507$.
+\end{solution}
+
+\begin{exercise}{3.12}
+Explain why a least-squares problem always has a solution.
+\end{exercise}
+\begin{solution}
+$\col(A)$ is a subspace of $\R^m$. Every point in $\R^m$ has a unique orthogonal projection onto any subspace. So $\hat{\vb}=\Proj_{\col(A)}\vb$ always exists, $\hat{\vb}\in\col(A)$, and $A\hx=\hat{\vb}$ is consistent.
+\end{solution}
+
+\begin{exercise}{3.13}
+What is wrong with $(A^TA)^{-1}A^T = A^{-1}(A^T)^{-1}A^T = A^{-1}$?
+\end{exercise}
+\begin{solution}
+In the least-squares setting, $A$ is typically $m\times n$ with $m>n$ (not square), so $A^{-1}$ \textbf{does not exist}. Similarly $(A^T)^{-1}$ does not exist. The factorization $(BC)^{-1}=C^{-1}B^{-1}$ is only valid when both $B$ and $C$ are invertible square matrices.
+\end{solution}
+
+\begin{exercise}{3.14}
+Why does switching columns of $A$ not affect the least-squares solution?
+\end{exercise}
+\begin{solution}
+Switching columns multiplies $A$ on the right by a permutation $P$: $A'=AP$. Since $\col(A')=\col(A)$, the projection $\Proj_{\col(A')}\vb=\Proj_{\col(A)}\vb$ is unchanged, and so is the minimum error. The solution changes as $\hx'=P^T\hx$ (reordered to match the new column order), but the residual $A'\hx'-\vb=A\hx-\vb$ is unchanged.
+\end{solution}

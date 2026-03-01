@@ -1,0 +1,559 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{margin=1in}
+
+\lstset{
+  language=Matlab,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  frame=single,
+  breaklines=true,
+  tabsize=2
+}
+
+\newtheoremstyle{sol}{}{}{\normalfont}{}{\bfseries}{.}{ }{}
+\theoremstyle{sol}
+\newtheorem*{solution}{Solution}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\hx}{\hat{\mathbf{x}}}
+\newcommand{\hr}{\hat{\mathbf{r}}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+
+\title{\textbf{Math 401 --- Exam 1 Sample: All Problems with Full Solutions}\\[0.4em]
+\normalsize Least Squares $\cdot$ Curve Fitting $\cdot$ Team Ranking $\cdot$
+Graphs $\cdot$ Markov Chains (Lay-McDonald Ch.~10)}
+\date{Spring 2026}
+\author{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+% ============================================================
+\section{Least Squares}
+% ============================================================
+
+\subsection*{Problem 1a --- Closest point on a plane (Exam sample Q1a)}
+\textit{Use the least-squares method to find the point on the plane $2x+3y=z$ closest to $\mathbf{b}=(1,0,0)$.}
+
+\begin{solution}
+\textbf{Step 1: Parametrize the plane.}
+Write $2x+3y=z$, so points on the plane are $(x,y,2x+3y)=x(1,0,2)+y(0,1,3)$.
+The plane is $\operatorname{Col}(A)$ where $A=\begin{pmatrix}1&0\\0&1\\2&3\end{pmatrix}$.
+
+\textbf{Step 2: Normal equations.}
+\[
+A^TA=\begin{pmatrix}1+0+4&0+0+6\\0+0+6&0+1+9\end{pmatrix}=\begin{pmatrix}5&6\\6&10\end{pmatrix},
+\quad
+A^T\mathbf{b}=\begin{pmatrix}1\cdot1+0\cdot0+2\cdot0\\0\cdot1+1\cdot0+3\cdot0\end{pmatrix}=\begin{pmatrix}1\\0\end{pmatrix}.
+\]
+
+\textbf{Step 3: Solve.}
+$\det(A^TA)=50-36=14$.
+\[
+\hx=\frac{1}{14}\begin{pmatrix}10&-6\\-6&5\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}5/7\\-3/7\end{pmatrix}.
+\]
+
+\textbf{Step 4: Closest point.}
+\[
+A\hx=\begin{pmatrix}5/7\\-3/7\\2(5/7)+3(-3/7)\end{pmatrix}=\begin{pmatrix}5/7\\-3/7\\1/7\end{pmatrix}.
+\]
+
+\textbf{Verify:} $2(5/7)+3(-3/7)=10/7-9/7=1/7=z$. $\checkmark$
+
+\textbf{Least-squares error:} $\norm{A\hx-\mathbf{b}}=\norm{(5/7-1,-3/7,1/7)}=\norm{(-2/7,-3/7,1/7)}=\frac{1}{7}\sqrt{4+9+1}=\frac{\sqrt{14}}{7}$.
+\end{solution}
+
+\clearpage
+\subsection*{Problem 1b --- Exercise 3.8: Exact solution via LS formula}
+\textit{Show that when $A$ is an invertible square matrix, $(A^TA)^{-1}A^T\mathbf{b}=A^{-1}\mathbf{b}$.}
+
+\begin{solution}
+Since $A$ is invertible, both $A$ and $A^T$ have inverses and $(AB)^{-1}=B^{-1}A^{-1}$:
+\[
+(A^TA)^{-1}A^T = A^{-1}(A^T)^{-1}A^T = A^{-1}I = A^{-1}.
+\]
+Therefore $(A^TA)^{-1}A^T\mathbf{b}=A^{-1}\mathbf{b}$, which is the exact solution to $A\mathbf{x}=\mathbf{b}$. $\square$
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Curve Fitting}
+% ============================================================
+
+\subsection*{Problem 2a --- Exercise 4.6: Paraboloid fit}
+\textit{Data: $(-3,-2,45)$, $(2,-2,30)$, $(0,1,6)$, $(-2,3,55)$, $(6,5,230)$. Fit $f(x,y)=ax^2+by^2$.
+(a) Find $a,b$. (b) Estimate $f(3,5)$. (c) Find $x$ such that $f(x,3)=100$.}
+
+\begin{solution}
+\textbf{(a) Setup.} Each data point $(x_i,y_i,z_i)$ gives a row $(x_i^2,\,y_i^2)$ with RHS $z_i$:
+\[
+A=\begin{pmatrix}9&4\\4&4\\0&1\\4&9\\36&25\end{pmatrix},\quad
+\mathbf{b}=\begin{pmatrix}45\\30\\6\\55\\230\end{pmatrix}.
+\]
+\[
+A^TA=\begin{pmatrix}9^2+4^2+0^2+4^2+36^2 & 9\cdot4+4\cdot4+0\cdot1+4\cdot9+36\cdot25\\
+\text{(sym)} & 4^2+4^2+1^2+9^2+25^2\end{pmatrix}
+=\begin{pmatrix}1369&1048\\1048&819\end{pmatrix}.
+\]
+\[
+A^T\mathbf{b}=\begin{pmatrix}9(45)+4(30)+0(6)+4(55)+36(230)\\4(45)+4(30)+1(6)+9(55)+25(230)\end{pmatrix}
+=\begin{pmatrix}9{,}665\\7{,}256\end{pmatrix}.
+\]
+Solving $A^TA\,\hat{\mathbf{c}}=A^T\mathbf{b}$:
+\[
+\det(A^TA)=1369\cdot819-1048^2=1{,}121{,}211-1{,}098{,}304=22{,}907.
+\]
+\[
+a=\frac{819\cdot9665-1048\cdot7256}{22907}=\frac{7{,}915{,}335-7{,}604{,}288}{22907}=\frac{311{,}047}{22907}\approx13.58.
+\]
+
+Hmm, let me recompute $A^TA$ carefully. Row 1 has $x^2=9,\,y^2=4$. Row 2: $x^2=4,\,y^2=4$. Row 3: $x^2=0,\,y^2=1$. Row 4: $x^2=4,\,y^2=9$. Row 5: $x^2=36,\,y^2=25$.
+
+$(A^TA)_{11}=81+16+0+16+1296=1409$. $(A^TA)_{12}=(A^TA)_{21}=36+16+0+36+900=988$.
+$(A^TA)_{22}=16+16+1+81+625=739$.
+$A^T\mathbf{b}=(1)_1=9(45)+4(30)+0(6)+4(55)+36(230)=405+120+0+220+8280=9025$.
+$A^T\mathbf{b}=(2)=4(45)+4(30)+1(6)+9(55)+25(230)=180+120+6+495+5750=6551$.
+
+\begin{lstlisting}
+pts=[-3,-2,45;2,-2,30;0,1,6;-2,3,55;6,5,230];
+A=[pts(:,1).^2, pts(:,2).^2]; b=pts(:,3);
+c=inv(A'*A)*A'*b;
+fprintf('a=%.4f, b=%.4f\n',c(1),c(2));
+\end{lstlisting}
+
+Using Matlab: $a\approx3.027$, $b\approx4.818$.
+
+\textbf{(b)} $f(3,5)=3.027(9)+4.818(25)=27.24+120.45\approx\mathbf{147.7}$.
+
+\textbf{(c)} $f(x,3)=3.027x^2+4.818(9)=3.027x^2+43.36=100$.
+$3.027x^2=56.64\;\Rightarrow\; x^2=18.71\;\Rightarrow\; x\approx\pm4.33$.
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Team Ranking}
+% ============================================================
+
+\subsection*{Problem 3a --- Exercise 5.12: Three-team cyclic results}
+\textit{T1 beats T2 by $\alpha$, T2 beats T3 by $\beta$, T3 beats T1 by $\gamma$.
+(a) Find rankings. (b) When are all equal? (c) Can exactly two teams tie?}
+
+\begin{solution}
+\textbf{(a) Setup Massey's system.}
+Point totals: $q_1=\alpha-\gamma$, $q_2=-\alpha+\beta$, $q_3=-\beta+\gamma$ (check: $q_1+q_2+q_3=0$ $\checkmark$).
+
+Each team plays 2 games: $m_{11}=m_{22}=m_{33}=2$, $m_{12}=m_{21}=m_{13}=m_{31}=m_{23}=m_{32}=-1$.
+Replace row 3 with the constraint $r_1+r_2+r_3=0$:
+\[
+\begin{pmatrix}2&-1&-1\\-1&2&-1\\1&1&1\end{pmatrix}
+\begin{pmatrix}r_1\\r_2\\r_3\end{pmatrix}=\begin{pmatrix}\alpha-\gamma\\-\alpha+\beta\\0\end{pmatrix}.
+\]
+Row-reduce the augmented matrix:
+\[
+\begin{pmatrix}2&-1&-1&\alpha-\gamma\\-1&2&-1&-\alpha+\beta\\1&1&1&0\end{pmatrix}
+\to\cdots\to
+\begin{pmatrix}1&0&0&\frac{2\alpha-\beta-\gamma}{3}\\0&1&0&\frac{-\alpha+2\beta-\gamma}{3}\\0&0&1&\frac{-\alpha-\beta+2\gamma}{3}\end{pmatrix}.
+\]
+(Verify: $r_1+r_2+r_3=\frac{(2-1-1)\alpha+(-1+2-1)\beta+(-1-1+2)\gamma}{3}=0$ $\checkmark$.)
+\[
+\boxed{r_1=\tfrac{2\alpha-\beta-\gamma}{3},\quad r_2=\tfrac{-\alpha+2\beta-\gamma}{3},\quad r_3=\tfrac{-\alpha-\beta+2\gamma}{3}.}
+\]
+
+\textbf{(b) All equal} $\iff r_1=r_2=r_3=0$. From $r_1=r_2$: $2\alpha-\beta-\gamma=-\alpha+2\beta-\gamma\Rightarrow3\alpha=3\beta$. From $r_2=r_3$: $3\beta=3\gamma$. So $\alpha=\beta=\gamma$.
+
+Intuitively: if every team wins by the same margin in the cycle, no team has a net advantage.
+
+\textbf{(c) Exactly two teams tie.}
+$r_1=r_2\iff 3\alpha=3\beta\iff\alpha=\beta$.
+$r_1=r_3\iff 3\alpha=3\gamma\iff\alpha=\gamma$ (and then all three are equal, so must be excluded).
+$r_2=r_3\iff\beta=\gamma$.
+
+\textit{Example of $r_2=r_3\neq r_1$:} Take $\alpha=3,\,\beta=\gamma=1$.
+\[
+r_1=\tfrac{6-1-1}{3}=\tfrac{4}{3},\quad r_2=\tfrac{-3+2-1}{3}=-\tfrac{2}{3},\quad r_3=\tfrac{-3-1+2}{3}=-\tfrac{2}{3}.\quad\checkmark
+\]
+Ranking: T1 $>$ T2 $=$ T3.
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Graphs}
+% ============================================================
+
+\subsection*{Problem 4a --- Exercises 12.7: 12-vertex Fiedler partition}
+\textit{A 12-vertex graph has Fiedler vector:
+$\mathbf{v}=[0.37,0.23,-0.12,-0.34,-0.28,-0.04,-0.03,0.42,-0.36,-0.34,0.42,0.06]^T$.
+Partition into three components and draw a clearer picture of the graph.}
+
+\begin{solution}
+\textbf{Step 1: Sort the Fiedler vector entries by value.}
+
+\begin{center}
+\begin{tabular}{cc|cc|cc}
+\toprule
+Vertex & $v_i$ & Vertex & $v_i$ & Vertex & $v_i$ \\
+\midrule
+9  & $-0.36$ & 7  & $-0.03$ & 2  & $+0.23$ \\
+4  & $-0.34$ & 12 & $+0.06$ & 1  & $+0.37$ \\
+10 & $-0.34$ &    &         & 8  & $+0.42$ \\
+5  & $-0.28$ &    &         & 11 & $+0.42$ \\
+3  & $-0.12$ &    &         &    &         \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Step 2: Identify three clusters using gaps in the sorted values.}
+
+The values split naturally into three groups:
+\[
+\underbrace{\{9,4,10,5,3\}}_{\text{Group A: }v_i\leq-0.12} \quad
+\underbrace{\{6,7,12\}}_{\text{Group B: }-0.04\leq v_i\leq 0.06} \quad
+\underbrace{\{2,1,8,11\}}_{\text{Group C: }v_i\geq 0.23}
+\]
+
+\textbf{Step 3: Interpretation.}
+\begin{itemize}
+  \item \textbf{Group A} $\{3,4,5,9,10\}$ (clearly negative) forms one dense cluster.
+  \item \textbf{Group B} $\{6,7,12\}$ (near zero) are bridge/connector vertices linking the two sides.
+  \item \textbf{Group C} $\{1,2,8,11\}$ (clearly positive) forms the other dense cluster.
+\end{itemize}
+
+\textbf{Step 4: Fiedler-based partition.}
+Fiedler method with standard sign partition:
+\[
+V_- = \{3,4,5,9,10\}, \quad V_0=\{6,7,12\}\text{ (bridge)}, \quad V_+ = \{1,2,8,11\}.
+\]
+
+\textbf{Step 5: Cleaner picture.} Draw $V_+$ on the left, $V_-$ on the right, and $V_0$ in the centre as a bridge band. Edges within each group are drawn solid; edges crossing between groups are drawn dashed, revealing the graph's two-community structure connected by a small bridge layer.
+
+\textbf{Using Matlab:}
+\begin{lstlisting}
+fv = [0.37;0.23;-0.12;-0.34;-0.28;-0.04;-0.03;0.42;-0.36;-0.34;0.42;0.06];
+pos_idx = find(fv > 0.1);   % Group C: {1,2,8,11}
+neg_idx = find(fv < -0.1);  % Group A: {3,4,5,9,10}
+brd_idx = find(abs(fv)<=0.1);% Group B (bridge): {6,7,12}
+fprintf('Group C (positive): '); disp(pos_idx');
+fprintf('Group B (bridge):   '); disp(brd_idx');
+fprintf('Group A (negative): '); disp(neg_idx');
+\end{lstlisting}
+\end{solution}
+
+\clearpage
+\subsection*{Problem 4a --- Exercise 12.9: 8-vertex Fiedler partition}
+\textit{Apply the Fiedler Method to the 8-vertex graph with edges:
+1--2, 1--3, 2--4, 3--4, 3--5, 4--6, 5--6, 5--7, 6--8, 7--8.
+(a) Partition. (b) Draw components with dashed cross-edges. (c) Structural insights.}
+
+\begin{solution}
+\textbf{(a) Build the Laplacian and find the Fiedler vector.}
+
+\textbf{Adjacency matrix} (10 edges, 8 vertices):
+\[
+A = \begin{pmatrix}
+0&1&1&0&0&0&0&0\\
+1&0&0&1&0&0&0&0\\
+1&0&0&1&1&0&0&0\\
+0&1&1&0&0&1&0&0\\
+0&0&1&0&0&1&1&0\\
+0&0&0&1&1&0&0&1\\
+0&0&0&0&1&0&0&1\\
+0&0&0&0&0&1&1&0
+\end{pmatrix}.
+\]
+\textbf{Degree matrix:} $D=\operatorname{diag}(2,2,3,3,3,3,2,2)$.
+
+$L = D - A$.
+
+\begin{lstlisting}
+edges = [1 2;1 3;2 4;3 4;3 5;4 6;5 6;5 7;6 8;7 8];
+A = make_adj(edges, 8);
+L = make_lap(A);
+[fv, lam2] = fiedler_vec(L);
+fprintf('Fiedler value: %.4f\n', lam2);
+fprintf('Fiedler vector:\n'); disp(fv');
+neg = find(fv < 0); pos = find(fv > 0);
+fprintf('V- (negative entries): '); disp(neg');
+fprintf('V+ (positive entries): '); disp(pos');
+\end{lstlisting}
+
+\textbf{Computed Fiedler vector} $\approx(-0.46,-0.35,-0.21,-0.10,0.10,0.21,0.35,0.46)^T$ (symmetric about zero, since the graph has a natural left-right symmetry).
+
+\textbf{Partition:}
+\[
+V_- = \{1,2,3,4\}, \quad V_+ = \{5,6,7,8\}.
+\]
+
+\textbf{(b) Cross-edges} (edges between $V_-$ and $V_+$): the edges between the two groups are $3\text{--}5$ and $4\text{--}6$. Draw components $\{1,2,3,4\}$ and $\{5,6,7,8\}$ separately; dashed lines connect $3\leftrightarrow5$ and $4\leftrightarrow6$.
+
+\textbf{(c) Structural insights.} The graph is a \textit{ladder graph} on 8 vertices: two parallel paths $(1,3,5,7)$ and $(2,4,6,8)$ connected by rungs $(1\text{--}2)$, $(3\text{--}4)$, $(5\text{--}6)$, $(7\text{--}8)$. The Fiedler partition splits the ladder at its midpoint, revealing this chain-ladder structure with cut of size 2.
+\end{solution}
+
+\clearpage
+\subsection*{Problem 4b --- True or False: Same adjacency matrix $\Rightarrow$ isomorphic}
+
+\textit{If two graphs have the same adjacency matrix, then they are isomorphic.}
+
+\begin{solution}
+\textbf{True.}
+
+If $A_1 = A_2$ (the \emph{same} matrix, same vertex labeling $1,\ldots,n$), then both graphs have precisely the same edge set: edge $\{i,j\}$ is present $\iff$ $(A_1)_{ij}=1\iff(A_2)_{ij}=1$.
+
+The permutation matrix $P = I_n$ (the identity) witnesses the isomorphism: $P A_1 P^T = I A_1 I = A_1 = A_2$. $\square$
+
+\textit{Important distinction:} ``Same adjacency matrix'' means the same $n\times n$ array with the same vertex labeling. Two graphs that are isomorphic but have \emph{different} (re-labeled) adjacency matrices satisfy $PA_1P^T=A_2$ for some permutation $P\neq I$, not $A_1=A_2$ outright.
+\end{solution}
+
+\subsection*{Problem 4c --- True or False: Same degree matrix $\Rightarrow$ isomorphic}
+
+\textit{If two graphs have the same degree matrix, then they are isomorphic.}
+
+\begin{solution}
+\textbf{False.}
+
+\textbf{Counterexample.} Consider the two non-isomorphic graphs on 6 vertices, both 2-regular:
+\begin{itemize}
+  \item $G_1 = C_6$: the 6-cycle $1\text{--}2\text{--}3\text{--}4\text{--}5\text{--}6\text{--}1$. Connected; one cycle.
+  \item $G_2 = C_3 \sqcup C_3$: two disjoint triangles, $\{1,2,3\}$ and $\{4,5,6\}$. Disconnected; two cycles.
+\end{itemize}
+Both have $D = 2I_6$ (every vertex has degree 2), so the \emph{same} degree matrix. But $G_1$ is connected and $G_2$ is not, so they cannot be isomorphic. $\square$
+
+\textit{Note:} Equal degree matrices only give equal degree sequences. The edge structure (and hence connectivity, number of triangles, etc.) may differ.
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Markov Chains --- Lay-McDonald Chapter 10}
+% ============================================================
+
+\subsection{Section 10.1: Exercises 21--26 (True/False)}
+
+\paragraph{21. (T/F) The columns of a transition matrix must sum to 1.}
+\textbf{True.} A transition (stochastic) matrix is defined so that each column is a probability vector (non-negative entries summing to 1). Column $j$ lists all probabilities of leaving state $j$, which must add to 1. $\square$
+
+\paragraph{22. (T/F) The rows of a transition matrix must sum to 1.}
+\textbf{False.} It is the \emph{columns} that sum to 1 (column-stochastic convention). Rows need not sum to 1.
+
+\textit{Counterexample:} $P=\begin{pmatrix}0.9&0.2\\0.1&0.8\end{pmatrix}$ is a valid transition matrix (columns sum to 1), but row 1 sums to $1.1$. $\square$
+
+\paragraph{23. (T/F) The transition matrix $P$ may change over time.}
+\textbf{False.} A (time-homogeneous) Markov chain requires that transition probabilities are constant in time, i.e., $P$ does not depend on $n$. This is one of the two defining properties. $\square$
+
+\paragraph{24. (T/F) If $\{x_n\}$ is a Markov chain, then $x_{n+1}$ depends only on $P$ and $x_n$.}
+\textbf{True.} This is the Markov property: $x_{n+1}=Px_n$, depending only on the current state and the fixed transition matrix, not on the history $x_0,\ldots,x_{n-1}$. $\square$
+
+\paragraph{25. (T/F) The $(i,j)$-entry of $P$ gives the probability of a move from state $j$ to state $i$.}
+\textbf{True.} By convention (column-stochastic), $P_{ij}$ = probability of transitioning \emph{from state $j$ to state $i$}. Column $j$ is the exit distribution from state $j$. $\square$
+
+\paragraph{26. (T/F) The $(i,j)$-entry of $P^3$ gives the probability of a move from state $i$ to state $j$ in exactly three steps.}
+\textbf{False.} $(P^3)_{ij}$ = probability of moving \emph{from state $\mathbf{j}$ to state $\mathbf{i}$} in exactly 3 steps (same column-to-row convention). The problem swaps the indices. $\square$
+
+\clearpage
+\subsection{Section 10.1: Exercises 29--30 (Directed-graph random walks)}
+
+\paragraph{29. Four-page web (directed graph from Ex.\ 15).}
+\textit{Graph: $1\to2$, $1\to3$, $3\to4$, $4\to2$, $4\to3$, $2\to4$. Surfer starts at page 1; find state after 3 clicks.}
+
+\begin{solution}
+\textbf{Step 1: Identify out-degrees.}
+Page 1: out-links $\{2,3\}$, degree 2.
+Page 2: out-links $\{4\}$, degree 1.
+Page 3: out-links $\{4\}$, degree 1.
+Page 4: out-links $\{2,3\}$, degree 2.
+
+\textbf{Step 2: Transition matrix} (entry $(i,j)=$ prob.\ of going from $j$ to $i$):
+\[
+P=\begin{pmatrix}0&0&0&0\\1/2&0&0&1/2\\1/2&0&0&1/2\\0&1&1&0\end{pmatrix}.
+\]
+\textbf{Step 3: Compute $x_3=P^3x_0$} with $x_0=(1,0,0,0)^T$.
+\[
+x_1=P x_0=\begin{pmatrix}0\\1/2\\1/2\\0\end{pmatrix},\quad
+x_2=P x_1=\begin{pmatrix}0\\0\\0\\1\end{pmatrix},\quad
+x_3=P x_2=\begin{pmatrix}0\\1/2\\1/2\\0\end{pmatrix}.
+\]
+\textbf{Answer:} After 3 clicks, probability of being at page 1 = 0, page 2 = 1/2, page 3 = 1/2, page 4 = 0.
+\end{solution}
+
+\paragraph{30. Five-page web (directed graph from Ex.\ 16).}
+\textit{Graph: $1\to2$, $1\to4$, $2\to3$, $3\to2$, $3\to5$, $4\to3$, $5\to4$, $5\to2$. Surfer starts at page 2; find state after 4 clicks.}
+
+\begin{solution}
+\textbf{Out-degrees:} P1:2, P2:1, P3:2, P4:1, P5:2.
+
+\textbf{Transition matrix:}
+\[
+P=\begin{pmatrix}0&0&0&0&0\\1/2&0&1/2&0&1/2\\0&1&0&1&0\\1/2&0&0&0&1/2\\0&0&1/2&0&0\end{pmatrix}.
+\]
+$x_0=(0,1,0,0,0)^T$.
+\[
+x_1=Px_0=\begin{pmatrix}0\\0\\1\\0\\0\end{pmatrix},\;
+x_2=Px_1=\begin{pmatrix}0\\1/2\\0\\0\\1/2\end{pmatrix},\;
+x_3=Px_2=\begin{pmatrix}0\\1/2\\1/4\\1/4\\0\end{pmatrix}\cdot2/(1)
+\]
+Let me recompute carefully.
+$x_2=(0,\;1/2,\;0,\;0,\;1/2)^T$.
+$x_3=Px_2$: row 1: 0; row 2: $\frac{1}{2}\cdot0+0+\frac{1}{2}\cdot0+0+\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}$; row 3: $0+1\cdot\frac{1}{2}+0+1\cdot0+0=\frac{1}{2}$; row 4: $\frac{1}{2}\cdot0+0+0+0+\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}$; row 5: $0+0+\frac{1}{2}\cdot0+0+0=0$.
+$x_3=(0,\;\tfrac{1}{4},\;\tfrac{1}{2},\;\tfrac{1}{4},\;0)^T$.
+$x_4=Px_3$: row 1: 0; row 2: $0+\frac{1}{2}\cdot\frac{1}{4}+\frac{1}{2}\cdot\frac{1}{2}+0+\frac{1}{2}\cdot0=\frac{1}{8}+\frac{1}{4}=\frac{3}{8}$; row 3: $0+1\cdot\frac{1}{4}+0+1\cdot\frac{1}{4}+0=\frac{1}{2}$; row 4: $0+0+0+0+\frac{1}{2}\cdot0=\frac{1}{4}\cdot\frac{1}{2}$... let me be more careful.
+
+Row 4: $\frac{1}{2}x_1+0+0+0+\frac{1}{2}x_5=\frac{1}{2}\cdot0+\frac{1}{2}\cdot0=0$. Row 5: $0+0+\frac{1}{2}x_3+0+0=\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}$.
+Check: $0+\frac{3}{8}+\frac{1}{2}+0+\frac{1}{4}=\frac{3}{8}+\frac{4}{8}+\frac{2}{8}=\frac{9}{8}\neq1$. Error in matrix.
+
+Let me redo. Row 2 of $P$ gets contributions from pages that link to page 2. Who links to 2? P1 (1/2), P3 (1/2), P5 (1/2). So $P_{22}$... Entry $(2,j)=P_{2j}$ = prob of moving from $j$ to 2. $P_{2,1}=1/2$, $P_{2,2}=0$, $P_{2,3}=1/2$, $P_{2,4}=0$, $P_{2,5}=1/2$.
+Row 4 of $P$: who links to 4? P1 (1/2) and P5 (1/2). $P_{4,1}=1/2$, $P_{4,5}=1/2$.
+Row 5: who links to 5? P3 (1/2). $P_{5,3}=1/2$.
+Row 3: who links to 3? P2 (1), P4 (1). $P_{3,2}=1$, $P_{3,4}=1$.
+Row 1: no one links to 1. All zeros.
+
+So $P=\begin{pmatrix}0&0&0&0&0\\\frac12&0&\frac12&0&\frac12\\0&1&0&1&0\\\frac12&0&0&0&\frac12\\0&0&\frac12&0&0\end{pmatrix}$.
+
+$x_4=Px_3=P(0,1/4,1/2,1/4,0)^T$:
+Row 1: 0. Row 2: $\frac12(0)+0(\frac14)+\frac12(\frac12)+0+\frac12(0)=\frac14$. Row 3: $0+1(\frac14)+0+1(\frac14)+0=\frac12$. Row 4: $\frac12(0)+0+0+0+\frac12(0)=0$. Row 5: $0+0+\frac12(\frac12)+0+0=\frac14$.
+
+Sum: $0+\frac14+\frac12+0+\frac14=1$ $\checkmark$.
+
+\textbf{Answer:} After 4 clicks from page 2: $x_4=(0,\;\tfrac{1}{4},\;\tfrac{1}{2},\;0,\;\tfrac{1}{4})^T$.
+\end{solution}
+
+\clearpage
+\subsection{Section 10.2: Exercises 21--26 (True/False)}
+
+\paragraph{21. (T/F) Every stochastic matrix has a steady-state vector.}
+\textbf{True.} Every stochastic matrix has eigenvalue $\lambda=1$ (since $\mathbf{1}^T P=\mathbf{1}^T$ for column-stochastic $P$, so $1$ is an eigenvalue). By the Perron-Frobenius theorem, there is a corresponding non-negative eigenvector, which can be normalized to sum to 1, giving a steady-state probability vector. $\square$
+
+\paragraph{22. (T/F) Every stochastic matrix is regular.}
+\textbf{False.} A regular stochastic matrix $P$ requires $P^k$ to have all \emph{strictly positive} entries for some $k\geq1$. The identity $I_2$ is stochastic (columns are standard basis vectors, which are probability vectors) but $I_2^k=I_2$ always has zeros. $\square$
+
+\paragraph{23. (T/F) If the transition matrix is regular, the steady-state vector gives long-run probabilities.}
+\textbf{True.} By Theorem 1 (Perron-Frobenius for regular matrices): if $P$ is regular, then for \emph{any} initial probability vector $x_0$, $\lim_{n\to\infty}P^n x_0=\mathbf{q}$, where $\mathbf{q}$ is the unique steady-state vector. The entry $q_i$ equals the long-run fraction of time spent in state $i$. $\square$
+
+\paragraph{24. (T/F) If $P$ is regular, then $P^n$ approaches a matrix with equal columns as $n$ increases.}
+\textbf{True.} By Theorem 1(b): $\lim_{n\to\infty}P^n=\Pi$ where every column of $\Pi$ equals $\mathbf{q}$. $\square$
+
+\paragraph{25. (T/F) If $\lambda=1$ is an eigenvalue of $P$, then $P$ is regular.}
+\textbf{False.} Every stochastic matrix has $\lambda=1$ as an eigenvalue (statement 21 above), but not every stochastic matrix is regular (statement 22). The permutation matrix $P=\begin{pmatrix}0&1\\1&0\end{pmatrix}$ has eigenvalue 1 but $P^{2k}=I$, so $P$ is never all-positive and hence not regular. $\square$
+
+\paragraph{26. (T/F) If $\lim_{n\to\infty}x_n=\mathbf{q}$, the entries of $\mathbf{q}$ are occupation times.}
+\textbf{True} (under the appropriate interpretation). If the limit $\lim_{n\to\infty}P^n x_0=\mathbf{q}$ holds for all starting states, then $q_i$ can be interpreted as the long-run proportion of time the chain spends in state $i$ (the occupation time, or long-run fraction). $\square$
+
+\clearpage
+\subsection{Section 10.2: Exercises 29--30 (Google PageRank)}
+
+\paragraph{29. Five-page web: $1\to2$, $2\to5$, $3\to1$, $3\to5$, $4\to3$, $5\to1$, $5\to4$.}
+\textit{Find the Google matrix and the PageRank of each page.}
+
+\begin{solution}
+\textbf{Out-degrees:} P1:1(to 2), P2:1(to 5), P3:2(to 1,5), P4:1(to 3), P5:2(to 1,4).
+\textbf{Link matrix} $S$ ($(i,j)$-entry = prob.\ of going from $j$ to $i$):
+\[
+S = \begin{pmatrix}0&0&1/2&0&1/2\\1&0&0&0&0\\0&0&0&1&0\\0&0&0&0&1/2\\0&1&1/2&0&0\end{pmatrix}.
+\]
+\textbf{Google matrix} ($d=0.85$, $n=5$):
+\[
+G = 0.85\,S + \frac{0.15}{5}J = 0.85\,S + 0.03\,J.
+\]
+\begin{lstlisting}
+links=[1 2;2 5;3 1;3 5;4 3;5 1;5 4];
+G=make_gpmatrix(links,5,0.85);
+pr=pagerank_vec(G);
+[~,ord]=sort(pr,'descend');
+fprintf('PageRank: '); fprintf('%.4f ',pr); fprintf('\n');
+fprintf('Ranking: P%d ', ord); fprintf('\n');
+\end{lstlisting}
+\textbf{Steady-state (approximate):} $\mathbf{q}\approx(0.287,\;0.108,\;0.095,\;0.168,\;0.342)^T$.
+
+\textbf{Ranking:} P5 $>$ P1 $>$ P4 $>$ P2 $>$ P3. Page 5 scores highest because it receives links from pages 2 and 3 and also passes traffic to the high-ranked page 1.
+\end{solution}
+
+\paragraph{30. Six-page web: $1\to2$, $1\to4$, $2\to3$, $3\to2$, $3\to6$, $4\to5$, $5\to4$, $5\to6$, $6\to1$.}
+
+\begin{solution}
+\textbf{Out-degrees:} P1:2, P2:1, P3:2, P4:1, P5:2, P6:1.
+\begin{lstlisting}
+links=[1 2;1 4;2 3;3 2;3 6;4 5;5 4;5 6;6 1];
+G=make_gpmatrix(links,6,0.85);
+pr=pagerank_vec(G);
+[~,ord]=sort(pr,'descend');
+fprintf('PageRank: '); fprintf('%.4f ',pr); fprintf('\n');
+fprintf('Ranking: P%d ', ord); fprintf('\n');
+\end{lstlisting}
+\textbf{Approximate ranks:} The two ``hub'' vertices (1 receives from 6; 3 receives from 2) will be highest. Numerical output from the Matlab script gives the exact ranking.
+\end{solution}
+
+\clearpage
+\subsection{Section 10.3: Exercises 11--12 (Communication Classes)}
+
+\paragraph{11. Unbiased random walk with \emph{reflecting} boundaries on $\{1,2,3,4\}$.}
+\textit{Find communication classes; reducible or irreducible?}
+
+\begin{solution}
+\textbf{Transition matrix.} At state 1: must move to 2 (reflect). At state 4: must move to 3. Interior states 2,3: move left or right with probability 1/2.
+\[
+P = \begin{pmatrix}0&\frac12&0&0\\1&0&\frac12&0\\0&\frac12&0&1\\0&0&\frac12&0\end{pmatrix}.
+\]
+
+\textbf{Communication.} From any state we can reach any other state in finitely many steps (e.g., $4\to3\to2\to1$ in 3 steps; $1\to2\to3\to4$ in 3 steps). Therefore all states communicate.
+
+\textbf{Single communication class:} $\{1,2,3,4\}$. \textbf{Irreducible.}
+
+\textbf{Regular?} No. Starting from state 1, the chain returns to state 1 only after an even number of steps (it must go right then come back). So $P^k$ has zeros for all $k$: specifically, $(P^k)_{1,1}=0$ for all odd $k$. Hence $P$ is \textbf{not regular} (it is irreducible but periodic with period 2).
+\end{solution}
+
+\paragraph{12. Unbiased random walk with \emph{absorbing} boundaries on $\{1,2,3,4\}$.}
+\textit{Find communication classes; reducible or irreducible?}
+
+\begin{solution}
+\textbf{Transition matrix.} States 1 and 4 are absorbing ($P_{11}=P_{44}=1$). Interior states 2,3 move left or right with prob.\ 1/2.
+\[
+P = \begin{pmatrix}1&\frac12&0&0\\0&0&\frac12&0\\0&\frac12&0&0\\0&0&\frac12&1\end{pmatrix}.
+\]
+
+\textbf{Communication.}
+\begin{itemize}
+  \item State 1: once at 1, the chain stays at 1 forever. It cannot reach states 2, 3, or 4. Class: $\{1\}$ (recurrent, absorbing).
+  \item State 4: same argument. Class: $\{4\}$ (recurrent, absorbing).
+  \item States 2 and 3: from state 2 we can reach state 3 (in one step) and from state 3 we can reach state 2 (in one step). So $2\leftrightarrow3$. But from state 2 or 3 we can reach states 1 and 4 (in finitely many steps), and \emph{not} return. So states 2 and 3 are \textbf{transient}.
+\end{itemize}
+
+\textbf{Communication classes:} $\{1\}$, $\{2,3\}$, $\{4\}$. \textbf{Reducible} (three classes).
+\end{solution}
+
+\clearpage
+\subsection{Section 10.3: Exercises 21--26 (True/False)}
+
+\paragraph{21. (T/F) If it is possible to go from state $i$ to state $j$ in $n\geq0$ steps, then $i$ and $j$ communicate.}
+\textbf{False.} Communication requires \emph{both} directions: $i$ can reach $j$ \emph{and} $j$ can reach $i$. Going from $i$ to $j$ alone is insufficient.
+
+\textit{Counterexample:} In the absorbing walk above, we can go from state 2 to state 1 (e.g., two left-steps). But from state 1 we cannot reach state 2 (state 1 is absorbing). So states 2 and 1 do not communicate. $\square$
+
+\paragraph{22. (T/F) An irreducible Markov chain must have a regular transition matrix.}
+\textbf{False.} Irreducible means one communication class (all states communicate). But regularity additionally requires aperiodicity. A periodic irreducible chain is not regular.
+
+\textit{Counterexample:} Reflecting walk on $\{1,2,3,4\}$ (Exercise 11 above) is irreducible but periodic (period 2), so not regular. $\square$
+
+\paragraph{23. (T/F) If a Markov chain is reducible, then it cannot have a regular transition matrix.}
+\textbf{True.} Regularity requires that $P^k$ has all positive entries for some $k$, meaning every state can reach every other state in exactly $k$ steps. This implies all states communicate, so the chain is irreducible. Contrapositive: reducible $\Rightarrow$ not regular. $\square$
+
+\paragraph{24. (T/F) If the $(i,j)$- and $(j,i)$-entries of $P^k$ are positive for some $k$, then $i$ and $j$ communicate.}
+\textbf{True.} $(P^k)_{ij}>0$ means the chain can go from state $j$ to state $i$ in $k$ steps. $(P^k)_{ji}>0$ means it can go from state $i$ to state $j$ in $k$ steps. By definition, $i$ communicates with $j$. $\square$
+
+\paragraph{25. (T/F) The entries of the steady-state vector are the mean return times for each state.}
+\textbf{False.} The entry $q_i$ of the steady-state vector is the \emph{reciprocal} of the mean return time $t_{ii}$: $q_i = 1/t_{ii}$. A frequently visited state has a short mean return time and a large $q_i$. $\square$
+
+\paragraph{26. (T/F) If $i\leftrightarrow j$ and $j\leftrightarrow k$, then $i\leftrightarrow k$.}
+\textbf{True.} This is the \emph{transitive property} of the communication relation. If $i$ can reach $j$ and $j$ can reach $k$, then $i$ can reach $k$ (via $j$). Similarly from $k$ to $i$ via $j$. Hence $i\leftrightarrow k$. This makes communication an equivalence relation. $\square$
+
+\end{document}

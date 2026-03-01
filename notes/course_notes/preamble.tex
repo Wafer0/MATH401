@@ -1,0 +1,51 @@
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+
+\geometry{margin=1in}
+
+\lstset{
+  language=Matlab,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red!70!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  breaklines=true,
+  tabsize=2
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{fact}{Fact}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vzero}{\mathbf{0}}
+\newcommand{\hx}{\hat{\mathbf{x}}}
+\newcommand{\hr}{\hat{\mathbf{r}}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\col}{\operatorname{Col}}
+\newcommand{\Proj}{\operatorname{Pr}}
+\newcommand{\R}{\mathbb{R}}
