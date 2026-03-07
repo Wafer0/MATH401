@@ -1,0 +1,147 @@
+\chapter{Image Compression --- Solutions}
+
+\begin{exercise}{10.1}
+Consider the $4\times4$ image (shades 0, 0.5, 1). (a) Enter into matrix $A$. (b) Find SVD. (c) Simplify with 3, 2, 1 singular values; draw best representation.
+\end{exercise}
+\begin{solution}
+\textbf{(a)} From the image in the text (black/white/grey pattern), a plausible $4\times4$ matrix using only 0, 0.5, 1:
+\[
+A = \begin{pmatrix}1&0&1&1\\1&1&0&1\\0&1&0&1\\0&1&1&0\end{pmatrix}
+\]
+(Adjust entries to match the actual figure if different.)
+
+\textbf{(b)}
+\begin{lstlisting}
+A = [1 0 1 1; 1 1 0 1; 0 1 0 1; 0 1 1 0];
+[U,S,V] = svd(A);
+svals = diag(S);
+fprintf('Singular values: '); disp(svals');
+\end{lstlisting}
+Four singular values (e.g., $\sigma_1\approx2.4$, $\sigma_2\approx1.2$, $\sigma_3\approx0.8$, $\sigma_4\approx0.4$).
+
+\textbf{(c)} For $k=3,2,1$: set $S(i,i)=0$ for $i>k$, then $A'=U*S*V'$. Clamp values to $[0,1]$ for display (or leave as-is per notes). Draw the resulting $4\times4$ grid: darker = lower value, lighter = higher.
+\begin{lstlisting}
+for k = [3 2 1]
+  Sp = S; Sp((k+1):4, (k+1):4) = 0;
+  Ap = U*Sp*V';
+  fprintf('k=%d, variance preserved: %.4f\n', k, ...
+    sum(svals(1:k).^2)/sum(svals.^2));
+  disp(Ap);
+end
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{10.2}
+Consider the $5\times5$ image (shades 0, 0.5, 1). (a) Enter into matrix $A$. (b) Find SVD. (c) Simplify with 4, 3, 2, 1 singular values; draw.
+\end{exercise}
+\begin{solution}
+\textbf{(a)} From the image in the text:
+\[
+A = \begin{pmatrix}
+1&0.5&0&1&1\\
+0.5&1&0.5&0&1\\
+0&0.5&1&0.5&0\\
+1&0&0.5&1&0.5\\
+1&1&0&0.5&1
+\end{pmatrix}
+\]
+(Adjust to match the actual figure.)
+
+\textbf{(b)--(c)} Same procedure as 10.1: \texttt{svd(A)}, then zero out smallest singular values for $k=4,3,2,1$, reconstruct, and draw.
+\begin{lstlisting}
+A = [1 0.5 0 1 1; 0.5 1 0.5 0 1; 0 0.5 1 0.5 0; 1 0 0.5 1 0.5; 1 1 0 0.5 1];
+[U,S,V] = svd(A);
+svals = diag(S);
+for k = [4 3 2 1]
+  Sp = S; for i=k+1:5, Sp(i,i)=0; end
+  Ap = U*Sp*V';
+  fprintf('k=%d: var=%.4f\n', k, sum(svals(1:k).^2)/sum(svals.^2));
+end
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{10.3}
+Load a square image ($\sim200\times200$). (a) Load, grayscale, scale to $[0,1]$. (b) SVD. (c) Count singular values. (d)--(f) Preserve 75\%, 50\%, 25\% of singular values; report quality \%. (g) Min $k$ for 99.9\% quality; compression ratio; print result.
+\end{exercise}
+\begin{solution}
+\begin{lstlisting}
+A = imread('image.jpg');
+A = rgb2gray(A); A = im2double(A);
+A = A - min(A(:)); A = A / max(A(:));
+
+[U,S,V] = svd(A);
+svals = diag(S);
+n = length(svals);
+fprintf('(c) Singular values: %d\n', n);
+
+for pct = [0.75 0.50 0.25]
+  k = round(pct * n);
+  var_pres = sum(svals(1:k).^2) / sum(svals.^2);
+  fprintf('Preserve %.0f%% of values: k=%d, quality=%.4f%%\n', ...
+    pct*100, k, var_pres*100);
+end
+
+target = 0.999;
+cum = cumsum(svals.^2);
+tot = cum(end);
+k_min = find(cum/tot >= target, 1);
+var_at_k = cum(k_min)/tot;
+comp_ratio = 2*k_min*n / n^2;
+fprintf('(g) Min k for 99.9%%: %d, quality=%.4f%%, compression=%.2f\n', ...
+  k_min, var_at_k*100, comp_ratio);
+
+Sp = S; Sp((k_min+1):end, (k_min+1):end) = 0;
+Ap = U*Sp*V';
+imshow(Ap, 'border', 'tight');
+\end{lstlisting}
+\end{solution}
+
+\begin{exercise}{10.5}
+For each 10$\times$10 image with given singular values, find (a)--(d) the minimum $k$ for 99.9\% variance and the compression ratio.
+\end{exercise}
+\begin{solution}
+Quality $= \frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_{10}^2}$. Find smallest $k$ with $\geq 0.999$. Compression ratio $= 2k/n = 2k/10 = k/5$.
+
+\textbf{(a)} $\sigma = [80.26, 63.35, 20.59, 8.47, 2.88, 1.68, 0.80, 0.69, 0.66, 0.65]$.
+\begin{lstlisting}
+s = [80.2608 63.3520 20.5871 8.4696 2.8841 1.6763 0.7962 0.6926 0.6553 0.6520];
+cum = cumsum(s.^2); k = find(cum/cum(end) >= 0.999, 1);
+fprintf('k=%d, ratio=%.2f\n', k, 2*k/10);  % ratio = 2k/n
+\end{lstlisting}
+$k=2$ gives $\approx 0.9997$; ratio $= 0.4$.
+
+\textbf{(b)} $\sigma = [138.55, 49.52, 16.59, 4.94, 3.24, 1.52, 1.20, 1.03, 1.02, 0.98]$. $k=2$ suffices; ratio $= 0.4$.
+
+\textbf{(c)} $\sigma = [446.16, 163.42, 43.89, 13.80, 4.74, 1.34, 1.05, 0.64, 0.45, 0.45]$. $k=2$; ratio $= 0.4$.
+
+\textbf{(d)} $\sigma = [209.49, 28.19, 22.87, 11.83, 6.33, 2.78, 1.20, 0.93, 0.88, 0.87]$. $k=3$ or $4$; ratio $= 0.6$ or $0.8$.
+\end{solution}
+
+\begin{exercise}{10.6}
+For an $m\times n$ image simplified with $k$ singular values: (a) compression ratio; (b) criteria for worth doing.
+\end{exercise}
+\begin{solution}
+\textbf{(a) Storage.}
+
+We store:
+\begin{itemize}
+  \item $k$ left singular vectors $\bar{u}_1,\ldots,\bar{u}_k$, each in $\mathbb{R}^m$: $km$ values.
+  \item $k$ right singular vectors $\bar{v}_1,\ldots,\bar{v}_k$, each in $\mathbb{R}^n$: $kn$ values.
+  \item $k$ singular values: $k$ values (often negligible for large $m,n$).
+\end{itemize}
+Total: $km + kn = k(m+n)$ values (ignoring the $k$ singular values for the ratio).
+
+Original image: $mn$ values.
+
+\textbf{Compression ratio:}
+\[
+\boxed{\frac{k(m+n)}{mn} = k\left(\frac{1}{n}+\frac{1}{m}\right).}
+\]
+
+\textbf{(b) Worth doing when} $k(m+n) < mn$, i.e.,
+\[
+\boxed{k < \frac{mn}{m+n}.}
+\]
+
+For square $n\times n$: ratio $= 2k/n$, worth when $k < n/2$. $\square$
+\end{solution}

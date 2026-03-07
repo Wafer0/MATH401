@@ -1,0 +1,12 @@
+=== Exercise 8.1: Singular Value Decomposition ===
+ 
+(a) A = [1 2 -3; 0 1 1; 1 2 5; -1 0 2]
+  Singular values:    6.3105   3.2118   0.9283
+  Reconstruct error: 2.06e-15
+ 
+(b) 3x5 matrix
+  Singular values:    4.6452   3.7417   2.3286
+ 
+(d) 4x4 matrix
+  Singular values:    1.427458   0.913126   0.282155   0.094623
+  Reconstruct error: 8.76e-16

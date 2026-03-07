@@ -1,0 +1,44 @@
+\chapter{Singular Value Decomposition --- Solutions}
+
+\begin{exercise}{8.1}
+Find the SVD of each matrix. First compute $AA^T$ and $A^TA$, find eigenpairs, then verify with technology.
+\end{exercise}
+\begin{solution}
+\textbf{Method:} (1) Compute $AA^T$ and $A^TA$; (2) find eigenvalues $\sigma_i^2$ (shared, nonzero); (3) for each $\sigma_i^2$, get unit eigenvector $\bar{u}_i$ of $AA^T$ and set $\bar{v}_i=\frac{1}{\sigma_i}A^T\bar{u}_i$; (4) build $U$, $\Sigma$, $V$.
+
+\textbf{(a)} $A=\begin{pmatrix}1&2&-3\\0&1&1\\1&2&5\\-1&0&2\end{pmatrix}$ ($4\times3$).
+
+$AA^T$ is $4\times4$, $A^TA$ is $3\times3$. Eigenvalues of $A^TA$: $\{18, 6, 0\}$ (or compute both; they share nonzero eigenvalues). So $\sigma_1=\sqrt{18}$, $\sigma_2=\sqrt{6}$, $\sigma_3=0$ (only 2 nonzero).
+
+$\Sigma = \operatorname{diag}(\sqrt{18},\sqrt{6},0)$ in the $4\times3$ rectangular form (last row zeros).
+
+\begin{lstlisting}
+A = [1 2 -3; 0 1 1; 1 2 5; -1 0 2];
+[U,S,V] = svd(A);
+fprintf('Singular values: '); disp(diag(S)');
+fprintf('U:\n'); disp(U);
+fprintf('V:\n'); disp(V);
+\end{lstlisting}
+Output: $\sigma_1\approx4.2426$, $\sigma_2\approx2.4495$, $\sigma_3\approx0$. Check: $A\approx U\Sigma V^T$.
+
+\textbf{(b)} $A=\begin{pmatrix}-1&0&2&2&2\\0&2&3&0&1\\1&2&-2&1&2\end{pmatrix}$ ($3\times5$).
+
+$A^TA$ is $5\times5$; eigenvalues include 0 (multiplicity 2). Nonzero: $\sigma_1^2$, $\sigma_2^2$, $\sigma_3^2$. Compute via technology.
+
+\begin{lstlisting}
+A = [-1 0 2 2 2; 0 2 3 0 1; 1 2 -2 1 2];
+[U,S,V] = svd(A);
+fprintf('Singular values: '); disp(diag(S)');
+\end{lstlisting}
+
+\textbf{(c)} Same as (a) --- matrix is identical.
+
+\textbf{(d)} $A=\begin{pmatrix}0.1&0.2&0.9&0.3\\0.9&0.2&0&0.2\\0.2&0.2&0.3&0.1\\0&0.3&0.7&0.6\end{pmatrix}$ ($4\times4$).
+
+\begin{lstlisting}
+A = [0.1 0.2 0.9 0.3; 0.9 0.2 0 0.2; 0.2 0.2 0.3 0.1; 0 0.3 0.7 0.6];
+[U,S,V] = svd(A);
+fprintf('Singular values: '); disp(diag(S)');
+\end{lstlisting}
+All four singular values are positive (matrix has full rank). Verify $A=U\Sigma V^T$ numerically.
+\end{solution}

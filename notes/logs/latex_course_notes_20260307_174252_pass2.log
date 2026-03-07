@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex)
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
 (./main.tex
-LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2025-01-18>
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
 (/usr/share/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2024/06/29 v1.4n Standard LaTeX document class
+Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/bk11.clo)) (./preamble.tex
 (/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
 For additional information on amsmath, use the `?' option.
@@ -39,16 +39,20 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/hyperref/puenc.def)
 (/usr/share/texmf-dist/tex/latex/url/url.sty)
 (/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
-(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
-(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
 (/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
-(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty)
 (/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 (/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
 (/usr/share/texmf-dist/tex/latex/listings/listings.sty
 (/usr/share/texmf-dist/tex/latex/listings/lstpatch.sty)
 (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty)
 (/usr/share/texmf-dist/tex/latex/listings/listings.cfg))
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
 (/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
 (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg)
 (/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def)
@@ -60,36 +64,25 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
 (/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty))
-(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-No file main.aux.
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./main.aux)
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
+(./main.out) (./main.out)
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg)
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
-(/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg)
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-No file main.toc.
-
-[2] (./ch00_review.tex
+(/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1{/var/lib/texmf/fonts/
+map/pdftex/updmap/pdftex.map}] (./main.toc [2]) [3] (./ch00_review.tex
 Chapter 1.
-
-[3{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-[4])
-[5] (./ch03_least_squares.tex
+[4{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [5])
+[6] (./ch03_least_squares.tex
 Chapter 2.
-
-[6]
-[7])
-[8] (./ch04_curve_fitting.tex
+[7] [8]) [9] (./ch04_curve_fitting.tex
 Chapter 3.
-
-[9]
-[10])
-[11] (./ch05_team_ranking.tex
+[10] [11]) [12] (./ch05_team_ranking.tex
 Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -99,10 +92,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 50.
 
-
-[12]
-[13])
-[14] (./ch12_graph_theory.tex
+[13] [14]) [15] (./ch12_graph_theory.tex
 Chapter 5.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -112,18 +102,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 41.
 
-
-[15]
-[16])
-[17] (./ch06_markov_chains.tex
+[16] [17]) [18] (./ch06_markov_chains.tex
 Chapter 6.
-
-[18]
-[19]
-
-LaTeX Warning: Reference `thm:markov-convergence' on page 20 undefined on input
- line 126.
-
+[19] [20]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 136.
@@ -144,34 +125,22 @@ alk with Ab-sorb-ing Bound-aries)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.
  1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 2\OML/cmm/m/it/10.95 ; \OT1/cm
 r/m/n/10.95 (-20) 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 4\OML/cmm/m/i
 t/10.95 ; \OT1/cmr/m/n/10.95 (-20) 5\OMS/cmsy/m/n/10.95 g$
-
-[20])
-[21] (./ch07_pagerank.tex
+[21]) [22] (./ch07_pagerank.tex
 Chapter 7.
-
-LaTeX Warning: Reference `thm:markov-convergence' on page 22 undefined on input
- line 41.
-
-
-[22]
+[23]
 Overfull \hbox (8.14429pt too wide) in paragraph at lines 87--88
 [][]\OT1/cmr/bx/n/10.95 (-20) Example 7.5.3 \OT1/cmr/m/n/10.95 (-20) (Dan-gling
  Node)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.95 (-20) Page $\OML/cmm/m/i
 t/10.95 n$ \OT1/cmr/m/n/10.95 (-20) has no out-bound links. Its col-umn in $\OM
 L/cmm/m/it/10.95 S$ \OT1/cmr/m/n/10.95 (-20) is $(1\OML/cmm/m/it/10.95 =n; [] ;
  \OT1/cmr/m/n/10.95 (-20) 1\OML/cmm/m/it/10.95 =n\OT1/cmr/m/n/10.95 (-20) )[]$
-)
-[23] (./main.aux)
-
-LaTeX Warning: There were undefined references.
-
+) [24] (./ch08_svd.tex
+Chapter 8.
+[25]) [26] (./ch10_image_compression.tex
+Chapter 9.
+[27]) [28] (./main.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
 
  )
 (see the transcript file for additional information)</usr/share/texmf-dist/font
@@ -191,5 +160,5 @@ msy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/cm-super/sfrm1095.pfb>
-Output written on main.pdf (23 pages, 316950 bytes).
+Output written on main.pdf (28 pages, 339762 bytes).
 Transcript written on main.log.

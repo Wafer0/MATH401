@@ -1,0 +1,85 @@
+\chapter{Singular Value Decomposition}
+
+\noindent\textit{Source: Justin Wyss-Gallifent, \textit{Singular Value Decomposition}.}
+
+%% ================================================================
+\section{Introduction}
+%% ================================================================
+
+Factoring a matrix means writing it as a product of other matrices. For example, if $A$ is diagonalizable we can write $A=PDP^{-1}$, where $D$ contains eigenvalues and $P$ contains eigenvectors.
+
+The \textbf{singular value decomposition (SVD)} is another factorization used in data compression, matrix approximation, pseudoinverses, signal analysis, and recognition.
+
+%% ================================================================
+\section{Definitions}
+%% ================================================================
+
+\begin{definition}[Singular Value Decomposition]
+For any $m\times n$ real matrix $A$, the \textbf{singular value decomposition} of $A$ is a factorization
+\[
+A = U\Sigma V^T
+\]
+where:
+\begin{itemize}
+  \item $U$ is an $m\times m$ orthogonal matrix.
+  \item $\Sigma$ is an $m\times n$ rectangular diagonal matrix with diagonal entries $\sigma_1,\ldots,\sigma_{\min(m,n)}$ all nonnegative and in nonincreasing order.
+  \item $V$ is an $n\times n$ orthogonal matrix.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Orthogonal Matrix]
+An $n\times n$ matrix $U$ is \textbf{orthogonal} if its columns are unit vectors all perpendicular to one another. Equivalently: columns form an orthonormal basis of $\mathbb{R}^n$, and $U^TU=UU^T=I$.
+\end{definition}
+
+\begin{definition}[Rectangular Diagonal Matrix]
+An $m\times n$ \textbf{rectangular diagonal} matrix has nonzero entries only in positions $(1,1)$, $(2,2)$, etc. Extra rows or columns (if $m\neq n$) are all zeros.
+\end{definition}
+
+%% ================================================================
+\section{Constructing the SVD}
+%% ================================================================
+
+\subsection{Key Observations}
+
+\textbf{Observation 1.} If $k\leq\min(m,n)$ singular values are nonzero, then $A=U\Sigma V^T$ depends only on the first $k$ columns of $U$ and $V$. Moreover:
+\[
+A\bar{v}_i = \sigma_i\bar{u}_i,\qquad A^T\bar{u}_i = \sigma_i\bar{v}_i\quad\text{for }1\leq i\leq k.
+\]
+
+\textbf{Observation 2.} Consider $AA^T$ (size $m\times m$) and $A^TA$ (size $n\times n$):
+\begin{itemize}
+  \item Both are symmetric; by the Spectral Theorem they have orthogonal eigenvectors.
+  \item All eigenvalues are nonnegative: $\|A\bar{v}\|^2 = \bar{v}^T A^TA\bar{v} = \lambda\|\bar{v}\|^2 = \lambda$.
+  \item There is a bijection between eigenpairs of $AA^T$ and $A^TA$ for nonzero eigenvalues:
+  \[
+  (\sigma^2,\bar{u})\mapsto \bigl(\sigma^2,\tfrac{1}{\sigma}A^T\bar{u}\bigr),\qquad
+  (\sigma^2,\bar{v})\mapsto \bigl(\sigma^2,\tfrac{1}{\sigma}A\bar{v}\bigr).
+  \]
+\end{itemize}
+
+\textbf{Observation 3.} For each positive eigenvalue $\sigma_i^2$ common to both, we have paired unit eigenvectors $\bar{u}_i$ (left singular vector) and $\bar{v}_i$ (right singular vector) satisfying $A\bar{v}_i=\sigma_i\bar{u}_i$ and $A^T\bar{u}_i=\sigma_i\bar{v}_i$.
+
+\subsection{Construction in Brief}
+
+\begin{enumerate}
+  \item Find the positive eigenvalues of $AA^T$ (or $A^TA$). Denote them $\sigma_1^2\geq\sigma_2^2\geq\cdots\geq\sigma_k^2$.
+  \item For each $\sigma_i^2$, find unit eigenvector $\bar{u}_i$ of $AA^T$ and set $\bar{v}_i = \frac{1}{\sigma_i}A^T\bar{u}_i$ (or vice versa). Handle multiplicity by spanning eigenspaces.
+  \item Build $\Sigma$ with $\sigma_i$ on the diagonal; build $U$ from $\bar{u}_i$ and $V$ from $\bar{v}_i$. Fill remaining columns of $U$ and $V$ with eigenvectors for eigenvalue $0$ to complete orthonormal bases.
+\end{enumerate}
+
+%% ================================================================
+\section{Best Low-Rank Approximation}
+%% ================================================================
+
+\begin{theorem}[Eckart--Young]
+Among all matrices of rank $\leq k$, the best approximation to $A$ (in Frobenius norm) that preserves the most variance is
+\[
+A_k = \sum_{i=1}^k \sigma_i\bar{u}_i\bar{v}_i^T = U\Sigma_k V^T,
+\]
+where $\Sigma_k$ is $\Sigma$ with $\sigma_{k+1},\ldots,\sigma_{\min(m,n)}$ set to zero.
+\end{theorem}
+
+The proportion of variance preserved is
+\[
+\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_{\min(m,n)}^2}.
+\]

@@ -1,0 +1,22 @@
+=== Exercise 10.1: 4x4 image ===
+Singular values:    2.5962   1.2631   1.1826   0.5157
+  k=3: variance preserved = 0.9734 (97.34%)
+  k=2: variance preserved = 0.8335 (83.35%)
+  k=1: variance preserved = 0.6740 (67.40%)
+ 
+=== Exercise 10.2: 5x5 image ===
+Singular values:    3.1640   1.2071   1.1728   0.3368   0.2071
+  k=4: variance preserved = 0.9967
+  k=3: variance preserved = 0.9880
+  k=2: variance preserved = 0.8822
+  k=1: variance preserved = 0.7701
+ 
+=== Exercise 10.5: Min k for 99.9%% quality ===
+(a) k=5, compression ratio=1.00
+(b) k=4, compression ratio=0.80
+(c) k=3, compression ratio=0.60
+(d) k=5, compression ratio=1.00
+ 
+=== Exercise 10.6: General m x n compression ===
+m=200, n=150, k=30: ratio=0.3500
+Worth when k < mn/(m+n) = 85.7

@@ -1,0 +1,59 @@
+\chapter{Image Compression}
+
+\noindent\textit{Source: Justin Wyss-Gallifent, \textit{Image Compression}.}
+
+%% ================================================================
+\section{Image Representation}
+%% ================================================================
+
+A grayscale image displayed pixel-by-pixel is stored as a matrix. Common conventions:
+\begin{itemize}
+  \item \textbf{Color:} Red, Green, Blue each 0--255 ($256^3$ colors).
+  \item \textbf{Grayscale (integer):} Single value 0--255 (0 = black, 255 = white).
+  \item \textbf{Grayscale (real):} Single value in $[0,1]$ (0 = black, 1 = white).
+\end{itemize}
+
+We use the third option (real values in $[0,1]$) for mathematical convenience.
+
+%% ================================================================
+\section{Image Compression via SVD}
+%% ================================================================
+
+If a matrix $A$ represents an image, then a low-rank approximation $A'=U\Sigma'V^T$ (with some singular values zeroed) approximates the image while preserving a fraction of the variance.
+
+\textbf{Handling out-of-range values:} After reconstruction, entries may fall outside $[0,1]$. Do \emph{not} rescale (that would distort meaning). Instead: treat values $>1$ as white and values $<0$ as black.
+
+\textbf{Effect:} As fewer singular values are kept, the image becomes more uniform while retaining as much variance as possible. Rank-1 images are a single vertical vector (shades of grey) scaled across columns.
+
+%% ================================================================
+\section{Image Quality}
+%% ================================================================
+
+\begin{definition}[Image Quality]
+The \textbf{image quality} (proportion of variance preserved) is
+\[
+\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_{\min(m,n)}^2}.
+\]
+\end{definition}
+
+A typical target is $\geq 99.5\%$ variance for a reasonable-looking picture.
+
+%% ================================================================
+\section{Data Savings}
+%% ================================================================
+
+For an $n\times n$ grayscale image:
+\begin{itemize}
+  \item \textbf{Original:} $n^2$ values (one per pixel).
+  \item \textbf{SVD with $k$ singular values:} We store $\bar{u}_1,\ldots,\bar{u}_k$ (each $n$ values) and the coefficients for each column (each column needs $k$ coefficients, $n$ columns $\Rightarrow$ $kn$ values). Total: $kn + kn = 2kn$ values.
+\end{itemize}
+
+\begin{definition}[Compression Ratio]
+\[
+\frac{2kn}{n^2} = \frac{2k}{n}.
+\]
+\end{definition}
+
+\textbf{Compression is beneficial} when $2kn < n^2$, i.e., $k < n/2$.
+
+For a general $m\times n$ (non-square) image, the same logic gives $2k(m+n)$ values if we store $k$ left singular vectors (length $m$) and $k$ right singular vectors (length $n$), plus the $k$ singular values. The exact formula depends on the storage scheme; see Exercise 10.6.
