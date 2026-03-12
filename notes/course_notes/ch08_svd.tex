@@ -1,6 +1,6 @@
 \chapter{Singular Value Decomposition}
 
-\noindent\textit{Source: Justin Wyss-Gallifent, \textit{Singular Value Decomposition}.}
+\noindent\textit{Sources: Justin Wyss-Gallifent, \textit{Singular Value Decomposition}; Lay \& McDonald, \textit{Linear Algebra and Its Applications}, \S7.4.} The Spectral Theorem (Ch.~7.1) is used to construct the SVD.
 
 %% ================================================================
 \section{Introduction}
@@ -83,3 +83,13 @@ The proportion of variance preserved is
 \[
 \frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_{\min(m,n)}^2}.
 \]
+
+%% ================================================================
+\section{Fundamental Subspaces and Reduced SVD (Lay-McDonald \S7.4)}
+%% ================================================================
+
+Given $A=U\Sigma V^T$ with rank $r$: $\{u_1,\ldots,u_r\}$ is an orthonormal basis for $\operatorname{Col} A$; $\{u_{r+1},\ldots,u_m\}$ for $\operatorname{Nul} A^T$; $\{v_1,\ldots,v_r\}$ for $\operatorname{Row} A$; $\{v_{r+1},\ldots,v_n\}$ for $\operatorname{Nul} A$.
+
+\textbf{Reduced SVD:} $A=U_r D V_r^T$ where $U_r$, $V_r$ contain only the first $r$ columns. The \textbf{pseudoinverse} is $A^+=V_r D^{-1} U_r^T$; $\hat{x}=A^+ b$ is the least-squares solution of $Ax=b$ with smallest norm.
+
+\textbf{Condition number:} For invertible $A$, $\kappa(A)=\sigma_1/\sigma_n$ measures sensitivity of $Ax=b$ to perturbations.

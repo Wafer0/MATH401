@@ -1,11 +1,31 @@
+=== 7.5.1-2: Mean-deviation and Covariance ===
+Ex 1: Mean =    12   10
+Ex 1: Covariance S =
+   86  -27
+  -27   16
+Ex 2: Mean =    4   9
+Ex 2: Covariance S =
+    5.6000    8.0000
+    8.0000   18.0000
+ 
+=== 7.5.3-4: Principal Components ===
+Ex 3: Eigenvalues of S1: 95.2041 6.7959 
+Ex 3: First PC u1 = -0.9465 0.3227 
+Ex 4: Eigenvalues of S2: 21.9213 1.6787 
+Ex 4: First PC u1 = 0.4401 0.8979 
+ 
+=== 7.5.5-6: First PC and %% Variance ===
+Ex 5: First PC explains 75.90% of variance
+Ex 6: First PC explains 64.89% of variance
+ 
 === Exercise 10.1: 4x4 image ===
-Singular values:    2.5962   1.2631   1.1826   0.5157
+Singular values: 2.5962 1.2631 1.1826 0.5157 
   k=3: variance preserved = 0.9734 (97.34%)
   k=2: variance preserved = 0.8335 (83.35%)
   k=1: variance preserved = 0.6740 (67.40%)
  
 === Exercise 10.2: 5x5 image ===
-Singular values:    3.1640   1.2071   1.1728   0.3368   0.2071
+Singular values: 3.1640 1.2071 1.1728 0.3368 0.2071 
   k=4: variance preserved = 0.9967
   k=3: variance preserved = 0.9880
   k=2: variance preserved = 0.8822

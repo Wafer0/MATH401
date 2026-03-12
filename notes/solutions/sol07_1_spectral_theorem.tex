@@ -1,0 +1,65 @@
+\chapter{Spectral Theorem --- Solutions}
+
+\noindent\textit{Lay-McDonald \S7.1.}
+
+%% -------------------------------------------------------------------------
+\section*{7.1.13--22: Orthogonal Diagonalization}
+
+\begin{exercise}{7.1.13--22}
+Orthogonally diagonalize the given matrices (give orthogonal $P$ and diagonal $D$).
+\end{exercise}
+\begin{solution}
+\textbf{Method:} (1) Find eigenvalues of $A$; (2) for each eigenvalue, find an orthonormal basis of the eigenspace (use Gram--Schmidt if multiplicity $>1$); (3) $P=[u_1\;\cdots\;u_n]$, $D=\operatorname{diag}(\lambda_1,\ldots,\lambda_n)$; $A=PDP^T$.
+
+\textbf{Ex 13:} $A=\begin{pmatrix}4&1\\1&4\end{pmatrix}$. Eigenvalues: $5,3$. Orthonormal eigenvectors: $u_1=(1,1)^T/\sqrt{2}$, $u_2=(1,-1)^T/\sqrt{2}$. $P=\begin{pmatrix}1/\sqrt{2}&1/\sqrt{2}\\1/\sqrt{2}&-1/\sqrt{2}\end{pmatrix}$, $D=\operatorname{diag}(5,3)$.
+
+\textbf{Ex 14:} $A=\begin{pmatrix}2&-3\\-3&2\end{pmatrix}$. Eigenvalues: $5,-1$. $P=\begin{pmatrix}1/\sqrt{2}&1/\sqrt{2}\\-1/\sqrt{2}&1/\sqrt{2}\end{pmatrix}$, $D=\operatorname{diag}(5,-1)$.
+
+\textbf{Ex 15--16:} $2\times2$ symmetric; eigenvalues 14,1 (Ex 15) and 13,3 (Ex 16). Orthonormalize eigenvectors via Gram--Schmidt if needed.
+
+\textbf{Ex 17--22:} Eigenvalues given: (17) $8,5,-5$; (18) $5,2,1$; (19) $8,8,-1$ (2D eigenspace for 8); (20) $15,-3,-3$; (21) $11,7,1,1$; (22) $6,6,4,4$. For repeated eigenvalues, use Gram--Schmidt on the eigenspace basis.
+\begin{lstlisting}
+% See ex7_1_spectral_theorem.m for full computation
+A = [4 1; 1 4]; [P,D] = eig(A); [P,~] = qr(P);
+D = diag(D); [~,ord] = sort(real(D),'descend');
+P = P(:,ord); D = diag(D(ord));
+fprintf('P*D*P'' - A error: %.2e\n', norm(A - P*D*P'));
+\end{lstlisting}
+\textbf{Octave output} (ex7\_1\_spectral\_theorem output): Ex 13--22 all verify with error $\sim10^{-15}$.
+\end{solution}
+
+%% -------------------------------------------------------------------------
+\section*{7.1.25--38: True/False and Proofs}
+
+\begin{exercise}{7.1.25--38}
+True/False (Spectral Theorem). Justify each answer.
+\end{exercise}
+\begin{solution}
+\textbf{25.} An $n\times n$ orthogonally diagonalizable matrix must be symmetric. \textbf{True.} If $A=PDP^T$ with $P$ orthogonal, then $A^T=(PDP^T)^T=PDP^T=A$.
+
+\textbf{26.} Some symmetric matrices are not orthogonally diagonalizable. \textbf{False.} By the Spectral Theorem, every symmetric matrix is orthogonally diagonalizable.
+
+\textbf{27.} An orthogonal matrix is orthogonally diagonalizable. \textbf{False.} Orthogonal matrices need not be symmetric (e.g., rotation matrix $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ has complex eigenvalues).
+
+\textbf{28.} If $B=PDP^T$ with $P^T=P^{-1}$ and $D$ diagonal, then $B$ is symmetric. \textbf{True.} $B^T=PDP^T=B$.
+
+\textbf{29.} For nonzero $v\in\mathbb{R}^n$, $vv^T$ is a projection matrix. \textbf{True.} $(vv^T)x$ is the projection of $x$ onto $\operatorname{span}\{v\}$.
+
+\textbf{30.} If $A^T=A$ and $Au=3u$, $Av=4v$, then $u\cdot v=0$. \textbf{True.} Eigenvectors from different eigenspaces of a symmetric matrix are orthogonal.
+
+\textbf{31.} An $n\times n$ symmetric matrix has $n$ distinct real eigenvalues. \textbf{False.} It has $n$ real eigenvalues counting multiplicities, but they need not be distinct.
+
+\textbf{32.} The dimension of an eigenspace of a symmetric matrix is sometimes less than the multiplicity. \textbf{False.} By the Spectral Theorem, they are equal.
+
+\textbf{33.} Show $(Ax)\cdot y = x\cdot(Ay)$ for symmetric $A$. \textit{Proof:} $(Ax)\cdot y = (Ax)^Ty = x^TA^Ty = x^T(Ay) = x\cdot(Ay)$ since $A^T=A$. $\square$
+
+\textbf{34.} Show $B^TAB$, $B^TB$, $BB^T$ are symmetric. \textit{Proof:} $(B^TAB)^T = B^TA^T(B^T)^T = B^TAB$ (since $A^T=A$). $(B^TB)^T=B^TB$. $(BB^T)^T=BB^T$. $\square$
+
+\textbf{35.} If $A$ invertible and orthogonally diagonalizable, then $A^{-1}$ is too. \textit{Proof:} $A=PDP^{-1}$ with $P$ orthogonal, $D$ diagonal. $A^{-1}=PD^{-1}P^{-1}=PD^{-1}P^T$; $D^{-1}$ is diagonal, so $A^{-1}$ is orthogonally diagonalizable. $\square$
+
+\textbf{36.} If $A,B$ orthogonally diagonalizable and $AB=BA$, then $AB$ is orthogonally diagonalizable. \textit{Proof:} $A,B$ symmetric (Thm 2). $(AB)^T=B^TA^T=BA=AB$, so $AB$ is symmetric, hence orthogonally diagonalizable. $\square$
+
+\textbf{37.} If $A=PDP^{-1}$ with $P$ orthogonal, $\lambda$ has multiplicity $k$ on diagonal of $D$, then eigenspace for $\lambda$ has dimension $k$. \textit{Proof:} The columns of $P$ corresponding to $\lambda$ form a basis for the eigenspace; there are $k$ such columns. $\square$
+
+\textbf{38.} If $A=PRP^{-1}$ with $P$ orthogonal and $R$ upper triangular, and $A$ symmetric, then $R$ is diagonal. \textit{Proof:} $A^T=A$ implies $PR^TP^T=PRP^T$, so $R^T=R$. An upper triangular matrix that equals its transpose is diagonal. $\square$
+\end{solution}

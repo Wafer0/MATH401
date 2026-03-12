@@ -1,5 +1,54 @@
 \chapter{Image Compression --- Solutions}
 
+%% -------------------------------------------------------------------------
+\section*{Lay-McDonald \S7.5: Covariance and Principal Components}
+
+\begin{exercise}{7.5.1--2}
+Convert the matrix of observations to mean-deviation form and construct the sample covariance matrix.
+\end{exercise}
+\begin{solution}
+\textbf{Ex 1:} $X=\begin{pmatrix}19&22&6&3&2&20\\12&6&9&15&13&5\end{pmatrix}$ ($2\times6$). Sample mean $M=\frac{1}{6}\sum_{k=1}^6 X_k = \begin{pmatrix}12\\10\end{pmatrix}$. Mean-deviation: $B=X-M$ (each column $\hat{X}_k=X_k-M$). Covariance: $S=\frac{1}{N-1}BB^T=\frac{1}{5}BB^T$.
+\begin{lstlisting}
+X = [19 22 6 3 2 20; 12 6 9 15 13 5];
+M = mean(X,2); B = X - M;
+S = (1/(size(X,2)-1)) * B*B';
+\end{lstlisting}
+\textbf{Octave output:} $M=(12,10)^T$, $S=\begin{pmatrix}86&-27\\-27&16\end{pmatrix}$.
+
+\textbf{Ex 2:} $X=\begin{pmatrix}1&5&2&6&7&3\\3&11&6&8&15&11\end{pmatrix}$. $M=(4,9)^T$. \textbf{Octave output:} $S=\begin{pmatrix}5.6&8\\8&18\end{pmatrix}$.
+\end{solution}
+
+\begin{exercise}{7.5.3--4}
+Find the principal components of the data for Exercises 1 and 2.
+\end{exercise}
+\begin{solution}
+Principal components = unit eigenvectors of $S$ ordered by decreasing eigenvalue. First PC $u_1$ maximizes variance of $y_1=u_1^TX$.
+\begin{lstlisting}
+[V,D] = eig(S); [d,ord] = sort(diag(D),'descend');
+V = V(:,ord); u1 = V(:,1);
+\end{lstlisting}
+\textbf{Octave output:} Ex 3 (data from Ex 1): eigenvalues $\lambda_1\approx95.20$, $\lambda_2\approx6.80$; $u_1\approx(-0.95, 0.32)^T$. Ex 4: $\lambda_1\approx21.92$, $\lambda_2\approx1.68$; $u_1\approx(0.44, 0.90)^T$.
+\end{solution}
+
+\begin{exercise}{7.5.5--6}
+Given covariance matrix $S$, find first principal component and \% of total variance.
+\end{exercise}
+\begin{solution}
+First PC = unit eigenvector $u_1$ for largest eigenvalue $\lambda_1$. \% variance $=\lambda_1/\operatorname{tr}(S)$.
+\begin{lstlisting}
+S5 = [164.12 32.73 81.04; 32.73 539.44 249.13; 81.04 249.13 189.11];
+[V5,D5] = eig(S5); [d5,ord5] = sort(diag(D5),'descend');
+pct5 = d5(1)/sum(d5);  % Ex 5
+S6 = [29.64 18.38 5.00; 18.38 20.82 14.06; 5.00 14.06 29.21];
+[V6,D6] = eig(S6); [d6,ord6] = sort(diag(D6),'descend');
+pct6 = d6(1)/sum(d6);  % Ex 6
+\end{lstlisting}
+\textbf{Octave output:} Ex 5 (Landsat Homestead): first PC explains \textbf{75.90\%} of variance. Ex 6 (Columbia River): first PC explains \textbf{64.89\%} of variance.
+\end{solution}
+
+%% -------------------------------------------------------------------------
+\section*{Justin's Notes: Exercises 10.1--10.6}
+
 \begin{exercise}{10.1}
 Consider the $4\times4$ image (shades 0, 0.5, 1). (a) Enter into matrix $A$. (b) Find SVD. (c) Simplify with 3, 2, 1 singular values; draw best representation.
 \end{exercise}
@@ -17,7 +66,7 @@ A = [1 0 1 1; 1 1 0 1; 0 1 0 1; 0 1 1 0];
 svals = diag(S);
 fprintf('Singular values: '); disp(svals');
 \end{lstlisting}
-Four singular values (e.g., $\sigma_1\approx2.4$, $\sigma_2\approx1.2$, $\sigma_3\approx0.8$, $\sigma_4\approx0.4$).
+\textbf{Octave output:} $\sigma_1\approx2.60$, $\sigma_2\approx1.26$, $\sigma_3\approx1.18$, $\sigma_4\approx0.52$. For $k=3,2,1$: variance preserved 97.34\%, 83.35\%, 67.40\%.
 
 \textbf{(c)} For $k=3,2,1$: set $S(i,i)=0$ for $i>k$, then $A'=U*S*V'$. Clamp values to $[0,1]$ for display (or leave as-is per notes). Draw the resulting $4\times4$ grid: darker = lower value, lighter = higher.
 \begin{lstlisting}
@@ -47,7 +96,7 @@ A = \begin{pmatrix}
 \]
 (Adjust to match the actual figure.)
 
-\textbf{(b)--(c)} Same procedure as 10.1: \texttt{svd(A)}, then zero out smallest singular values for $k=4,3,2,1$, reconstruct, and draw.
+\textbf{(b)--(c)} Same procedure. \textbf{Octave output:} $\sigma_1\approx3.16$, $\sigma_2\approx1.21$, $\sigma_3\approx1.17$, $\sigma_4\approx0.34$, $\sigma_5\approx0.21$. Variance preserved: $k=4$: 99.67\%; $k=3$: 98.80\%; $k=2$: 88.22\%; $k=1$: 77.01\%.
 \begin{lstlisting}
 A = [1 0.5 0 1 1; 0.5 1 0.5 0 1; 0 0.5 1 0.5 0; 1 0 0.5 1 0.5; 1 1 0 0.5 1];
 [U,S,V] = svd(A);
@@ -108,13 +157,7 @@ s = [80.2608 63.3520 20.5871 8.4696 2.8841 1.6763 0.7962 0.6926 0.6553 0.6520];
 cum = cumsum(s.^2); k = find(cum/cum(end) >= 0.999, 1);
 fprintf('k=%d, ratio=%.2f\n', k, 2*k/10);  % ratio = 2k/n
 \end{lstlisting}
-$k=2$ gives $\approx 0.9997$; ratio $= 0.4$.
-
-\textbf{(b)} $\sigma = [138.55, 49.52, 16.59, 4.94, 3.24, 1.52, 1.20, 1.03, 1.02, 0.98]$. $k=2$ suffices; ratio $= 0.4$.
-
-\textbf{(c)} $\sigma = [446.16, 163.42, 43.89, 13.80, 4.74, 1.34, 1.05, 0.64, 0.45, 0.45]$. $k=2$; ratio $= 0.4$.
-
-\textbf{(d)} $\sigma = [209.49, 28.19, 22.87, 11.83, 6.33, 2.78, 1.20, 0.93, 0.88, 0.87]$. $k=3$ or $4$; ratio $= 0.6$ or $0.8$.
+\textbf{Octave output:} (a) $k=5$, ratio $=1.00$; (b) $k=4$, ratio $=0.80$; (c) $k=3$, ratio $=0.60$; (d) $k=5$, ratio $=1.00$. (When $k=5$ or more for $n=10$, ratio $\geq 1$ so no compression benefit.)
 \end{solution}
 
 \begin{exercise}{10.6}

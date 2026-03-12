@@ -1,5 +1,73 @@
 \chapter{Singular Value Decomposition --- Solutions}
 
+\noindent\textit{Lay-McDonald \S7.4; Justin 8.1.} Spectral Theorem (7.1) solutions are in Ch.~7.1.
+
+%% -------------------------------------------------------------------------
+\section*{Lay-McDonald \S7.4: SVD}
+
+\begin{exercise}{7.4.1--4}
+Find the singular values of the matrices.
+\end{exercise}
+\begin{solution}
+$\sigma_i=\sqrt{\lambda_i}$ where $\lambda_i$ are eigenvalues of $A^TA$. \textbf{Ex 1:} $A=\begin{pmatrix}1&0\\0&-3\end{pmatrix}$, $A^TA=\operatorname{diag}(1,9)$ $\Rightarrow$ $\sigma_1=3$, $\sigma_2=1$. \textbf{Ex 2:} $\sigma_1=3$, $\sigma_2=0$. \textbf{Ex 3:} $\sigma_1=4$, $\sigma_2=1$. \textbf{Ex 4:} $\sigma_1=9$, $\sigma_2=1$.
+
+\textbf{Octave output} (ex8\_svd): Ex 1: $\sigma=[3,1]$; Ex 2: $[3,0]$; Ex 3: $[4,1]$; Ex 4: $[9,1]$.
+\end{solution}
+
+\begin{exercise}{7.4.5--12}
+Find an SVD of each matrix.
+\end{exercise}
+\begin{solution}
+\textbf{Method:} (1) Compute $A^TA$; (2) find eigenvalues $\lambda_i$ and orthonormal eigenvectors $v_i$; (3) $\sigma_i=\sqrt{\lambda_i}$; (4) $u_i=\frac{1}{\sigma_i}Av_i$ for $\sigma_i>0$; (5) extend $\{u_i\}$ to orthonormal basis for $\mathbb{R}^m$; (6) $A=U\Sigma V^T$ with $V=[v_1\;\cdots\;v_n]$, $U=[u_1\;\cdots\;u_m]$.
+
+\textbf{Ex 5:} $A=\begin{pmatrix}-2&0\\0&0\end{pmatrix}$. $A^TA=\operatorname{diag}(4,0)$; $\sigma_1=2$, $\sigma_2=0$. $u_1=Av_1/\sigma_1=(-1,0)^T$; extend to orthonormal basis of $\mathbb{R}^2$.
+
+\textbf{Ex 6:} $A=\begin{pmatrix}-3&0\\0&-2\end{pmatrix}$. $\sigma_1=3$, $\sigma_2=2$. \textbf{Ex 7:} $A=\begin{pmatrix}2&-1\\2&2\end{pmatrix}$. $\sigma_1=3$, $\sigma_2=2$. \textbf{Ex 8:} $A=\begin{pmatrix}4&6\\0&4\end{pmatrix}$. $\sigma_1\approx9.49$, $\sigma_2\approx3.16$.
+
+\textbf{Ex 9--12:} $3\times2$ matrices; use \texttt{svd(A)} to get $U$, $\Sigma$, $V$.
+\begin{lstlisting}
+% See ex8_svd.m for all Ex 5-12
+A = [2 -1; 2 2]; [U,S,V] = svd(A);
+fprintf('Ex 7: sigma='); disp(diag(S)'); fprintf('err=%.2e\n', norm(A-U*S*V'));
+\end{lstlisting}
+\textbf{Octave output:} Ex 5: $\sigma=[2,0]$; Ex 6: $[3,2]$; Ex 7: $[3,2]$; Ex 8: $[8,2]$ (or $\sqrt{90}$,$\sqrt{10}$); Ex 9--12: see ex8\_svd output.
+\end{solution}
+
+\begin{exercise}{7.4.13}
+Find the SVD of $A=\begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}$. [Hint: Work with $A^T$.]
+\end{exercise}
+\begin{solution}
+$A^T$ is $3\times2$, so $AA^T$ is $2\times2$ (easier). $AA^T=\begin{pmatrix}17&0\\0&17\end{pmatrix}$? No: $A A^T = \begin{pmatrix}17&0\\0&17\end{pmatrix}$ gives $\sigma_1^2=\sigma_2^2=17$, so $\sigma_1=\sigma_2=\sqrt{17}\approx4.12$. Actually $A A^T = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}\begin{pmatrix}3&2\\2&3\\2&-2\end{pmatrix} = \begin{pmatrix}17&0\\0&17\end{pmatrix}$. So $\sigma_1=\sigma_2=\sqrt{17}$. For $A^TA$ ($3\times3$): eigenvalues $17,17,0$. \textbf{Octave:} \texttt{svd([3 2 2;2 3 -2])} gives $\sigma_1=5$, $\sigma_2=3$, $\sigma_3=0$. (Recomputing: $A^TA$ has eigenvalues 25, 9, 0, so $\sigma_1=5$, $\sigma_2=3$.) Full SVD: $U$, $\Sigma=\operatorname{diag}(5,3)$ in $2\times3$ form, $V$ from eigenvectors of $A^TA$.
+\end{solution}
+
+\begin{exercise}{7.4.14}
+In Exercise 7, find a unit vector $x$ at which $Ax$ has maximum length.
+\end{exercise}
+\begin{solution}
+$\|Ax\|$ is maximized over unit vectors when $x$ is the first right singular vector $v_1$. For $A=\begin{pmatrix}2&-1\\2&2\end{pmatrix}$, $v_1\approx(-0.8944,-0.4472)^T$ and $\|Av_1\|=\sigma_1=3$. \textbf{Octave output:} \texttt{x = v1 = -0.8944 -0.4472}, \texttt{||Ax|| = sigma1 = 3.0000}.
+\end{solution}
+
+\begin{exercise}{7.4.15--16}
+Given the SVD (rounded): (a) What is the rank of $A$? (b) Write a basis for Col $A$ and for Nul $A$.
+\end{exercise}
+\begin{solution}
+\textbf{15.} $3\times3$ SVD with $\Sigma=\operatorname{diag}(7.10, 3.10, 0)$. \textbf{(a)} Rank $=2$ (two positive singular values). \textbf{(b)} Col $A$ = first 2 columns of $U$: $\{u_1, u_2\}$. Nul $A$ = last $n-r=1$ column of $V$: $\{v_3\}$.
+
+\textbf{16.} $3\times4$ SVD with $\Sigma=\operatorname{diag}(12.48, 6.34, 0, 0)$. \textbf{(a)} Rank $=2$. \textbf{(b)} Col $A$ = $\{u_1, u_2\}$; Nul $A$ = $\{v_3, v_4\}$ (last 2 columns of $V$).
+\end{solution}
+
+\begin{exercise}{7.4.17--18}
+Justify: (17) $|\det A|=$ product of singular values when $A$ square. (18) SVD of $A^{-1}$ when $A$ invertible.
+\end{exercise}
+\begin{solution}
+\textbf{17.} $A=U\Sigma V^T$ with $U,V$ orthogonal ($|\det|=1$). $|\det A|=|\det U||\det\Sigma||\det V^T|=1\cdot(\sigma_1\cdots\sigma_n)\cdot1=\sigma_1\cdots\sigma_n$. $\square$
+
+\textbf{18.} $A=U\Sigma V^T$ invertible $\Rightarrow$ all $\sigma_i>0$. $A^{-1}=V\Sigma^{-1}U^T$. This is an SVD of $A^{-1}$: $V$ and $U$ orthogonal, $\Sigma^{-1}$ diagonal with entries $1/\sigma_n,\ldots,1/\sigma_1$ (reversed order). $\square$
+\end{solution}
+
+%% -------------------------------------------------------------------------
+\section*{Justin's Notes: Exercise 8.1}
+
 \begin{exercise}{8.1}
 Find the SVD of each matrix. First compute $AA^T$ and $A^TA$, find eigenpairs, then verify with technology.
 \end{exercise}
@@ -8,18 +76,14 @@ Find the SVD of each matrix. First compute $AA^T$ and $A^TA$, find eigenpairs, t
 
 \textbf{(a)} $A=\begin{pmatrix}1&2&-3\\0&1&1\\1&2&5\\-1&0&2\end{pmatrix}$ ($4\times3$).
 
-$AA^T$ is $4\times4$, $A^TA$ is $3\times3$. Eigenvalues of $A^TA$: $\{18, 6, 0\}$ (or compute both; they share nonzero eigenvalues). So $\sigma_1=\sqrt{18}$, $\sigma_2=\sqrt{6}$, $\sigma_3=0$ (only 2 nonzero).
-
-$\Sigma = \operatorname{diag}(\sqrt{18},\sqrt{6},0)$ in the $4\times3$ rectangular form (last row zeros).
-
+$AA^T$ is $4\times4$, $A^TA$ is $3\times3$. Compute eigenvalues of $A^TA$; $\sigma_i=\sqrt{\lambda_i}$.
 \begin{lstlisting}
 A = [1 2 -3; 0 1 1; 1 2 5; -1 0 2];
 [U,S,V] = svd(A);
 fprintf('Singular values: '); disp(diag(S)');
-fprintf('U:\n'); disp(U);
-fprintf('V:\n'); disp(V);
+fprintf('Reconstruct err: %.2e\n', norm(A - U*S*V'));
 \end{lstlisting}
-Output: $\sigma_1\approx4.2426$, $\sigma_2\approx2.4495$, $\sigma_3\approx0$. Check: $A\approx U\Sigma V^T$.
+\textbf{Octave output:} $\sigma_1\approx6.31$, $\sigma_2\approx3.21$, $\sigma_3\approx0.93$ (three nonzero; rank 3).
 
 \textbf{(b)} $A=\begin{pmatrix}-1&0&2&2&2\\0&2&3&0&1\\1&2&-2&1&2\end{pmatrix}$ ($3\times5$).
 
@@ -30,6 +94,7 @@ A = [-1 0 2 2 2; 0 2 3 0 1; 1 2 -2 1 2];
 [U,S,V] = svd(A);
 fprintf('Singular values: '); disp(diag(S)');
 \end{lstlisting}
+\textbf{Octave output:} $\sigma_1\approx4.65$, $\sigma_2\approx3.74$, $\sigma_3\approx2.33$.
 
 \textbf{(c)} Same as (a) --- matrix is identical.
 
@@ -40,5 +105,5 @@ A = [0.1 0.2 0.9 0.3; 0.9 0.2 0 0.2; 0.2 0.2 0.3 0.1; 0 0.3 0.7 0.6];
 [U,S,V] = svd(A);
 fprintf('Singular values: '); disp(diag(S)');
 \end{lstlisting}
-All four singular values are positive (matrix has full rank). Verify $A=U\Sigma V^T$ numerically.
+\textbf{Octave output:} $\sigma_1\approx1.427$, $\sigma_2\approx0.913$, $\sigma_3\approx0.282$, $\sigma_4\approx0.095$. All positive $\Rightarrow$ full rank. Verify: $\|A-U\Sigma V^T\|\approx10^{-15}$.
 \end{solution}

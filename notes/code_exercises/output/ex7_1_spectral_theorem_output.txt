@@ -1,0 +1,12 @@
+=== 7.1.13-22: Orthogonal Diagonalization ===
+Ex 13: ev=[5 3 ], err=9.41e-16
+Ex 14: ev=[5 -1 ], err=4.44e-16
+Ex 15: ev=[14 1 ], err=1.99e-15
+Ex 16: ev=[13 3 ], err=1.96e-15
+Ex 17: ev=[8 5 -5 ], err=2.87e-15
+Ex 18: ev=[5 2 1 ], err=3.30e-15
+Ex 19: ev=[8 8 -1 ], err=4.37e-15
+Ex 20: ev=[15 -3 -3 ], err=1.15e-14
+Ex 21: ev=[11 7 1 1 ], err=2.80e-15
+Ex 22: ev=[6 6 4 4 ], err=1.07e-15
+ 

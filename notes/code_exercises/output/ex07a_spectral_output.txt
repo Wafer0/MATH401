@@ -1,0 +1,15 @@
+=== 7.1.13: A = [4 1; 1 4] ===
+Eigenvalues:    0   3
+P orthonormal? 2.22e-16
+A = PDP^T? 5.00e+00
+ 
+=== 7.1.17: 3x3 matrix, eigenvalues -5, 5, 8 ===
+Eigenvalues:    0   0  -5
+A = PDP^T? 8.00e+00
+ 
+=== 7.5.1: Covariance matrix ===
+Covariance S:
+   86  -27
+  -27   16
+Eigenvalues:    95.2041    6.7959
+First PC:   -0.9465   0.3227

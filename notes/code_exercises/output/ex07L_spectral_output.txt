@@ -1,0 +1,8 @@
+=== Lay 7.1: Orthogonal Diagonalization ===
+Ex 13: A = [4 1; 1 4]
+  P*P' - I = 2.2204e-16
+  A - P*D*P' = 1.1102e-15
+
+Ex 17: eigenvalues -5, 5, 8
+  Eigenvalues:    8   5  -5
+  Orthogonal? 6.65e-16

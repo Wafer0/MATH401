@@ -1,12 +1,33 @@
-=== Exercise 8.1: Singular Value Decomposition ===
+=== 7.4.1-4: Singular Values ===
+Ex 1: sigma =    3   1
+Ex 2: sigma =    3   0
+Ex 3: sigma =    4   1
+Ex 4: sigma =    9   1
  
-(a) A = [1 2 -3; 0 1 1; 1 2 5; -1 0 2]
-  Singular values:    6.3105   3.2118   0.9283
-  Reconstruct error: 2.06e-15
+=== 7.4.5-12: SVD ===
+Ex  5: sigma=[2.000 0.000 ], err=0.00e+00
+Ex  6: sigma=[3.000 2.000 ], err=0.00e+00
+Ex  7: sigma=[3.000 2.000 ], err=1.26e-15
+Ex  8: sigma=[8.000 2.000 ], err=1.07e-15
+Ex  9: sigma=[4.243 1.414 ], err=2.01e-15
+Ex 10: sigma=[9.487 3.162 ], err=8.88e-16
+Ex 11: sigma=[9.487 0.000 ], err=1.42e-15
+Ex 12: sigma=[1.732 1.414 ], err=3.33e-16
  
-(b) 3x5 matrix
-  Singular values:    4.6452   3.7417   2.3286
+=== 7.4.13: SVD of 2x3 matrix ===
+Singular values: 5.0000 3.0000 
+Reconstruct err: 1.30e-15
  
-(d) 4x4 matrix
-  Singular values:    1.427458   0.913126   0.282155   0.094623
-  Reconstruct error: 8.76e-16
+=== 7.4.14: Max ||Ax|| for Ex 7 ===
+x = v1 = -0.8944 -0.4472 
+||Ax|| = sigma1 = 3.0000
+ 
+=== 7.4.15-16: Rank and bases ===
+Ex 15: 3x3 SVD, sigma=[7.10 3.10 0] => rank=2
+Ex 16: 3x4 SVD, sigma=[12.48 6.34 0 0] => rank=2
+ 
+=== Justin 8.1: SVD ===
+(a) sigma: 6.3105 3.2118 0.9283 
+    err: 2.06e-15
+(b) sigma: 4.6452 3.7417 2.3286 
+(d) sigma: 1.427458 0.913126 0.282155 0.094623 

@@ -1,0 +1,39 @@
+\chapter{Spectral Theorem}
+
+\noindent\textit{Source: Lay \& McDonald, \textit{Linear Algebra and Its Applications}, \S7.1.}
+
+%% ================================================================
+\section{Symmetric Matrices and Orthogonal Diagonalization}
+%% ================================================================
+
+\begin{definition}[Symmetric Matrix]
+A matrix $A$ is \textbf{symmetric} if $A^T=A$. Symmetric matrices are square.
+\end{definition}
+
+\begin{theorem}[Eigenvectors of Symmetric Matrices]
+If $A$ is symmetric, then any two eigenvectors from different eigenspaces are orthogonal.
+\end{theorem}
+
+\begin{definition}[Orthogonally Diagonalizable]
+An $n\times n$ matrix $A$ is \textbf{orthogonally diagonalizable} if there exist an orthogonal matrix $P$ and a diagonal matrix $D$ such that $A=PDP^T=PDP^{-1}$.
+\end{definition}
+
+\begin{theorem}[Spectral Theorem]
+An $n\times n$ matrix $A$ is orthogonally diagonalizable \emph{if and only if} $A$ is symmetric. Equivalently: $A$ has $n$ real eigenvalues (counting multiplicities); the dimension of each eigenspace equals the multiplicity of the corresponding eigenvalue; eigenspaces for different eigenvalues are mutually orthogonal.
+\end{theorem}
+
+%% ================================================================
+\section{Spectral Decomposition}
+%% ================================================================
+
+If $A=PDP^T$ with orthonormal eigenvectors $u_1,\ldots,u_n$ and eigenvalues $\lambda_1,\ldots,\lambda_n$, then
+\[
+A = \lambda_1 u_1 u_1^T + \lambda_2 u_2 u_2^T + \cdots + \lambda_n u_n u_n^T.
+\]
+Each term $\lambda_i u_i u_i^T$ is a rank-$1$ matrix; $u_i u_i^T$ is the orthogonal projection onto $\operatorname{span}\{u_i\}$.
+
+%% ================================================================
+\section{Repeated Eigenvalues}
+%% ================================================================
+
+When an eigenvalue has multiplicity $>1$, the eigenspace has dimension equal to the multiplicity. Use Gram--Schmidt on a basis of the eigenspace to obtain orthonormal eigenvectors for the orthogonal diagonalization.

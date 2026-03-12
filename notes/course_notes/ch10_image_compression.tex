@@ -1,6 +1,6 @@
 \chapter{Image Compression}
 
-\noindent\textit{Source: Justin Wyss-Gallifent, \textit{Image Compression}.}
+\noindent\textit{Sources: Justin Wyss-Gallifent, \textit{Image Compression}; Lay \& McDonald, \textit{Linear Algebra and Its Applications}, \S7.5.}
 
 %% ================================================================
 \section{Image Representation}
@@ -57,3 +57,13 @@ For an $n\times n$ grayscale image:
 \textbf{Compression is beneficial} when $2kn < n^2$, i.e., $k < n/2$.
 
 For a general $m\times n$ (non-square) image, the same logic gives $2k(m+n)$ values if we store $k$ left singular vectors (length $m$) and $k$ right singular vectors (length $n$), plus the $k$ singular values. The exact formula depends on the storage scheme; see Exercise 10.6.
+
+%% ================================================================
+\section{Principal Component Analysis (Lay-McDonald \S7.5)}
+%% ================================================================
+
+For multivariate data $X_1,\ldots,X_N$ in $\mathbb{R}^p$, the \textbf{sample mean} is $M=\frac{1}{N}(X_1+\cdots+X_N)$. Put data in \textbf{mean-deviation form}: $\hat{X}_k=X_k-M$. The \textbf{sample covariance matrix} is
+\[
+S = \frac{1}{N-1} B B^T,\quad B=[\hat{X}_1\;\cdots\;\hat{X}_N].
+\]
+$S$ is symmetric and positive semidefinite. The \textbf{principal components} are the unit eigenvectors of $S$ ordered by decreasing eigenvalue. The first principal component $u_1$ gives the direction of maximum variance; $y_1=u_1^T X$ has the largest variance among unit linear combinations. The fraction of total variance in the first component is $\lambda_1/\operatorname{tr}(S)$.
