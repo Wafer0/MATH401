@@ -82,6 +82,7 @@ if ! $LATEX_ONLY; then
     "$CODE_DIR/ex7_1_spectral_theorem.m" \
     "$CODE_DIR/ex8_svd.m" \
     "$CODE_DIR/ex10_image_compression.m" \
+    "$CODE_DIR/ex9_quantum_qubit.m" \
     "$CODE_DIR/ex12_graph_theory.m"
   do
     run_octave "$script"

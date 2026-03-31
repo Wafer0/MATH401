@@ -1,0 +1,55 @@
+\chapter{Single-Qubit Quantum Systems (Suggested Problems 5)}
+
+\noindent\textit{Sources: Eleanor Rieffel and Wolfgang Polak, \textit{Quantum Computing: A Gentle Introduction}, Chapter~2 (single-qubit systems); Sheldon Axler, \textit{Linear Algebra Done Right}, \S1A ($\R^n$ and $\C^n$). Optional: John Watrous, \textit{Basics of Quantum Information} (video lectures).}
+
+%% ================================================================
+\section{Complex vector spaces (Axler \S1A)}
+%% ================================================================
+
+Quantum state spaces are complex inner-product spaces. Axler's \S1A develops $\C$ and $\C^n$: complex arithmetic, conjugation, length in $\C^n$ via the usual inner product $\langle (w_1,\ldots,w_n),(z_1,\ldots,z_n)\rangle = w_1\overline{z_1}+\cdots+w_n\overline{z_n}$.
+
+A \textbf{qubit} is a unit vector in $\C^2$ (up to global phase---see below). Choosing an orthonormal basis $\{\ket{0},\ket{1}\}$ (the \textbf{standard} or \textbf{computational} basis) identifies states with column vectors $(a,b)^T$ where $|a|^2+|b|^2=1$.
+
+%% ================================================================
+\section{Dirac notation (Rieffel--Polak \S2.2)}
+%% ================================================================
+
+A \textbf{ket} $\ket{\psi}$ denotes a state vector. The \textbf{inner product} $\braket{\phi}{\psi}$ is linear in the second slot and conjugate-linear in the first; $\|\ket{\psi}\|=\sqrt{\braket{\psi}{\psi}}$. States satisfy $\braket{\psi}{\psi}=1$. Vectors $\ket{\beta_1},\ldots,\ket{\beta_n}$ form an \textbf{orthonormal basis} if $\braket{\beta_i}{\beta_j}=\delta_{ij}$.
+
+\textbf{Born rule:} Measuring a qubit in orthonormal basis $\{\ket{b_0},\ket{b_1}\}$ yields outcome $k$ with probability $|\braket{b_k}{\psi}|^2$; after the measurement the state becomes $\ket{b_k}$.
+
+\textbf{Global phase:} $\ket{\psi}$ and $e^{i\varphi}\ket{\psi}$ (with $\varphi\in\R$) represent the \emph{same} physical state. Only \emph{relative} phase between components in a fixed basis is observable in interference experiments.
+
+%% ================================================================
+\section{Standard bases for one qubit}
+%% ================================================================
+
+Fix orthonormal computational basis $\{\ket{0},\ket{1}\}$. The \textbf{Hadamard} basis is
+\[
+\ket{+}=\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}),\qquad
+\ket{-}=\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1}).
+\]
+The \textbf{circular} (or $y$) basis often used in texts is
+\[
+\ket{i}=\tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1}),\qquad
+\ket{-i}=\tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1}).
+\]
+(Labels vary; always verify definitions from the problem statement.)
+
+A state is a \textbf{superposition} with respect to a given orthonormal basis if at least two basis coefficients are nonzero. A basis vector (e.g.\ $\ket{+}$) is \emph{not} a superposition in the basis $\{\ket{+},\ket{-}\}$, but \emph{is} a superposition in $\{\ket{0},\ket{1}\}$.
+
+%% ================================================================
+\section{Photon polarization preview (Rieffel \S2.1--2.2)}
+%% ================================================================
+
+Polarization of a photon is modeled by a unit vector in $\R^2$ (real) or $\C^2$ (general). A polarizer aligned with $\ket{0}$ transmits the $\ket{0}$ component with probability $|\braket{0}{\psi}|^2$. The three-polarizer ``paradox'' illustrates constructive interference using intermediate bases.
+
+%% ================================================================
+\section{Suggested Problems 5 (course alignment)}
+%% ================================================================
+
+\noindent\textbf{Reading:} Axler \S1A; Rieffel--Polak \S2; optional Watrous videos.
+
+\noindent\textbf{Quiz-level (Rieffel--Polak):} Exercises 2.2, 2.3, 2.4, 2.6.
+
+\noindent\textbf{Exam-level:} Same difficulty as quiz (no separate list).

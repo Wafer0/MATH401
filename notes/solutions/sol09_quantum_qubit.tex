@@ -1,0 +1,90 @@
+\chapter{Single-Qubit Quantum Systems --- Solutions}
+
+\noindent\textit{Rieffel--Polak, Chapter 2.} Notation: $\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$, $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$, $\ket{i}=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1})$, $\ket{-i}=\frac{1}{\sqrt{2}}(\ket{0}-i\ket{1})$. Outcome probabilities: $P(\ket{b_k})=|\braket{b_k}{\psi}|^2$.
+
+\begin{exercise}{Rieffel 2.2}
+Which pairs of expressions represent the same state? For pairs that differ, give a measurement basis for which the two outcomes have different probabilities.
+\end{exercise}
+\begin{solution}
+\textbf{Same state} if and only if the vectors differ by an overall phase $e^{i\varphi}$.
+
+\textbf{(a)} $\ket{0}$ and $-\ket{0}$: same (phase $\pi$).
+
+\textbf{(b)} $\ket{1}$ and $i\ket{1}$: same (phase $\pi/2$).
+
+\textbf{(c)} $\ket{+}$ and $\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1})$: \emph{different}. In $\{\ket{0},\ket{1}\}$ both give $1/2$ each; measure in $\{\ket{+},\ket{-}\}$: $|\braket{+}{\psi}|^2=1$ for $\ket{+}$ and $|\braket{+}{\psi}|^2=\frac{1}{2}$ for the second.
+
+\textbf{(d)} $\ket{+}$ and $\ket{-}$: \emph{different}. Measure in $\{\ket{+},\ket{-}\}$: probabilities $(1,0)$ vs.\ $(0,1)$.
+
+\textbf{(e)} $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ and $\frac{1}{\sqrt{2}}(\ket{1}-\ket{0})$: same (second is $-\ket{-}$).
+
+\textbf{(f)} $\ket{i}=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1})$ and $\frac{1}{\sqrt{2}}(i\ket{1}-\ket{0})=\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1})$: \emph{different}; in fact $\braket{i}{(-\ket{0}+i\ket{1})/\sqrt{2}}=0$, so they are orthogonal. Measure in $\{\ket{i},\ket{-i}\}$: first outcome is $\ket{i}$ with probability $1$, second is $\ket{-i}$ with probability $1$.
+
+\textbf{(g)} $\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})=\ket{0}$ and $\ket{0}$: same.
+
+\textbf{(h)} $\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})=i\ket{1}$ (up to phase) and $\ket{1}$: same.
+
+\textbf{(i)} $\frac{1}{\sqrt{2}}(\ket{i}+\ket{-i})=\ket{0}$ and $\frac{1}{\sqrt{2}}(\ket{-}+\ket{+})=\ket{0}$: same.
+
+\textbf{(j)} $\frac{1}{\sqrt{2}}(\ket{0}+e^{i\pi/4}\ket{1})$ and $\frac{1}{\sqrt{2}}(e^{-i\pi/4}\ket{0}+\ket{1})$: same (multiply the first by $e^{-i\pi/4}$).
+\end{solution}
+
+\begin{exercise}{Rieffel 2.3}
+Which states are superpositions in the standard basis? For each superposition, give a basis in which it is not a superposition.
+\end{exercise}
+\begin{solution}
+\textbf{Standard basis} $\{\ket{0},\ket{1}\}$: a superposition has both amplitudes nonzero.
+
+\textbf{(a)} $\ket{+}$: superposition; in $\{\ket{+},\ket{-}\}$ it is the basis vector $\ket{+}$.
+
+\textbf{(b)} $\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})=\ket{0}$: not a superposition.
+
+\textbf{(c)} $\frac{1}{\sqrt{2}}(\ket{+}-\ket{-})=\ket{1}$: not a superposition.
+
+\textbf{(d)} $\ket{\psi}=\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}$: in $\{\ket{0},\ket{1}\}$, $\ket{\psi}=\frac{\sqrt{3}-1}{2\sqrt{2}}\ket{0}+\frac{\sqrt{3}+1}{2\sqrt{2}}\ket{1}$---both coefficients nonzero---superposition. An orthonormal basis in which $\ket{\psi}$ is the first basis vector is $\{\ket{\psi},\ket{\psi^\perp}\}$ with $\ket{\psi^\perp}=\frac{1}{2}\ket{+}+\frac{\sqrt{3}}{2}\ket{-}$ (orthogonal complement in the $\ket{+}$--$\ket{-}$ plane).
+
+\textbf{(e)} $\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})\propto\ket{1}$: not a superposition in $\{\ket{0},\ket{1}\}$.
+
+\textbf{(f)} $\ket{-}$: superposition in $\{\ket{0},\ket{1}\}$; in $\{\ket{+},\ket{-}\}$ it is the basis vector $\ket{-}$.
+\end{solution}
+
+\begin{exercise}{Rieffel 2.4}
+Which of the states in 2.3 are superpositions with respect to the Hadamard basis $\{\ket{+},\ket{-}\}$?
+\end{exercise}
+\begin{solution}
+\textbf{(a)} $\ket{+}$: not a superposition ($1\cdot\ket{+}+0\cdot\ket{-}$).
+
+\textbf{(b)} $\ket{0}=\frac{1}{\sqrt{2}}\ket{+}+\frac{1}{\sqrt{2}}\ket{-}$: superposition.
+
+\textbf{(c)} $\ket{1}=\frac{1}{\sqrt{2}}\ket{+}-\frac{1}{\sqrt{2}}\ket{-}$: superposition.
+
+\textbf{(d)} $\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}$: superposition (both coefficients nonzero).
+
+\textbf{(e)} $\ket{1}$: superposition in the Hadamard basis (same as (c)).
+
+\textbf{(f)} $\ket{-}$: not a superposition in $\{\ket{+},\ket{-}\}$.
+\end{solution}
+
+\begin{exercise}{Rieffel 2.6}
+For each state and measurement basis, list outcomes and probabilities.
+\end{exercise}
+\begin{solution}
+\textbf{(a)} $\psi=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=3/4$, $P(\ket{1})=1/4$.
+
+\textbf{(b)} $\psi=\frac{\sqrt{3}}{2}\ket{1}-\frac{1}{2}\ket{0}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=1/4$, $P(\ket{1})=3/4$.
+
+\textbf{(c)} $\ket{-i}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=1/2$, $P(\ket{1})=1/2$.
+
+\textbf{(d)} $\ket{0}$, $\{\ket{+},\ket{-}\}$: $P(\ket{+})=1/2$, $P(\ket{-})=1/2$.
+
+\textbf{(e)} $\ket{-}$, $\{\ket{i},\ket{-i}\}$: $|\braket{i}{-}|^2=|\frac{1}{2}(1+i)|^2=\frac{1}{2}$, $|\braket{-i}{-}|^2=\frac{1}{2}$.
+
+\textbf{(f)} $\ket{1}$, $\{\ket{i},\ket{-i}\}$: $P(\ket{i})=1/2$, $P(\ket{-i})=1/2$.
+
+\textbf{(g)} $\ket{+}$ with $\ket{u}=\frac{1}{2}\ket{0}+\frac{\sqrt{3}}{2}\ket{1}$, $\ket{v}=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1}$:
+\[
+P(\ket{u})=\left|\frac{1+\sqrt{3}}{2\sqrt{2}}\right|^2=\frac{2+\sqrt{3}}{4},\qquad
+P(\ket{v})=\left|\frac{\sqrt{3}-1}{2\sqrt{2}}\right|^2=\frac{2-\sqrt{3}}{4}.
+\]
+\textit{Octave:} \texttt{ex9\_quantum\_qubit.m}.
+\end{solution}

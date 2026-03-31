@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.3.7)  12 MAR 2026 11:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.3.7)  30 MAR 2026 20:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -642,27 +642,42 @@ m/n/10.95 jj [] \OML/cmm/m/it/10.95 V[]\OMS/cmsy/m/n/10.95 j \OT1/cmr/m/n/10.95
  (-20) =
  []
 
-[31]) [32] (./sol10_image_compression.tex
+[31]) [32] (./sol09_quantum_qubit.tex
 Chapter 10.
+
+Overfull \hbox (35.2512pt too wide) in paragraph at lines 21--22
+[]\OT1/cmr/bx/n/10.95 (-20) (f) $[] \OT1/cmr/m/n/10.95 (-20) = []([] + \OML/cmm
+/m/it/10.95 i []\OT1/cmr/m/n/10.95 (-20) )$ and $[](\OML/cmm/m/it/10.95 i [] \O
+MS/cmsy/m/n/10.95 ^^@ []\OT1/cmr/m/n/10.95 (-20) ) = [](\OMS/cmsy/m/n/10.95 ^^@
+ [] \OT1/cmr/m/n/10.95 (-20) + \OML/cmm/m/it/10.95 i []\OT1/cmr/m/n/10.95 (-20)
+ )$: \OT1/cmr/m/it/10.95 (-20) dif-fer-ent\OT1/cmr/m/n/10.95 (-20) ; in fact $[
+] =
+ []
+
 [33
 
 
-] [34] [35]) [36] (./main.aux)
+]) [34] (./sol10_image_compression.tex
+Chapter 11.
+[35
+
+
+] [36] [37]) [38] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AD2029ECB54285948F667A604BC4A723;1958.
+(rerunfilecheck)             Checksum: ADA4C2314180D717572F81B83BCC2FA3;2218.
  ) 
 Here is how much of TeX's memory you used:
- 15862 strings out of 469515
- 234560 string characters out of 5470808
- 1149220 words of memory out of 5000000
- 43692 multiletter control sequences out of 15000+600000
- 648783 words of font info for 214 fonts, out of 8000000 for 9000
+ 15885 strings out of 469515
+ 234902 string characters out of 5470808
+ 1200220 words of memory out of 5000000
+ 43701 multiletter control sequences out of 15000+600000
+ 648894 words of font info for 216 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 80i,8n,82p,1001b,2009s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,8n,82p,1001b,2011s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publi
@@ -682,10 +697,10 @@ ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts
 /type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/c
 m-super/sfrm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti109
 5.pfb>
-Output written on main.pdf (36 pages, 415274 bytes).
+Output written on main.pdf (38 pages, 424777 bytes).
 PDF statistics:
- 732 PDF objects out of 1000 (max. 8388607)
- 643 compressed objects within 7 object streams
- 376 named destinations out of 1000 (max. 500000)
- 48209 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 753 PDF objects out of 1000 (max. 8388607)
+ 662 compressed objects within 7 object streams
+ 383 named destinations out of 1000 (max. 500000)
+ 48217 words of extra memory for PDF output out of 51595 (max. 10000000)
 

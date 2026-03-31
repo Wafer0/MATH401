@@ -148,9 +148,11 @@ L/cmm/m/it/10.95 S$ \OT1/cmr/m/n/10.95 (-20) is $(1\OML/cmm/m/it/10.95 =n; [] ;
 Chapter 8.
 ) [24] (./ch08_svd.tex
 Chapter 9.
-[25]) [26] (./ch10_image_compression.tex
+[25]) [26] (./ch09_quantum_qubit.tex
 Chapter 10.
-[27]) [28] (./main.aux)
+[27]) [28] (./ch10_image_compression.tex
+Chapter 11.
+[29]) [30] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -181,5 +183,5 @@ ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/s
 frm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on main.pdf (28 pages, 351969 bytes).
+Output written on main.pdf (30 pages, 360841 bytes).
 Transcript written on main.log.
