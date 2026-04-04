@@ -64,10 +64,10 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
 (/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty))
-(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-No file main.aux.
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./main.aux)
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
+(./main.out) (./main.out)
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
@@ -75,16 +75,14 @@ No file main.aux.
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg)
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1{/var/lib/texmf/fonts/
-map/pdftex/updmap/pdftex.map}]
-No file main.toc.
-[2] (./ch00_review.tex
+map/pdftex/updmap/pdftex.map}] (./main.toc [2]) [3{/usr/share/texmf-dist/fonts/
+enc/dvips/cm-super/cm-super-ts1.enc}] (./ch00_review.tex
 Chapter 1.
-[3{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [4])
-[5] (./ch03_least_squares.tex
+[4] [5]) [6] (./ch03_least_squares.tex
 Chapter 2.
-[6] [7]) [8] (./ch04_curve_fitting.tex
+[7] [8]) [9] (./ch04_curve_fitting.tex
 Chapter 3.
-[9] [10]) [11] (./ch05_team_ranking.tex
+[10] [11]) [12] (./ch05_team_ranking.tex
 Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -94,7 +92,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 50.
 
-[12] [13]) [14] (./ch12_graph_theory.tex
+[13] [14]) [15] (./ch12_graph_theory.tex
 Chapter 5.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -104,13 +102,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 41.
 
-[15] [16]) [17] (./ch06_markov_chains.tex
+[16] [17]) [18] (./ch06_markov_chains.tex
 Chapter 6.
-[18] [19]
-
-LaTeX Warning: Reference `thm:markov-convergence' on page 20 undefined on input
- line 126.
-
+[19] [20]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 136.
@@ -131,40 +125,61 @@ alk with Ab-sorb-ing Bound-aries)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.
  1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 2\OML/cmm/m/it/10.95 ; \OT1/cm
 r/m/n/10.95 (-20) 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 4\OML/cmm/m/i
 t/10.95 ; \OT1/cmr/m/n/10.95 (-20) 5\OMS/cmsy/m/n/10.95 g$
-[20]) [21] (./ch07_pagerank.tex
+[21]) [22] (./ch07_pagerank.tex
 Chapter 7.
-
-LaTeX Warning: Reference `thm:markov-convergence' on page 22 undefined on input
- line 41.
-
-[22]
+[23]
 Overfull \hbox (8.14429pt too wide) in paragraph at lines 87--88
 [][]\OT1/cmr/bx/n/10.95 (-20) Example 7.5.3 \OT1/cmr/m/n/10.95 (-20) (Dan-gling
  Node)\OT1/cmr/bx/n/10.95 (-20) . []\OT1/cmr/m/n/10.95 (-20) Page $\OML/cmm/m/i
 t/10.95 n$ \OT1/cmr/m/n/10.95 (-20) has no out-bound links. Its col-umn in $\OM
 L/cmm/m/it/10.95 S$ \OT1/cmr/m/n/10.95 (-20) is $(1\OML/cmm/m/it/10.95 =n; [] ;
  \OT1/cmr/m/n/10.95 (-20) 1\OML/cmm/m/it/10.95 =n\OT1/cmr/m/n/10.95 (-20) )[]$
-) [23] (./ch07_1_spectral_theorem.tex
+) [24] (./ch07_1_spectral_theorem.tex
 Chapter 8.
-) [24] (./ch08_svd.tex
+) [25] (./ch08_svd.tex
 Chapter 9.
-[25]) [26] (./ch09_quantum_qubit.tex
+[26]) [27] (./ch09_quantum_qubit.tex
 Chapter 10.
-[27]) [28] (./ch10_image_compression.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 6.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 6.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 6.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 28.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 28.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 28.
+
+[28] [29]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 76.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 76.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 76.
+
+) [30] (./ch10_image_compression.tex
 Chapter 11.
-[29]) [30] (./main.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
- )
+[31]) [32] (./main.aux) )
 (see the transcript file for additional information)</usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
@@ -179,9 +194,11 @@ s/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 /share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/s
-frm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on main.pdf (30 pages, 360841 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type
+1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
+sfbx1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></
+usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf
+-dist/fonts/type1/public/cm-super/sfti1095.pfb>
+Output written on main.pdf (32 pages, 408412 bytes).
 Transcript written on main.log.

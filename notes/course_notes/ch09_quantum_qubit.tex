@@ -1,55 +1,116 @@
-\chapter{Single-Qubit Quantum Systems (Suggested Problems 5)}
+\chapter{Single-Qubit Quantum Systems}
 
-\noindent\textit{Sources: Eleanor Rieffel and Wolfgang Polak, \textit{Quantum Computing: A Gentle Introduction}, Chapter~2 (single-qubit systems); Sheldon Axler, \textit{Linear Algebra Done Right}, \S1A ($\R^n$ and $\C^n$). Optional: John Watrous, \textit{Basics of Quantum Information} (video lectures).}
-
-%% ================================================================
-\section{Complex vector spaces (Axler \S1A)}
-%% ================================================================
-
-Quantum state spaces are complex inner-product spaces. Axler's \S1A develops $\C$ and $\C^n$: complex arithmetic, conjugation, length in $\C^n$ via the usual inner product $\langle (w_1,\ldots,w_n),(z_1,\ldots,z_n)\rangle = w_1\overline{z_1}+\cdots+w_n\overline{z_n}$.
-
-A \textbf{qubit} is a unit vector in $\C^2$ (up to global phase---see below). Choosing an orthonormal basis $\{\ket{0},\ket{1}\}$ (the \textbf{standard} or \textbf{computational} basis) identifies states with column vectors $(a,b)^T$ where $|a|^2+|b|^2=1$.
+\noindent\textit{Sources: Eleanor Rieffel and Wolfgang Polak, \textit{Quantum Computing: A Gentle Introduction}, Chapter~2; Sheldon Axler, \textit{Linear Algebra Done Right}, \S1A ($\R^n$ and $\C^n$). Optional: John Watrous, \textit{Basics of Quantum Information} (video lectures).}
 
 %% ================================================================
-\section{Dirac notation (Rieffel--Polak \S2.2)}
+\section{Complex numbers and $\mathbb{C}^n$ (Axler \S1A)}
 %% ================================================================
 
-A \textbf{ket} $\ket{\psi}$ denotes a state vector. The \textbf{inner product} $\braket{\phi}{\psi}$ is linear in the second slot and conjugate-linear in the first; $\|\ket{\psi}\|=\sqrt{\braket{\psi}{\psi}}$. States satisfy $\braket{\psi}{\psi}=1$. Vectors $\ket{\beta_1},\ldots,\ket{\beta_n}$ form an \textbf{orthonormal basis} if $\braket{\beta_i}{\beta_j}=\delta_{ij}$.
+\textbf{Complex numbers.} A complex number is $z=a+bi$ with $a,b\in\R$ and $i^2=-1$. Addition and multiplication follow the usual rules with $i^2=-1$ (Axler defines these explicitly). The set $\C$ is a field: commutativity, associativity, identities, inverses, and distributivity hold (Axler 1.3). The \textbf{complex conjugate} is $\overline{a+bi}=a-bi$; \textbf{modulus} $|z|=\sqrt{z\overline{z}}$.
 
-\textbf{Born rule:} Measuring a qubit in orthonormal basis $\{\ket{b_0},\ket{b_1}\}$ yields outcome $k$ with probability $|\braket{b_k}{\psi}|^2$; after the measurement the state becomes $\ket{b_k}$.
+\textbf{Lists and $\mathbb{F}^n$.} A \textbf{list} of length $n$ is an ordered $n$-tuple $(z_1,\ldots,z_n)$. For $\mathbb{F}$ either $\R$ or $\C$, $\mathbb{F}^n$ is the set of all such lists with entries in $\mathbb{F}$. Addition and scalar multiplication are componentwise. Vectors in $\C^n$ are columns $(z_1,\ldots,z_n)^T$ when using matrix notation.
 
-\textbf{Global phase:} $\ket{\psi}$ and $e^{i\varphi}\ket{\psi}$ (with $\varphi\in\R$) represent the \emph{same} physical state. Only \emph{relative} phase between components in a fixed basis is observable in interference experiments.
+\textbf{Inner product on $\C^n$ (standard).} For $u=(w_1,\ldots,w_n)$ and $v=(z_1,\ldots,z_n)$ in $\C^n$,
+\[
+\langle u,v\rangle = w_1\overline{z_1}+\cdots+w_n\overline{z_n}.
+\]
+conjugate-linear in the \emph{second} slot and linear in the first (matching Rieffel's bra/ket usage below). The \textbf{norm} is $\|v\|=\sqrt{\langle v,v\rangle}$.
+
+\textbf{Scalars and $\mathbb{F}^n$ (Axler).} The letter $\mathbb{F}$ denotes either $\R$ or $\C$ (Axler 1.6). For fixed $n$, $\mathbb{F}^n$ is the set of all lists (ordered $n$-tuples) $(x_1,\ldots,x_n)$ with each $x_k\in\mathbb{F}$. Addition is coordinatewise; \textbf{scalar multiplication} is $\lambda(x_1,\ldots,x_n)=(\lambda x_1,\ldots,\lambda x_n)$ for $\lambda\in\mathbb{F}$. The zero vector is $0=(0,\ldots,0)$. These operations satisfy the vector-space axioms (proved in Axler from the field axioms for $\mathbb{F}$).
+
+\textbf{Fields (Axler ``Digression'').} Real and complex numbers are examples of \textbf{fields}: sets with addition and multiplication satisfying commutativity, associativity, identities, inverses (except $0$ has no multiplicative inverse), and distributivity. All results stated for $\mathbb{F}^n$ apply with $\mathbb{F}=\R$ or $\mathbb{F}=\C$.
+
+\begin{remark}[Inner-product conventions]
+Axler develops abstract inner products in Chapter~6; his complex convention may place the complex conjugate on the \emph{first} slot rather than the second. Rieffel--Polak and these notes use $\braket{\phi}{\psi}$ with conjugate-linearity in the bra---keep one convention fixed in every calculation.
+\end{remark}
 
 %% ================================================================
-\section{Standard bases for one qubit}
+\section{Qubit as $\mathbb{C}^2$ (Rieffel--Polak \S2.2)}
 %% ================================================================
 
-Fix orthonormal computational basis $\{\ket{0},\ket{1}\}$. The \textbf{Hadamard} basis is
+The \textbf{state space} of a two-level quantum system is a two-dimensional complex inner-product space. A \textbf{qubit} is a \emph{unit} vector in $\C^2$, representing a physical state up to a \textbf{global phase} $e^{i\varphi}$ (Rieffel \S2.5): $\ket{\psi}$ and $e^{i\varphi}\ket{\psi}$ are the same state.
+
+Fix an orthonormal \textbf{computational} (or \textbf{standard}) basis $\{\ket{0},\ket{1}\}$. Any (pure) state is
+\[
+\ket{\psi}=a\ket{0}+b\ket{1},\qquad a,b\in\C,\quad |a|^2+|b|^2=1.
+\]
+The ``two states'' of a classical bit are $\ket{0}$ and $\ket{1}$; a qubit can be any superposition $a\ket{0}+b\ket{1}$ on the unit sphere in $\C^2$.
+
+\textbf{Linear algebra vocabulary (Rieffel \S2.2).} A ket is a \textbf{linear combination} of kets $\ket{s_1},\ldots,\ket{s_n}$ if $\ket{v}=\sum_i a_i\ket{s_i}$ with $a_i\in\C$. The \textbf{span} of a set $S$ consists of all such combinations. A \textbf{basis} is a linearly independent spanning set; in finite dimensions every basis has the same length (\textbf{dimension}). For qubits, $\dim=2$; any two non-collinear kets form a basis, but quantum mechanics usually uses \textbf{orthonormal} bases: $\braket{\beta_i}{\beta_j}=\delta_{ij}$.
+
+%% ================================================================
+\section{Dirac notation: bras, kets, inner product}
+%% ================================================================
+
+A \textbf{ket} $\ket{\psi}$ is a column vector. The Hermitian conjugate (row) is the \textbf{bra} $\bra{\psi}=\ket{\psi}^\dagger$. The \textbf{inner product} $\braket{\phi}{\psi}$ is linear in $\ket{\psi}$ and conjugate-linear in $\bra{\phi}$. Rieffel lists the axioms: $\braket{\psi}{\psi}\ge 0$ real; $\braket{\phi}{\psi}=\overline{\braket{\psi}{\phi}}$; and linearity in the second argument. Orthogonal means $\braket{\phi}{\psi}=0$; \textbf{orthonormal} bases satisfy $\braket{\beta_i}{\beta_j}=\delta_{ij}$.
+
+\textbf{Born rule:} A projective measurement in orthonormal basis $\{\ket{b_0},\ket{b_1}\}$ gives outcome $k$ with probability
+\[
+P(k)=|\braket{b_k}{\psi}|^2,
+\]
+and the post-measurement state is $\ket{b_k}$ (for an ideal projective measurement).
+
+%% ================================================================
+\section{Photon polarization (Rieffel \S2.1)}
+%% ================================================================
+
+\textbf{Physical model.} Linear polarization of a photon is described by a unit vector in a real $2$-dimensional plane (vertical $\ket{\uparrow}$, horizontal $\ket{\rightarrow}$, or an angle in between). More general polarization uses $\C^2$ (circular and elliptical polarization correspond to complex amplitudes).
+
+\textbf{Polarizer interaction (Born rule).} A polarizer has a \textbf{preferred axis} (a unit ket $\ket{u}$). A photon in state $\ket{\psi}$ passes with probability $|\braket{u}{\psi}|^2$ and is then measured to be in state $\ket{u}$; otherwise it is absorbed (orthogonal outcome).
+
+\textbf{Three-polarizer ``paradox'' (Rieffel \S2.1.1--2.1.2).} Two crossed polarizers (e.g.\ horizontal then vertical) transmit no light. Inserting a third polarizer at $45^\circ$ between them allows some transmission: photons blocked classically can acquire amplitude in the vertical direction after passing the intermediate $\ket{\diamondsuit}$ (diagonal) polarizer, because the state is re-prepared in an intermediate basis before the final measurement.
+
+%% ================================================================
+\section{Single-qubit measurement (Rieffel \S2.3)}
+%% ================================================================
+
+A \textbf{projective measurement} in an orthonormal basis $\{\ket{b_0},\ket{b_1}\}$ yields outcome $k$ with probability $|\braket{b_k}{\psi}|^2$, and (for ideal measurement) collapses the state to $\ket{b_k}$. The same physical qubit can be measured in the computational basis $\{\ket{0},\ket{1}\}$, the Hadamard basis $\{\ket{+},\ket{-}\}$, the circular basis $\{\ket{i},\ket{-i}\}$, or any other orthonormal basis; probabilities depend on the chosen basis.
+
+%% ================================================================
+\section{BB84 quantum key distribution (Rieffel \S2.4)}
+%% ================================================================
+
+The \textbf{BB84} protocol lets two parties share a secret random bit string using qubits sent in randomly chosen bases (computational or Hadamard). Comparing a subset of bases and outcomes over a public channel reveals eavesdropping: an interceptor who measures in the wrong basis disturbs the state. This uses the fact that non-orthogonal states cannot be distinguished reliably without disturbing them---a theme beyond the SP5 exercise list but central to Rieffel's \S2.4.
+
+%% ================================================================
+\section{State space: global phase, $\mathbb{C}\mathrm{P}^1$, Bloch sphere (Rieffel \S2.5)}
+%% ================================================================
+
+Unit vectors $\ket{\psi}$ and $e^{i\varphi}\ket{\psi}$ describe the \textbf{same} physical state (\textbf{global phase}). Observable phases are \textbf{relative} (e.g.\ the phase between amplitudes of $\ket{0}$ and $\ket{1}$ in a fixed basis). The space of distinct pure states of one qubit is the complex projective line $\mathbb{C}\mathrm{P}^1$ (quotient of the unit sphere in $\C^2$ by the global-phase equivalence). The \textbf{Bloch sphere} parametrizes $\mathbb{C}\mathrm{P}^1$ by a point on the ordinary sphere $S^2$, giving a geometric picture of qubit state space (Rieffel \S2.5.2).
+
+%% ================================================================
+\section{Named bases for one qubit}
+%% ================================================================
+
+\textbf{Computational:} $\{\ket{0},\ket{1}\}$.
+
+\textbf{Hadamard:}
 \[
 \ket{+}=\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}),\qquad
 \ket{-}=\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1}).
 \]
-The \textbf{circular} (or $y$) basis often used in texts is
+
+\textbf{Circular ($y$-axis) basis:}
 \[
 \ket{i}=\tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1}),\qquad
 \ket{-i}=\tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1}).
 \]
-(Labels vary; always verify definitions from the problem statement.)
+(Some texts denote circular polarization with separate symbols; always match the problem's definitions.)
 
-A state is a \textbf{superposition} with respect to a given orthonormal basis if at least two basis coefficients are nonzero. A basis vector (e.g.\ $\ket{+}$) is \emph{not} a superposition in the basis $\{\ket{+},\ket{-}\}$, but \emph{is} a superposition in $\{\ket{0},\ket{1}\}$.
-
-%% ================================================================
-\section{Photon polarization preview (Rieffel \S2.1--2.2)}
-%% ================================================================
-
-Polarization of a photon is modeled by a unit vector in $\R^2$ (real) or $\C^2$ (general). A polarizer aligned with $\ket{0}$ transmits the $\ket{0}$ component with probability $|\braket{0}{\psi}|^2$. The three-polarizer ``paradox'' illustrates constructive interference using intermediate bases.
+A state is a \textbf{superposition} with respect to a chosen orthonormal basis if at least two basis coefficients are nonzero. The same physical state may be a superposition in one basis and a basis vector in another (e.g.\ $\ket{+}$ in $\{\ket{0},\ket{1}\}$ vs.\ $\{\ket{+},\ket{-}\}$).
 
 %% ================================================================
 \section{Suggested Problems 5 (course alignment)}
 %% ================================================================
 
-\noindent\textbf{Reading:} Axler \S1A; Rieffel--Polak \S2; optional Watrous videos.
+\noindent\textbf{Suggested reading:} Axler, \textit{Linear Algebra Done Right}, \S1A; Watrous, \textit{Basics of Quantum Information} (videos); Rieffel--Polak, \S2.
 
-\noindent\textbf{Quiz-level (Rieffel--Polak):} Exercises 2.2, 2.3, 2.4, 2.6.
+\noindent\textbf{Quiz-level:} Rieffel--Polak Exercises 2.2, 2.3, 2.4, 2.6.
 
-\noindent\textbf{Exam-level:} Same difficulty as quiz (no separate list).
+\noindent\textbf{Exam-level:} N/A (similar difficulty to quiz-level).
+
+\noindent\textbf{Code:} \texttt{ex9\_quantum\_qubit.m} (Octave checks for inner products and Born probabilities).
+
+\begin{remark}[What these notes cover]
+The sections above follow the \emph{logical order} of ideas in Axler \S1A and Rieffel \S2; they are not a substitute for reading the books (examples, figures, proofs, and all exercises). \textbf{SP5 exercises solved in the solutions PDF:} Rieffel 2.2, 2.3, 2.4, 2.6 only (per the course handout). Rieffel's other Chapter~2 exercises (e.g.\ 2.1, 2.5, 2.7--2.14) are not assigned on SP5 but appear in the textbook for extra practice.
+\end{remark}
