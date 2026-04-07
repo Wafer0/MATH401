@@ -71,6 +71,118 @@ A\bar{v}_i = \sigma_i\bar{u}_i,\qquad A^T\bar{u}_i = \sigma_i\bar{v}_i\quad\text
   \item Build $\Sigma$ with $\sigma_i$ on the diagonal; build $U$ from $\bar{u}_i$ and $V$ from $\bar{v}_i$. Fill remaining columns of $U$ and $V$ with eigenvectors for eigenvalue $0$ to complete orthonormal bases.
 \end{enumerate}
 
+\begin{remark}[Which matrix should you use?]
+If $A$ is $m\times n$, then $A^TA$ is $n\times n$ and $AA^T$ is $m\times m$.
+\begin{itemize}
+  \item Use the smaller one first when doing calculations by hand.
+  \item The eigenvectors of $A^TA$ give the \textbf{right} singular vectors ($V$).
+  \item The eigenvectors of $AA^T$ give the \textbf{left} singular vectors ($U$).
+\end{itemize}
+\end{remark}
+
+%% ================================================================
+\section{What to Show on an SVD Problem}
+%% ================================================================
+
+When the problem asks you to \emph{find an SVD}, the expected structure is:
+\begin{enumerate}
+  \item Compute $A^TA$ or $AA^T$.
+  \item Find its eigenvalues and convert them into singular values $\sigma_i=\sqrt{\lambda_i}$.
+  \item Find orthonormal eigenvectors and assemble $V$ (or $U$).
+  \item Use $u_i=\frac{1}{\sigma_i}Av_i$ or $v_i=\frac{1}{\sigma_i}A^Tu_i$.
+  \item Write the final factorization $A=U\Sigma V^T$ and, if requested, verify by multiplication.
+\end{enumerate}
+
+\begin{remark}
+If a singular value is $0$, the formula $u_i=\frac{1}{\sigma_i}Av_i$ does not apply. In that case, complete the relevant orthonormal basis using eigenvectors corresponding to the eigenvalue $0$.
+\end{remark}
+
+%% ================================================================
+\section{Worked Example}
+%% ================================================================
+
+Find an SVD of
+\[
+A=\begin{pmatrix}
+-2 & 0\\
+0 & 0
+\end{pmatrix}.
+\]
+
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}
+4 & 0\\
+0 & 0
+\end{pmatrix}.
+\]
+So the eigenvalues are $\lambda_1=4$ and $\lambda_2=0$, hence the singular values are
+\[
+\sigma_1=2,\qquad \sigma_2=0.
+\]
+
+\textbf{Step 2: Find $V$.}
+An orthonormal eigenbasis for $A^TA$ is
+\[
+v_1=\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+v_2=\begin{pmatrix}0\\1\end{pmatrix},
+\]
+so we may take
+\[
+V=\begin{pmatrix}
+1 & 0\\
+0 & 1
+\end{pmatrix}.
+\]
+
+\textbf{Step 3: Find the nonzero left singular vector.}
+\[
+u_1=\frac{1}{\sigma_1}Av_1
+=\frac{1}{2}\begin{pmatrix}-2\\0\end{pmatrix}
+=\begin{pmatrix}-1\\0\end{pmatrix}.
+\]
+To complete an orthonormal basis of $\mathbb{R}^2$, choose
+\[
+u_2=\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+Thus
+\[
+U=\begin{pmatrix}
+-1 & 0\\
+0 & 1
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Build $\Sigma$.}
+\[
+\Sigma=\begin{pmatrix}
+2 & 0\\
+0 & 0
+\end{pmatrix}.
+\]
+
+Therefore one SVD is
+\[
+\boxed{
+A=U\Sigma V^T
+=
+\begin{pmatrix}
+-1 & 0\\
+0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+2 & 0\\
+0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0\\
+0 & 1
+\end{pmatrix}.
+}
+\]
+
 %% ================================================================
 \section{Best Low-Rank Approximation}
 %% ================================================================
@@ -87,6 +199,10 @@ The proportion of variance preserved is
 \[
 \frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_{\min(m,n)}^2}.
 \]
+
+\begin{remark}
+This same quantity is what appears in image-compression problems as the \textbf{quality} or \textbf{variance preserved}. Keeping the first $k$ singular values gives the best rank-$k$ approximation in this sense.
+\end{remark}
 
 %% ================================================================
 \section{Fundamental Subspaces and Reduced SVD (Lay-McDonald \S7.4)}

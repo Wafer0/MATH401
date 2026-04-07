@@ -20,6 +20,18 @@ fprintf('|<<+|psi>>|^2 for |+> vs (2.2c second): %.6f vs %.6f\n', ...
   abs(braket(ket_plus, ket_plus))^2, abs(braket(ket_plus, psi_c))^2);
 
 disp(' ');
+disp('=== Rieffel 2.3-2.4: basis expansion checks ===');
+psi_d = sqrt(3)/2 * ket_plus - 1/2 * ket_minus;
+fprintf('2.3(d) in standard basis = [%.6f; %.6f]\n', psi_d(1), psi_d(2));
+psi_e = (ket_i - ket_mi) / sqrt(2);
+fprintf('2.3(e) proportional to |1>: residual norm = %.6e\n', ...
+  min(norm(psi_e - i*ket1), norm(psi_e + i*ket1)));
+fprintf('|0> in Hadamard basis coeffs = [%.6f; %.6f]\n', ...
+  braket(ket_plus, ket0), braket(ket_minus, ket0));
+fprintf('|1> in Hadamard basis coeffs = [%.6f; %.6f]\n', ...
+  braket(ket_plus, ket1), braket(ket_minus, ket1));
+
+disp(' ');
 disp('=== Rieffel 2.6: Born probabilities ===');
 
 function print_probs(name, psi, basis)

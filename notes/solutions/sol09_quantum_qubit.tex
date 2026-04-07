@@ -10,25 +10,131 @@ Which pairs of expressions represent the same state? For pairs that differ, give
 \begin{solution}
 \textbf{Same state} if and only if the vectors differ by an overall phase $e^{i\varphi}$.
 
-\textbf{(a)} $\ket{0}$ and $-\ket{0}$: same (phase $\pi$).
+\textbf{(a)} $\ket{0}$ and $-\ket{0}$:
+\[
+-\ket{0}=e^{i\pi}\ket{0}.
+\]
+So they represent the same state.
 
-\textbf{(b)} $\ket{1}$ and $i\ket{1}$: same (phase $\pi/2$).
+\textbf{(b)} $\ket{1}$ and $i\ket{1}$:
+\[
+i\ket{1}=e^{i\pi/2}\ket{1}.
+\]
+So they represent the same state.
 
-\textbf{(c)} $\ket{+}$ and $\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1})$: \emph{different}. In $\{\ket{0},\ket{1}\}$ both give $1/2$ each; measure in $\{\ket{+},\ket{-}\}$: $|\braket{+}{\psi}|^2=1$ for $\ket{+}$ and $|\braket{+}{\psi}|^2=\frac{1}{2}$ for the second.
+\textbf{(c)} $\ket{+}$ and
+\[
+\ket{\psi}=\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1}).
+\]
+These are \emph{different}, because if $\ket{\psi}=e^{i\theta}\ket{+}$, then comparing coefficients of $\ket{0}$ and $\ket{1}$ would give
+\[
+-1=e^{i\theta}
+\qquad\text{and}\qquad
+i=e^{i\theta},
+\]
+which is impossible.
 
-\textbf{(d)} $\ket{+}$ and $\ket{-}$: \emph{different}. Measure in $\{\ket{+},\ket{-}\}$: probabilities $(1,0)$ vs.\ $(0,1)$.
+To distinguish them, measure in the Hadamard basis $\{\ket{+},\ket{-}\}$.
+For $\ket{+}$,
+\[
+|\braket{+}{+}|^2=1.
+\]
+For $\ket{\psi}$,
+\[
+\braket{+}{\psi}
+=\frac{1}{2}\bigl(\bra{0}+\bra{1}\bigr)(-\ket{0}+i\ket{1})
+=\frac{-1+i}{2},
+\]
+so
+\[
+|\braket{+}{\psi}|^2
+=\left|\frac{-1+i}{2}\right|^2
+=\frac{1+1}{4}
+=\frac{1}{2}.
+\]
+So the measurement probabilities differ.
 
-\textbf{(e)} $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ and $\frac{1}{\sqrt{2}}(\ket{1}-\ket{0})$: same (second is $-\ket{-}$).
+\textbf{(d)} $\ket{+}$ and $\ket{-}$ are \emph{different}. Measure in $\{\ket{+},\ket{-}\}$:
+\[
+\ket{+}\mapsto (1,0),\qquad
+\ket{-}\mapsto (0,1).
+\]
 
-\textbf{(f)} $\ket{i}=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1})$ and $\frac{1}{\sqrt{2}}(i\ket{1}-\ket{0})=\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1})$: \emph{different}; in fact $\braket{i}{(-\ket{0}+i\ket{1})/\sqrt{2}}=0$, so they are orthogonal. Measure in $\{\ket{i},\ket{-i}\}$: first outcome is $\ket{i}$ with probability $1$, second is $\ket{-i}$ with probability $1$.
+\textbf{(e)}
+\[
+\frac{1}{\sqrt{2}}(\ket{1}-\ket{0})
+=-\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})
+=-\ket{-}.
+\]
+So the two expressions represent the same state.
 
-\textbf{(g)} $\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})=\ket{0}$ and $\ket{0}$: same.
+\textbf{(f)}
+\[
+\ket{i}=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1}),\qquad
+\ket{\phi}=\frac{1}{\sqrt{2}}(i\ket{1}-\ket{0})=\frac{1}{\sqrt{2}}(-\ket{0}+i\ket{1}).
+\]
+These are \emph{different}. Compute
+\[
+\braket{i}{\phi}
+=\frac{1}{2}(\bra{0}-i\bra{1})(-\ket{0}+i\ket{1})
+=\frac{1}{2}(-1+1)=0.
+\]
+So they are orthogonal. Measuring in the basis $\{\ket{i},\ket{-i}\}$ distinguishes them perfectly:
+\[
+\ket{i}\mapsto (1,0),\qquad
+\ket{\phi}=-\ket{-i}\mapsto (0,1).
+\]
 
-\textbf{(h)} $\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})=i\ket{1}$ (up to phase) and $\ket{1}$: same.
+\textbf{(g)}
+\[
+\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})
+=\frac{1}{\sqrt{2}}
+\left(
+\frac{\ket{0}+\ket{1}}{\sqrt{2}}
+\frac{\ket{0}-\ket{1}}{\sqrt{2}}
+\right)
+=\frac{1}{2}(2\ket{0})
+=\ket{0}.
+\]
+So they represent the same state.
 
-\textbf{(i)} $\frac{1}{\sqrt{2}}(\ket{i}+\ket{-i})=\ket{0}$ and $\frac{1}{\sqrt{2}}(\ket{-}+\ket{+})=\ket{0}$: same.
+\textbf{(h)}
+\[
+\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})
+=\frac{1}{\sqrt{2}}
+\left(
+\frac{\ket{0}+i\ket{1}}{\sqrt{2}}
+-\frac{\ket{0}-i\ket{1}}{\sqrt{2}}
+\right)
+=\frac{1}{2}(2i\ket{1})
+=i\ket{1}.
+\]
+Since $i\ket{1}=e^{i\pi/2}\ket{1}$, the two states are the same.
 
-\textbf{(j)} $\frac{1}{\sqrt{2}}(\ket{0}+e^{i\pi/4}\ket{1})$ and $\frac{1}{\sqrt{2}}(e^{-i\pi/4}\ket{0}+\ket{1})$: same (multiply the first by $e^{-i\pi/4}$).
+\textbf{(i)}
+\[
+\frac{1}{\sqrt{2}}(\ket{i}+\ket{-i})
+=\frac{1}{2}\bigl((\ket{0}+i\ket{1})+(\ket{0}-i\ket{1})\bigr)
+=\ket{0},
+\]
+and
+\[
+\frac{1}{\sqrt{2}}(\ket{-}+\ket{+})
+=\frac{1}{2}\bigl((\ket{0}-\ket{1})+(\ket{0}+\ket{1})\bigr)
+=\ket{0}.
+\]
+So both expressions represent the same state.
+
+\textbf{(j)} Let
+\[
+\ket{\psi}=\frac{1}{\sqrt{2}}(\ket{0}+e^{i\pi/4}\ket{1}).
+\]
+Multiply by the global phase $e^{-i\pi/4}$:
+\[
+e^{-i\pi/4}\ket{\psi}
+=\frac{1}{\sqrt{2}}(e^{-i\pi/4}\ket{0}+\ket{1}),
+\]
+which is exactly the second expression. So they represent the same state.
 \end{solution}
 
 \begin{exercise}{Rieffel 2.3}
@@ -37,56 +143,246 @@ Which states are superpositions in the standard basis? For each superposition, g
 \begin{solution}
 \textbf{Standard basis} $\{\ket{0},\ket{1}\}$: a superposition has both amplitudes nonzero.
 
-\textbf{(a)} $\ket{+}$: superposition; in $\{\ket{+},\ket{-}\}$ it is the basis vector $\ket{+}$.
+\textbf{(a)}
+\[
+\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1}),
+\]
+so it is a superposition in the standard basis. In the basis $\{\ket{+},\ket{-}\}$ it is just the basis vector $\ket{+}$.
 
-\textbf{(b)} $\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})=\ket{0}$: not a superposition.
+\textbf{(b)}
+\[
+\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})
+=\ket{0},
+\]
+so it is \emph{not} a superposition in the standard basis.
 
-\textbf{(c)} $\frac{1}{\sqrt{2}}(\ket{+}-\ket{-})=\ket{1}$: not a superposition.
+\textbf{(c)}
+\[
+\frac{1}{\sqrt{2}}(\ket{+}-\ket{-})
+=\frac{1}{2}\bigl((\ket{0}+\ket{1})-(\ket{0}-\ket{1})\bigr)
+=\ket{1},
+\]
+so it is \emph{not} a superposition in the standard basis.
 
-\textbf{(d)} $\ket{\psi}=\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}$: in $\{\ket{0},\ket{1}\}$, $\ket{\psi}=\frac{\sqrt{3}-1}{2\sqrt{2}}\ket{0}+\frac{\sqrt{3}+1}{2\sqrt{2}}\ket{1}$---both coefficients nonzero---superposition. An orthonormal basis in which $\ket{\psi}$ is the first basis vector is $\{\ket{\psi},\ket{\psi^\perp}\}$ with $\ket{\psi^\perp}=\frac{1}{2}\ket{+}+\frac{\sqrt{3}}{2}\ket{-}$ (orthogonal complement in the $\ket{+}$--$\ket{-}$ plane).
+\textbf{(d)} Let
+\[
+\ket{\psi}=\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}.
+\]
+Rewrite in the standard basis:
+\[
+\ket{\psi}
+=\frac{\sqrt{3}}{2}\cdot\frac{\ket{0}+\ket{1}}{\sqrt{2}}
+-\frac{1}{2}\cdot\frac{\ket{0}-\ket{1}}{\sqrt{2}}
+=\frac{\sqrt{3}-1}{2\sqrt{2}}\ket{0}
++\frac{\sqrt{3}+1}{2\sqrt{2}}\ket{1}.
+\]
+Both coefficients are nonzero, so this is a superposition in the standard basis.
 
-\textbf{(e)} $\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})\propto\ket{1}$: not a superposition in $\{\ket{0},\ket{1}\}$.
+In the orthonormal basis
+\[
+\left\{
+\ket{\psi},
+\ket{\psi^\perp}
+\right\},
+\qquad
+\ket{\psi^\perp}=\frac{1}{2}\ket{+}+\frac{\sqrt{3}}{2}\ket{-},
+\]
+the state $\ket{\psi}$ is a basis vector, hence not a superposition.
 
-\textbf{(f)} $\ket{-}$: superposition in $\{\ket{0},\ket{1}\}$; in $\{\ket{+},\ket{-}\}$ it is the basis vector $\ket{-}$.
+\textbf{(e)}
+\[
+\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})=i\ket{1},
+\]
+so it is \emph{not} a superposition in the standard basis.
+
+\textbf{(f)}
+\[
+\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}),
+\]
+so it is a superposition in the standard basis. In the Hadamard basis $\{\ket{+},\ket{-}\}$ it is the basis vector $\ket{-}$.
 \end{solution}
 
 \begin{exercise}{Rieffel 2.4}
 Which of the states in 2.3 are superpositions with respect to the Hadamard basis $\{\ket{+},\ket{-}\}$?
 \end{exercise}
 \begin{solution}
-\textbf{(a)} $\ket{+}$: not a superposition ($1\cdot\ket{+}+0\cdot\ket{-}$).
+\textbf{(a)} $\ket{+}$ is \emph{not} a superposition in the Hadamard basis:
+\[
+\ket{+}=1\cdot\ket{+}+0\cdot\ket{-}.
+\]
 
-\textbf{(b)} $\ket{0}=\frac{1}{\sqrt{2}}\ket{+}+\frac{1}{\sqrt{2}}\ket{-}$: superposition.
+\textbf{(b)}
+\[
+\ket{0}=\frac{1}{\sqrt{2}}\ket{+}+\frac{1}{\sqrt{2}}\ket{-},
+\]
+so it \emph{is} a superposition in the Hadamard basis.
 
-\textbf{(c)} $\ket{1}=\frac{1}{\sqrt{2}}\ket{+}-\frac{1}{\sqrt{2}}\ket{-}$: superposition.
+\textbf{(c)}
+\[
+\ket{1}=\frac{1}{\sqrt{2}}\ket{+}-\frac{1}{\sqrt{2}}\ket{-},
+\]
+so it \emph{is} a superposition in the Hadamard basis.
 
-\textbf{(d)} $\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}$: superposition (both coefficients nonzero).
+\textbf{(d)}
+\[
+\frac{\sqrt{3}}{2}\ket{+}-\frac{1}{2}\ket{-}
+\]
+has both Hadamard-basis coefficients nonzero, so it \emph{is} a superposition.
 
-\textbf{(e)} $\ket{1}$: superposition in the Hadamard basis (same as (c)).
+\textbf{(e)} From 2.3(e),
+\[
+\frac{1}{\sqrt{2}}(\ket{i}-\ket{-i})=i\ket{1}.
+\]
+Global phase does not matter, so this state is equivalent to $\ket{1}$, and therefore
+\[
+\ket{1}=\frac{1}{\sqrt{2}}\ket{+}-\frac{1}{\sqrt{2}}\ket{-}
+\]
+is a superposition in the Hadamard basis.
 
-\textbf{(f)} $\ket{-}$: not a superposition in $\{\ket{+},\ket{-}\}$.
+\textbf{(f)} $\ket{-}$ is \emph{not} a superposition in $\{\ket{+},\ket{-}\}$:
+\[
+\ket{-}=0\cdot\ket{+}+1\cdot\ket{-}.
+\]
 \end{solution}
 
 \begin{exercise}{Rieffel 2.6}
 For each state and measurement basis, list outcomes and probabilities.
 \end{exercise}
 \begin{solution}
-\textbf{(a)} $\psi=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=3/4$, $P(\ket{1})=1/4$.
-
-\textbf{(b)} $\psi=\frac{\sqrt{3}}{2}\ket{1}-\frac{1}{2}\ket{0}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=1/4$, $P(\ket{1})=3/4$.
-
-\textbf{(c)} $\ket{-i}$, $\{\ket{0},\ket{1}\}$: $P(\ket{0})=1/2$, $P(\ket{1})=1/2$.
-
-\textbf{(d)} $\ket{0}$, $\{\ket{+},\ket{-}\}$: $P(\ket{+})=1/2$, $P(\ket{-})=1/2$.
-
-\textbf{(e)} $\ket{-}$, $\{\ket{i},\ket{-i}\}$: $|\braket{i}{-}|^2=|\frac{1}{2}(1+i)|^2=\frac{1}{2}$, $|\braket{-i}{-}|^2=\frac{1}{2}$.
-
-\textbf{(f)} $\ket{1}$, $\{\ket{i},\ket{-i}\}$: $P(\ket{i})=1/2$, $P(\ket{-i})=1/2$.
-
-\textbf{(g)} $\ket{+}$ with $\ket{u}=\frac{1}{2}\ket{0}+\frac{\sqrt{3}}{2}\ket{1}$, $\ket{v}=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1}$:
+\textbf{(a)}
 \[
-P(\ket{u})=\left|\frac{1+\sqrt{3}}{2\sqrt{2}}\right|^2=\frac{2+\sqrt{3}}{4},\qquad
-P(\ket{v})=\left|\frac{\sqrt{3}-1}{2\sqrt{2}}\right|^2=\frac{2-\sqrt{3}}{4}.
+\ket{\psi}=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1},
+\qquad
+\text{basis } \{\ket{0},\ket{1}\}.
 \]
-\textit{Octave:} \texttt{ex9\_quantum\_qubit.m}.
+So the amplitudes are $\sqrt{3}/2$ and $-1/2$. Therefore
+\[
+P(\ket{0})=\left|\frac{\sqrt{3}}{2}\right|^2=\frac{3}{4},
+\qquad
+P(\ket{1})=\left|-\frac{1}{2}\right|^2=\frac{1}{4}.
+\]
+
+\textbf{(b)}
+\[
+\ket{\psi}=\frac{\sqrt{3}}{2}\ket{1}-\frac{1}{2}\ket{0}
+=-\frac{1}{2}\ket{0}+\frac{\sqrt{3}}{2}\ket{1}.
+\]
+Thus
+\[
+P(\ket{0})=\frac{1}{4},
+\qquad
+P(\ket{1})=\frac{3}{4}.
+\]
+
+\textbf{(c)}
+\[
+\ket{-i}=\frac{1}{\sqrt{2}}(\ket{0}-i\ket{1}).
+\]
+So
+\[
+P(\ket{0})=\left|\frac{1}{\sqrt{2}}\right|^2=\frac{1}{2},
+\qquad
+P(\ket{1})=\left|\frac{-i}{\sqrt{2}}\right|^2=\frac{1}{2}.
+\]
+
+\textbf{(d)} Measure $\ket{0}$ in the Hadamard basis. Since
+\[
+\ket{0}=\frac{1}{\sqrt{2}}\ket{+}+\frac{1}{\sqrt{2}}\ket{-},
+\]
+we get
+\[
+P(\ket{+})=\frac{1}{2},
+\qquad
+P(\ket{-})=\frac{1}{2}.
+\]
+
+\textbf{(e)} Measure $\ket{-}$ in the basis $\{\ket{i},\ket{-i}\}$.
+\[
+\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}),
+\qquad
+\bra{i}=\frac{1}{\sqrt{2}}(\bra{0}-i\bra{1}).
+\]
+Then
+\[
+\braket{i}{-}
+=\frac{1}{2}(\bra{0}-i\bra{1})(\ket{0}-\ket{1})
+=\frac{1+i}{2},
+\]
+so
+\[
+P(\ket{i})=\left|\frac{1+i}{2}\right|^2=\frac{1}{2}.
+\]
+Similarly,
+\[
+\braket{-i}{-}
+=\frac{1}{2}(\bra{0}+i\bra{1})(\ket{0}-\ket{1})
+=\frac{1-i}{2},
+\]
+so
+\[
+P(\ket{-i})=\left|\frac{1-i}{2}\right|^2=\frac{1}{2}.
+\]
+
+\textbf{(f)} Measure $\ket{1}$ in the basis $\{\ket{i},\ket{-i}\}$.
+\[
+\braket{i}{1}
+=\frac{1}{\sqrt{2}}(\bra{0}-i\bra{1})\ket{1}
+=-\frac{i}{\sqrt{2}},
+\]
+so
+\[
+P(\ket{i})=\left|-\frac{i}{\sqrt{2}}\right|^2=\frac{1}{2}.
+\]
+Also,
+\[
+\braket{-i}{1}
+=\frac{1}{\sqrt{2}}(\bra{0}+i\bra{1})\ket{1}
+=\frac{i}{\sqrt{2}},
+\]
+so
+\[
+P(\ket{-i})=\left|\frac{i}{\sqrt{2}}\right|^2=\frac{1}{2}.
+\]
+
+\textbf{(g)} Measure $\ket{+}$ in the basis
+\[
+\ket{u}=\frac{1}{2}\ket{0}+\frac{\sqrt{3}}{2}\ket{1},
+\qquad
+\ket{v}=\frac{\sqrt{3}}{2}\ket{0}-\frac{1}{2}\ket{1}.
+\]
+First compute the amplitudes:
+\[
+\braket{u}{+}
+=\left(\frac{1}{2}\bra{0}+\frac{\sqrt{3}}{2}\bra{1}\right)
+\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})
+=\frac{1+\sqrt{3}}{2\sqrt{2}},
+\]
+so
+\[
+P(\ket{u})
+=\left|\frac{1+\sqrt{3}}{2\sqrt{2}}\right|^2
+=\frac{(1+\sqrt{3})^2}{8}
+=\frac{4+2\sqrt{3}}{8}
+=\frac{2+\sqrt{3}}{4}.
+\]
+Likewise,
+\[
+\braket{v}{+}
+=\left(\frac{\sqrt{3}}{2}\bra{0}-\frac{1}{2}\bra{1}\right)
+\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})
+=\frac{\sqrt{3}-1}{2\sqrt{2}},
+\]
+so
+\[
+P(\ket{v})
+=\left|\frac{\sqrt{3}-1}{2\sqrt{2}}\right|^2
+=\frac{(\sqrt{3}-1)^2}{8}
+=\frac{4-2\sqrt{3}}{8}
+=\frac{2-\sqrt{3}}{4}.
+\]
+As a check,
+\[
+\frac{2+\sqrt{3}}{4}+\frac{2-\sqrt{3}}{4}=1.
+\]
+\textit{Octave verification:} \texttt{ex9\_quantum\_qubit.m}.
 \end{solution}

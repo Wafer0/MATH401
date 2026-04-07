@@ -65,10 +65,10 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texmf-dist/tex/latex/tools/verbatim.sty)
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty))
-(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./main.aux)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file main.aux.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
-(./main.out) (./main.out)
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
@@ -76,7 +76,9 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg)
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1{/var/lib/texmf/fonts/
-map/pdftex/updmap/pdftex.map}] (./main.toc) [2] (./sol00_review.tex
+map/pdftex/updmap/pdftex.map}]
+No file main.toc.
+[2] (./sol00_review.tex
 Chapter 1.
 [3] [4]) [5] (./sol03_least_squares.tex
 Chapter 2.
@@ -138,8 +140,8 @@ Chapter 7.
 Chapter 8.
 [28]) [29] (./sol08_svd.tex
 Chapter 9.
-[30]
-Overfull \hbox (1.8998pt too wide) in paragraph at lines 62--64
+[30] [31]
+Overfull \hbox (1.8998pt too wide) in paragraph at lines 239--241
 \OT1/cmr/m/it/10.95 (-20) Solution. \OT1/cmr/bx/n/10.95 (-20) 17. $\OML/cmm/m/i
 t/10.95 A \OT1/cmr/m/n/10.95 (-20) = \OML/cmm/m/it/10.95 U\OT1/cmr/m/n/10.95 (-
 20) ^^F\OML/cmm/m/it/10.95 V[]$ \OT1/cmr/m/n/10.95 (-20) with $\OML/cmm/m/it/10
@@ -149,19 +151,17 @@ OMS/cmsy/m/n/10.95 j \OT1/cmr/m/n/10.95 (-20) = \OMS/cmsy/m/n/10.95 j [] \OML/c
 mm/m/it/10.95 U\OMS/cmsy/m/n/10.95 jj [] \OT1/cmr/m/n/10.95 (-20) ^^F\OMS/cmsy/
 m/n/10.95 jj [] \OML/cmm/m/it/10.95 V[]\OMS/cmsy/m/n/10.95 j \OT1/cmr/m/n/10.95
  (-20) =
-[31]) [32] (./sol09_quantum_qubit.tex
+[32]) [33] (./sol09_quantum_qubit.tex
 Chapter 10.
-
-Overfull \hbox (35.2512pt too wide) in paragraph at lines 23--24
-[]\OT1/cmr/bx/n/10.95 (-20) (f) $[] \OT1/cmr/m/n/10.95 (-20) = []([] + \OML/cmm
-/m/it/10.95 i []\OT1/cmr/m/n/10.95 (-20) )$ and $[](\OML/cmm/m/it/10.95 i [] \O
-MS/cmsy/m/n/10.95 ^^@ []\OT1/cmr/m/n/10.95 (-20) ) = [](\OMS/cmsy/m/n/10.95 ^^@
- [] \OT1/cmr/m/n/10.95 (-20) + \OML/cmm/m/it/10.95 i []\OT1/cmr/m/n/10.95 (-20)
- )$: \OT1/cmr/m/it/10.95 (-20) dif-fer-ent\OT1/cmr/m/n/10.95 (-20) ; in fact $[
-] =
-[33]) [34] (./sol10_image_compression.tex
+[34] [35] [36] [37]) [38] (./sol10_image_compression.tex
 Chapter 11.
-[35] [36] [37]) [38] (./main.aux) )
+[39] [40] [41] [42]) [43] (./main.aux)
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
 (see the transcript file for additional information)</usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
@@ -181,5 +181,5 @@ ic/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
 ts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx14
 40.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/sh
 are/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on main.pdf (38 pages, 425003 bytes).
+Output written on main.pdf (43 pages, 437091 bytes).
 Transcript written on main.log.

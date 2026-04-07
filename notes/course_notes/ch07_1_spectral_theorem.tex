@@ -41,3 +41,112 @@ Each term $\lambda_i u_i u_i^T$ is a rank-$1$ matrix; $u_i u_i^T$ is the orthogo
 %% ================================================================
 
 When an eigenvalue has multiplicity $>1$, the eigenspace has dimension equal to the multiplicity. Use Gram--Schmidt on a basis of the eigenspace to obtain orthonormal eigenvectors for the orthogonal diagonalization.
+
+%% ================================================================
+\section{How to Orthogonally Diagonalize a Symmetric Matrix}
+%% ================================================================
+
+For a symmetric matrix $A$, the workflow is always the same:
+\begin{enumerate}
+  \item Compute the eigenvalues of $A$.
+  \item For each eigenvalue $\lambda$, find a basis of $\operatorname{Nul}(A-\lambda I)$.
+  \item If an eigenspace has dimension greater than $1$, apply Gram--Schmidt inside that eigenspace to obtain an orthonormal basis.
+  \item Normalize all eigenvectors and place them as columns of $P$.
+  \item Put the corresponding eigenvalues on the diagonal of $D$.
+\end{enumerate}
+Then $A=PDP^T$ with $P^TP=I$.
+
+\begin{remark}
+The two checks that matter most in problems are:
+\[
+P^TP=I
+\qquad \text{and} \qquad
+A=PDP^T.
+\]
+If both hold, the orthogonal diagonalization is correct.
+\end{remark}
+
+%% ================================================================
+\section{Worked Example}
+%% ================================================================
+
+Orthogonally diagonalize
+\[
+A=\begin{pmatrix}
+7 & 2\\
+2 & 4
+\end{pmatrix}.
+\]
+
+Since $A^T=A$, the Spectral Theorem applies.
+
+\textbf{Step 1: Find the eigenvalues.}
+\[
+\det(A-\lambda I)
+=
+\begin{vmatrix}
+7-\lambda & 2\\
+2 & 4-\lambda
+\end{vmatrix}
+=(7-\lambda)(4-\lambda)-4
+=\lambda^2-11\lambda+24.
+\]
+So
+\[
+\lambda^2-11\lambda+24=(\lambda-8)(\lambda-3),
+\]
+hence the eigenvalues are $\lambda_1=8$ and $\lambda_2=3$.
+
+\textbf{Step 2: Find orthonormal eigenvectors.}
+
+For $\lambda_1=8$,
+\[
+A-8I=\begin{pmatrix}-1&2\\2&-4\end{pmatrix},
+\]
+so $-x+2y=0$, hence $x=2y$. One eigenvector is
+\[
+v_1=\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+Normalize:
+\[
+u_1=\frac{1}{\sqrt{5}}\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+
+For $\lambda_2=3$,
+\[
+A-3I=\begin{pmatrix}4&2\\2&1\end{pmatrix},
+\]
+so $2x+y=0$, hence $y=-2x$. One eigenvector is
+\[
+v_2=\begin{pmatrix}1\\-2\end{pmatrix}.
+\]
+Normalize:
+\[
+u_2=\frac{1}{\sqrt{5}}\begin{pmatrix}1\\-2\end{pmatrix}.
+\]
+
+\textbf{Step 3: Build $P$ and $D$.}
+\[
+P=\begin{pmatrix}
+2/\sqrt{5} & 1/\sqrt{5}\\
+1/\sqrt{5} & -2/\sqrt{5}
+\end{pmatrix},
+\qquad
+D=\begin{pmatrix}
+8 & 0\\
+0 & 3
+\end{pmatrix}.
+\]
+
+Therefore
+\[
+\boxed{
+A=PDP^T.
+}
+\]
+
+%% ================================================================
+\section{Why This Matters for SVD}
+%% ================================================================
+
+The SVD of a matrix $A$ is built from the symmetric matrices $A^TA$ and $AA^T$. The Spectral Theorem guarantees that these matrices have orthonormal eigenbases, which is exactly what makes the singular value decomposition possible.

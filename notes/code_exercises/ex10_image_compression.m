@@ -47,7 +47,7 @@ disp(' ');
 
 %% 10.1: 4x4 image
 disp('=== Exercise 10.1: 4x4 image ===');
-A = [1 0 1 1; 1 1 0 1; 0 1 0 1; 0 1 1 0];
+A = [1 0.5 1 0; 0.5 1 0 1; 0.5 0.5 1 1; 1 0 0 0.5];
 [U,S,V] = svd(A);
 svals = diag(S);
 fprintf('Singular values: '); fprintf('%.4f ', svals'); fprintf('\n');
@@ -59,13 +59,57 @@ disp(' ');
 
 %% 10.2: 5x5 image
 disp('=== Exercise 10.2: 5x5 image ===');
-A = [1 0.5 0 1 1; 0.5 1 0.5 0 1; 0 0.5 1 0.5 0; 1 0 0.5 1 0.5; 1 1 0 0.5 1];
+A = [1 0 1 0 1; 1 0 1 0 1; 1 1 0.5 1 1; 0 1 1 1 0; 1 0 0 0 1];
 [U,S,V] = svd(A);
 svals = diag(S);
 fprintf('Singular values: '); fprintf('%.4f ', svals'); fprintf('\n');
 for k = [4 3 2 1]
   var_pres = sum(svals(1:k).^2) / sum(svals.^2);
   fprintf('  k=%d: variance preserved = %.4f\n', k, var_pres);
+end
+disp(' ');
+
+%% 10.3: User-supplied square image
+disp('=== Exercise 10.3: user-supplied image workflow ===');
+img_path = 'image.jpg';
+if exist(img_path, 'file')
+  A = imread(img_path);
+  if ndims(A) == 3
+    A = rgb2gray(A);
+  end
+  A = im2double(A);
+  A = A - min(A(:));
+  maxA = max(A(:));
+  if maxA > 0
+    A = A / maxA;
+  end
+
+  [m,n] = size(A);
+  if m ~= n
+    fprintf('Image is %dx%d, not square. Crop or resize before using this exercise.\n', m, n);
+  else
+    [U,S,V] = svd(A);
+    svals = diag(S);
+    count = length(svals);
+    fprintf('Square image size: %dx%d\n', m, n);
+    fprintf('Number of singular values: %d\n', count);
+
+    for pct = [0.75 0.50 0.25]
+      k = round(pct * count);
+      var_pres = sum(svals(1:k).^2) / sum(svals.^2);
+      fprintf('  keep %.0f%% of singular values: k=%d, quality=%.4f%%\n', ...
+        100*pct, k, 100*var_pres);
+    end
+
+    target = 0.999;
+    cum = cumsum(svals.^2);
+    total = cum(end);
+    k_min = find(cum/total >= target, 1);
+    ratio = 2*k_min / count;
+    fprintf('  min k for 99.9%% quality: %d, compression ratio=%.4f\n', k_min, ratio);
+  end
+else
+  fprintf('Place a square image at %s to run Exercise 10.3.\n', img_path);
 end
 disp(' ');
 
@@ -87,6 +131,9 @@ disp(' ');
 %% 10.6: General m x n compression
 disp('=== Exercise 10.6: General m x n compression ===');
 m = 200; n = 150; k = 30;
-ratio = k*(m+n)/(m*n);
-fprintf('m=%d, n=%d, k=%d: ratio=%.4f\n', m, n, k, ratio);
-fprintf('Worth when k < mn/(m+n) = %.1f\n', m*n/(m+n));
+ratio_exact = k*(m+n+1)/(m*n);
+ratio_approx = k*(m+n)/(m*n);
+fprintf('m=%d, n=%d, k=%d: exact ratio=%.4f, approx ratio=%.4f\n', ...
+  m, n, k, ratio_exact, ratio_approx);
+fprintf('Worth when k < mn/(m+n+1) = %.4f (exact)\n', m*n/(m+n+1));
+fprintf('Worth when k < mn/(m+n) = %.4f (approx)\n', m*n/(m+n));

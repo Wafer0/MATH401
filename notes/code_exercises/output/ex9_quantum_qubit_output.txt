@@ -2,6 +2,12 @@
 |<<i|psi>>| (2.2c second): 0.000000
 |<<+|psi>>|^2 for |+> vs (2.2c second): 1.000000 vs 0.500000
  
+=== Rieffel 2.3-2.4: basis expansion checks ===
+2.3(d) in standard basis = [0.258819; 0.965926]
+2.3(e) proportional to |1>: residual norm = 1.110223e-16
+|0> in Hadamard basis coeffs = [0.707107; 0.707107]
+|1> in Hadamard basis coeffs = [0.707107; -0.707107]
+ 
 === Rieffel 2.6: Born probabilities ===
 (a) (norm=1.000000)
   P(1) = 0.750000

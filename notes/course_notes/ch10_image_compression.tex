@@ -29,6 +29,16 @@ If a matrix $A$ represents an image, then a low-rank approximation $A'=U\Sigma'V
 
 \textbf{Effect:} As fewer singular values are kept, the image becomes more uniform while retaining as much variance as possible. Rank-1 images are a single vertical vector (shades of grey) scaled across columns.
 
+If
+\[
+A=U\Sigma V^T=\sum_{i=1}^r \sigma_i u_i v_i^T,
+\]
+then the rank-$k$ compressed image is
+\[
+A_k=\sum_{i=1}^k \sigma_i u_i v_i^T.
+\]
+This is the best rank-$k$ approximation to $A$ in Frobenius norm.
+
 %% ================================================================
 \section{Image Quality}
 %% ================================================================
@@ -41,6 +51,10 @@ The \textbf{image quality} (proportion of variance preserved) is
 \end{definition}
 
 A typical target is $\geq 99.5\%$ variance for a reasonable-looking picture.
+
+\begin{remark}
+The singular values should be ordered from largest to smallest. In image problems, this means we always keep the \emph{first} $k$ singular values, never an arbitrary collection.
+\end{remark}
 
 %% ================================================================
 \section{Data Savings}
@@ -60,7 +74,59 @@ For an $n\times n$ grayscale image:
 
 \textbf{Compression is beneficial} when $2kn < n^2$, i.e., $k < n/2$.
 
-For a general $m\times n$ (non-square) image, the same logic gives $2k(m+n)$ values if we store $k$ left singular vectors (length $m$) and $k$ right singular vectors (length $n$), plus the $k$ singular values. The exact formula depends on the storage scheme; see Exercise 10.6.
+For a general $m\times n$ image, storing the first $k$ singular triplets requires
+\[
+km \quad \text{(left singular vectors)} \qquad + \qquad kn \quad \text{(right singular vectors)} \qquad + \qquad k \quad \text{(singular values)}.
+\]
+So the exact storage count is
+\[
+k(m+n+1),
+\]
+and a standard large-scale approximation is $k(m+n)$ when the extra $k$ singular values are negligible compared to $km$ and $kn$.
+
+\begin{definition}[General Compression Ratio]
+For an $m\times n$ image compressed with $k$ singular values, an exact compression ratio is
+\[
+\frac{k(m+n+1)}{mn}.
+\]
+Ignoring the comparatively small $k$ singular values gives the common approximation
+\[
+\frac{k(m+n)}{mn}=k\left(\frac{1}{m}+\frac{1}{n}\right).
+\]
+\end{definition}
+
+\textbf{Compression is beneficial} when the stored data are fewer than the original $mn$ entries, i.e.
+\[
+k(m+n+1)<mn
+\]
+or approximately
+\[
+k<\frac{mn}{m+n}.
+\]
+
+%% ================================================================
+\section{Problem-Solving Workflow}
+%% ================================================================
+
+For the image-compression exercises, the workflow is always:
+\begin{enumerate}
+  \item Translate the image into a matrix $A$ with entries in $[0,1]$.
+  \item Compute an SVD $A=U\Sigma V^T$.
+  \item Read the singular values from the diagonal of $\Sigma$.
+  \item Form $A_k$ by zeroing out all but the first $k$ singular values.
+  \item Compute the quality
+  \[
+  \frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_r^2}.
+  \]
+  \item Compare the storage for the compressed representation with the original matrix.
+\end{enumerate}
+
+For small hand-drawn images, the main ideas are:
+\begin{itemize}
+  \item identify the matrix correctly,
+  \item keep track of how the picture changes as $k$ decreases,
+  \item report quality and compression clearly.
+\end{itemize}
 
 %% ================================================================
 \section{Principal Component Analysis (Lay-McDonald \S7.5)}

@@ -100,6 +100,52 @@ Unit vectors $\ket{\psi}$ and $e^{i\varphi}\ket{\psi}$ describe the \textbf{same
 A state is a \textbf{superposition} with respect to a chosen orthonormal basis if at least two basis coefficients are nonzero. The same physical state may be a superposition in one basis and a basis vector in another (e.g.\ $\ket{+}$ in $\{\ket{0},\ket{1}\}$ vs.\ $\{\ket{+},\ket{-}\}$).
 
 %% ================================================================
+\section{Useful Algebra for SP5}
+%% ================================================================
+
+\textbf{Same-state test.} Two nonzero kets $\ket{\psi}$ and $\ket{\phi}$ represent the same physical state if and only if
+\[
+\ket{\psi}=e^{i\theta}\ket{\phi}
+\]
+for some real $\theta$. In coordinates, this means the coefficient vectors are scalar multiples of each other by a complex number of modulus $1$.
+
+\textbf{Basis conversions.} The identities used most often in the assigned problems are
+\[
+\ket{0}=\frac{1}{\sqrt{2}}(\ket{+}+\ket{-}),
+\qquad
+\ket{1}=\frac{1}{\sqrt{2}}(\ket{+}-\ket{-}),
+\]
+and
+\[
+\ket{0}=\frac{1}{\sqrt{2}}(\ket{i}+\ket{-i}),
+\qquad
+\ket{1}=\frac{1}{i\sqrt{2}}(\ket{i}-\ket{-i}).
+\]
+These let you rewrite a state in whichever basis the problem asks about.
+
+\textbf{Superposition test.} In a basis $\{\ket{b_0},\ket{b_1}\}$, a state
+\[
+\ket{\psi}=\alpha\ket{b_0}+\beta\ket{b_1}
+\]
+is a superposition precisely when \emph{both} coefficients are nonzero.
+
+\textbf{Measurement workflow.} To measure $\ket{\psi}$ in orthonormal basis $\{\ket{b_0},\ket{b_1}\}$:
+\begin{enumerate}
+  \item Compute the amplitudes $\braket{b_0}{\psi}$ and $\braket{b_1}{\psi}$.
+  \item Square magnitudes to get probabilities:
+  \[
+  P(b_0)=|\braket{b_0}{\psi}|^2,
+  \qquad
+  P(b_1)=|\braket{b_1}{\psi}|^2.
+  \]
+  \item Check that the probabilities add to $1$.
+\end{enumerate}
+
+\begin{remark}[Finding a basis in which a state is not a superposition]
+If $\ket{\psi}$ is normalized, then any orthonormal basis of the form $\{\ket{\psi},\ket{\psi^\perp}\}$ makes $\ket{\psi}$ a basis vector rather than a superposition. In $\C^2$, once $\ket{\psi}$ is known, the orthogonal complement is one-dimensional, so $\ket{\psi^\perp}$ is unique up to phase.
+\end{remark}
+
+%% ================================================================
 \section{Suggested Problems 5 (course alignment)}
 %% ================================================================
 

@@ -7,5 +7,5 @@
 \contentsline {chapter}{\numberline {7}Google PageRank --- Solutions}{25}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Spectral Theorem --- Solutions}{28}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Singular Value Decomposition --- Solutions}{30}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Single-Qubit Quantum Systems --- Solutions}{33}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Image Compression --- Solutions}{35}{chapter.11}%
+\contentsline {chapter}{\numberline {10}Single-Qubit Quantum Systems --- Solutions}{34}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Image Compression --- Solutions}{39}{chapter.11}%

@@ -37,7 +37,184 @@ fprintf('Ex 7: sigma='); disp(diag(S)'); fprintf('err=%.2e\n', norm(A-U*S*V'));
 Find the SVD of $A=\begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}$. [Hint: Work with $A^T$.]
 \end{exercise}
 \begin{solution}
-$A^T$ is $3\times2$, so $AA^T$ is $2\times2$ (easier). $AA^T=\begin{pmatrix}17&0\\0&17\end{pmatrix}$? No: $A A^T = \begin{pmatrix}17&0\\0&17\end{pmatrix}$ gives $\sigma_1^2=\sigma_2^2=17$, so $\sigma_1=\sigma_2=\sqrt{17}\approx4.12$. Actually $A A^T = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}\begin{pmatrix}3&2\\2&3\\2&-2\end{pmatrix} = \begin{pmatrix}17&0\\0&17\end{pmatrix}$. So $\sigma_1=\sigma_2=\sqrt{17}$. For $A^TA$ ($3\times3$): eigenvalues $17,17,0$. \textbf{Octave:} \texttt{svd([3 2 2;2 3 -2])} gives $\sigma_1=5$, $\sigma_2=3$, $\sigma_3=0$. (Recomputing: $A^TA$ has eigenvalues 25, 9, 0, so $\sigma_1=5$, $\sigma_2=3$.) Full SVD: $U$, $\Sigma=\operatorname{diag}(5,3)$ in $2\times3$ form, $V$ from eigenvectors of $A^TA$.
+\textbf{Step 1: Compute $AA^T$.}
+\[
+AA^T=
+\begin{pmatrix}
+3&2&2\\
+2&3&-2
+\end{pmatrix}
+\begin{pmatrix}
+3&2\\
+2&3\\
+2&-2
+\end{pmatrix}
+=
+\begin{pmatrix}
+17&8\\
+8&17
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the singular values.}
+\[
+\det(AA^T-\lambda I)
+=
+\begin{vmatrix}
+17-\lambda&8\\
+8&17-\lambda
+\end{vmatrix}
+=(17-\lambda)^2-64
+=\lambda^2-34\lambda+225.
+\]
+So
+\[
+\lambda^2-34\lambda+225=(\lambda-25)(\lambda-9),
+\]
+hence the eigenvalues of $AA^T$ are $25$ and $9$. Therefore the singular values are
+\[
+\sigma_1=5,\qquad \sigma_2=3.
+\]
+
+\textbf{Step 3: Find the left singular vectors.}
+
+For $\lambda=25$,
+\[
+(AA^T-25I)u=0
+\quad\Rightarrow\quad
+\begin{pmatrix}
+-8&8\\
+8&-8
+\end{pmatrix}u=0,
+\]
+so $u_1=\frac{1}{\sqrt{2}}(1,1)^T$.
+
+For $\lambda=9$,
+\[
+(AA^T-9I)u=0
+\quad\Rightarrow\quad
+\begin{pmatrix}
+8&8\\
+8&8
+\end{pmatrix}u=0,
+\]
+so $u_2=\frac{1}{\sqrt{2}}(1,-1)^T$.
+
+Thus
+\[
+U=
+\begin{pmatrix}
+1/\sqrt{2}&1/\sqrt{2}\\
+1/\sqrt{2}&-1/\sqrt{2}
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the right singular vectors.}
+
+Use $v_i=\frac{1}{\sigma_i}A^Tu_i$.
+
+For $u_1$:
+\[
+A^Tu_1
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+3&2\\
+2&3\\
+2&-2
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+1
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+5\\
+5\\
+0
+\end{pmatrix},
+\]
+so
+\[
+v_1=\frac{1}{5}A^Tu_1
+=
+\begin{pmatrix}
+1/\sqrt{2}\\
+1/\sqrt{2}\\
+0
+\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+A^Tu_2
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+3&2\\
+2&3\\
+2&-2
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+1\\
+-1\\
+4
+\end{pmatrix},
+\]
+so
+\[
+v_2=\frac{1}{3}A^Tu_2
+=
+\begin{pmatrix}
+1/(3\sqrt{2})\\
+-1/(3\sqrt{2})\\
+4/(3\sqrt{2})
+\end{pmatrix}.
+\]
+
+To complete an orthonormal basis of $\mathbb{R}^3$, take a unit vector in $\operatorname{Nul}(A)$. Solving $Ax=0$ gives
+\[
+3x_1+2x_2+2x_3=0,\qquad
+2x_1+3x_2-2x_3=0,
+\]
+which yields $x=(-2,2,1)$. Normalizing,
+\[
+v_3=\frac{1}{3}\begin{pmatrix}-2\\2\\1\end{pmatrix}.
+\]
+
+Hence
+\[
+V=
+\begin{pmatrix}
+1/\sqrt{2} & 1/(3\sqrt{2}) & -2/3\\
+1/\sqrt{2} & -1/(3\sqrt{2}) & 2/3\\
+0 & 4/(3\sqrt{2}) & 1/3
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+5&0&0\\
+0&3&0
+\end{pmatrix}.
+\]
+Therefore
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+
+\textbf{Technology check:} \texttt{svd([3 2 2; 2 3 -2])} returns singular values $5$, $3$, and $0$, matching the hand computation.
 \end{solution}
 
 \begin{exercise}{7.4.14}

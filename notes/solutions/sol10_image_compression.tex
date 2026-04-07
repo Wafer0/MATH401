@@ -55,22 +55,39 @@ pct6 = d6(1)/sum(d6);  % Ex 6
 Consider the $4\times4$ image (shades 0, 0.5, 1). (a) Enter into matrix $A$. (b) Find SVD. (c) Simplify with 3, 2, 1 singular values; draw best representation.
 \end{exercise}
 \begin{solution}
-\textbf{(a)} From the image in the text (black/white/grey pattern), a plausible $4\times4$ matrix using only 0, 0.5, 1:
+\textbf{(a)} Reading the image directly from Justin's exercise page and using $0=\text{black}$, $0.5=\text{gray}$, $1=\text{white}$ gives
 \[
-A = \begin{pmatrix}1&0&1&1\\1&1&0&1\\0&1&0&1\\0&1&1&0\end{pmatrix}
+A = \begin{pmatrix}
+1&0.5&1&0\\
+0.5&1&0&1\\
+0.5&0.5&1&1\\
+1&0&0&0.5
+\end{pmatrix}.
 \]
-(Adjust entries to match the actual figure if different.)
 
-\textbf{(b)}
+\textbf{(b)} Compute the SVD with the corresponding script:
 \begin{lstlisting}
-A = [1 0 1 1; 1 1 0 1; 0 1 0 1; 0 1 1 0];
+A = [1 0.5 1 0; 0.5 1 0 1; 0.5 0.5 1 1; 1 0 0 0.5];
 [U,S,V] = svd(A);
 svals = diag(S);
 fprintf('Singular values: '); disp(svals');
 \end{lstlisting}
-\textbf{Octave output:} $\sigma_1\approx2.60$, $\sigma_2\approx1.26$, $\sigma_3\approx1.18$, $\sigma_4\approx0.52$. For $k=3,2,1$: variance preserved 97.34\%, 83.35\%, 67.40\%.
+\textbf{Octave output:}
+\[
+\sigma_1\approx2.4503,\quad
+\sigma_2\approx1.1180,\quad
+\sigma_3\approx0.8350,\quad
+\sigma_4\approx0.5464.
+\]
 
-\textbf{(c)} For $k=3,2,1$: set $S(i,i)=0$ for $i>k$, then $A'=U*S*V'$. Clamp values to $[0,1]$ for display (or leave as-is per notes). Draw the resulting $4\times4$ grid: darker = lower value, lighter = higher.
+\textbf{(c)} Keep only the first $k$ singular values and compute
+\[
+A_k=U\Sigma_k V^T.
+\]
+The quality is
+\[
+\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\sigma_2^2+\sigma_3^2+\sigma_4^2}.
+\]
 \begin{lstlisting}
 for k = [3 2 1]
   Sp = S; Sp((k+1):4, (k+1):4) = 0;
@@ -80,27 +97,63 @@ for k = [3 2 1]
   disp(Ap);
 end
 \end{lstlisting}
+\textbf{Quality values:}
+\[
+\begin{aligned}
+k=3&:\quad 96.38\%,\\
+k=2&:\quad 87.93\%,\\
+k=1&:\quad 72.78\%.
+\end{aligned}
+\]
+
+The truncated matrices are approximately
+\[
+A_3\approx
+\begin{pmatrix}
+0.984&0.285&1.052&0.151\\
+0.484&0.785&0.052&1.151\\
+0.520&0.761&0.937&0.817\\
+1.013&0.177&-0.043&0.375
+\end{pmatrix},
+\]
+\[
+A_2\approx
+\begin{pmatrix}
+0.965&0.292&1.066&0.153\\
+0.465&0.792&0.066&1.153\\
+0.851&0.645&0.674&0.777\\
+0.480&0.364&0.380&0.438
+\end{pmatrix},
+\]
+\[
+A_1\approx
+\begin{pmatrix}
+0.715&0.542&0.566&0.653\\
+0.715&0.542&0.566&0.653\\
+0.851&0.645&0.674&0.777\\
+0.480&0.364&0.380&0.438
+\end{pmatrix}.
+\]
+To sketch the compressed images, interpret values $>1$ as white and values $<0$ as black.
 \end{solution}
 
 \begin{exercise}{10.2}
 Consider the $5\times5$ image (shades 0, 0.5, 1). (a) Enter into matrix $A$. (b) Find SVD. (c) Simplify with 4, 3, 2, 1 singular values; draw.
 \end{exercise}
 \begin{solution}
-\textbf{(a)} From the image in the text:
+\textbf{(a)} Reading the smiley-face image from Justin's exercise page gives
 \[
 A = \begin{pmatrix}
-1&0.5&0&1&1\\
-0.5&1&0.5&0&1\\
-0&0.5&1&0.5&0\\
-1&0&0.5&1&0.5\\
-1&1&0&0.5&1
+1&0&1&0&1\\
+1&0&1&0&1\\
+1&1&0.5&1&1\\
+0&1&1&1&0\\
+1&0&0&0&1
 \end{pmatrix}
 \]
-(Adjust to match the actual figure.)
-
-\textbf{(b)--(c)} Same procedure. \textbf{Octave output:} $\sigma_1\approx3.16$, $\sigma_2\approx1.21$, $\sigma_3\approx1.17$, $\sigma_4\approx0.34$, $\sigma_5\approx0.21$. Variance preserved: $k=4$: 99.67\%; $k=3$: 98.80\%; $k=2$: 88.22\%; $k=1$: 77.01\%.
+\textbf{(b)} Compute the SVD with the chapter script:
 \begin{lstlisting}
-A = [1 0.5 0 1 1; 0.5 1 0.5 0 1; 0 0.5 1 0.5 0; 1 0 0.5 1 0.5; 1 1 0 0.5 1];
+A = [1 0 1 0 1; 1 0 1 0 1; 1 1 0.5 1 1; 0 1 1 1 0; 1 0 0 0 1];
 [U,S,V] = svd(A);
 svals = diag(S);
 for k = [4 3 2 1]
@@ -109,42 +162,101 @@ for k = [4 3 2 1]
   fprintf('k=%d: var=%.4f\n', k, sum(svals(1:k).^2)/sum(svals.^2));
 end
 \end{lstlisting}
+\textbf{Octave output:}
+\[
+\sigma_1\approx3.3152,\quad
+\sigma_2\approx1.8145,\quad
+\sigma_3\approx0.9835,\quad
+\sigma_4=0,\quad
+\sigma_5=0.
+\]
+
+\textbf{(c)} Since only three singular values are nonzero, the matrix has rank $3$. Therefore:
+\[
+A_4=A_3=A.
+\]
+So preserving $4$ or $3$ singular values reproduces the original image exactly, with quality $100\%$.
+
+For the remaining cases:
+\[
+\begin{aligned}
+k=2&:\quad 93.66\%,\\
+k=1&:\quad 72.07\%.
+\end{aligned}
+\]
+The truncated matrices are approximately
+\[
+A_2\approx
+\begin{pmatrix}
+1.093&0.112&0.650&0.112&1.093\\
+1.093&0.112&0.650&0.112&1.093\\
+0.868&0.841&0.998&0.841&0.868\\
+0.071&1.086&0.733&1.086&0.071\\
+0.896&-0.126&0.393&-0.126&0.896
+\end{pmatrix},
+\]
+\[
+A_1\approx
+\begin{pmatrix}
+0.908&0.421&0.750&0.421&0.908\\
+0.908&0.421&0.750&0.421&0.908\\
+1.073&0.497&0.886&0.497&1.073\\
+0.563&0.261&0.465&0.261&0.563\\
+0.643&0.298&0.531&0.298&0.643
+\end{pmatrix}.
+\]
+Again, values above $1$ are interpreted as white and values below $0$ as black when sketching the image.
 \end{solution}
 
 \begin{exercise}{10.3}
 Load a square image ($\sim200\times200$). (a) Load, grayscale, scale to $[0,1]$. (b) SVD. (c) Count singular values. (d)--(f) Preserve 75\%, 50\%, 25\% of singular values; report quality \%. (g) Min $k$ for 99.9\% quality; compression ratio; print result.
 \end{exercise}
 \begin{solution}
+\textbf{This exercise depends on the particular image you choose, so there is no single numeric answer in the repository.} The correct solution is the workflow and script below.
+
 \begin{lstlisting}
-A = imread('image.jpg');
-A = rgb2gray(A); A = im2double(A);
-A = A - min(A(:)); A = A / max(A(:));
+img_path = 'image.jpg';
+A = imread(img_path);
+if ndims(A) == 3
+  A = rgb2gray(A);
+end
+A = im2double(A);
+A = A - min(A(:));
+A = A / max(A(:));
+
+[m,n] = size(A);
+if m ~= n
+  error('Exercise 10.3 assumes a square image.');
+end
 
 [U,S,V] = svd(A);
 svals = diag(S);
-n = length(svals);
-fprintf('(c) Singular values: %d\n', n);
+count = length(svals);
+fprintf('(c) Singular values: %d\n', count);
 
 for pct = [0.75 0.50 0.25]
-  k = round(pct * n);
+  k = round(pct * count);
   var_pres = sum(svals(1:k).^2) / sum(svals.^2);
-  fprintf('Preserve %.0f%% of values: k=%d, quality=%.4f%%\n', ...
-    pct*100, k, var_pres*100);
+  fprintf('keep %.0f%% of singular values: k=%d, quality=%.4f%%\n', ...
+    100*pct, k, 100*var_pres);
 end
 
 target = 0.999;
 cum = cumsum(svals.^2);
-tot = cum(end);
-k_min = find(cum/tot >= target, 1);
-var_at_k = cum(k_min)/tot;
-comp_ratio = 2*k_min*n / n^2;
-fprintf('(g) Min k for 99.9%%: %d, quality=%.4f%%, compression=%.2f\n', ...
-  k_min, var_at_k*100, comp_ratio);
-
-Sp = S; Sp((k_min+1):end, (k_min+1):end) = 0;
-Ap = U*Sp*V';
-imshow(Ap, 'border', 'tight');
+total = cum(end);
+k_min = find(cum/total >= target, 1);
+ratio = 2*k_min / count;
+fprintf('min k for 99.9%% quality: %d, compression ratio=%.4f\n', ...
+  k_min, ratio);
 \end{lstlisting}
+
+\textbf{What to report after running the script:}
+\begin{itemize}
+  \item the number of singular values,
+  \item the quality when keeping $75\%$, $50\%$, and $25\%$ of them,
+  \item the smallest $k$ that gives at least $99.9\%$ quality,
+  \item the compression ratio $2k/n$ for an $n\times n$ image.
+\end{itemize}
 \end{solution}
 
 \begin{exercise}{10.5}
@@ -166,27 +278,59 @@ fprintf('k=%d, ratio=%.2f\n', k, 2*k/10);  % ratio = 2k/n
 For an $m\times n$ image simplified with $k$ singular values: (a) compression ratio; (b) criteria for worth doing.
 \end{exercise}
 \begin{solution}
-\textbf{(a) Storage.}
+\textbf{(a) Storage count.}
 
-We store:
+An original grayscale image stored directly as a matrix uses
+\[
+mn
+\]
+numbers.
+
+If we keep the first $k$ singular values in
+\[
+A_k=\sigma_1u_1v_1^T+\cdots+\sigma_ku_kv_k^T,
+\]
+then we must store:
 \begin{itemize}
-  \item $k$ left singular vectors $\bar{u}_1,\ldots,\bar{u}_k$, each in $\mathbb{R}^m$: $km$ values.
-  \item $k$ right singular vectors $\bar{v}_1,\ldots,\bar{v}_k$, each in $\mathbb{R}^n$: $kn$ values.
-  \item $k$ singular values: $k$ values (often negligible for large $m,n$).
+  \item $k$ left singular vectors in $\mathbb{R}^m$: $km$ numbers,
+  \item $k$ right singular vectors in $\mathbb{R}^n$: $kn$ numbers,
+  \item $k$ singular values: $k$ numbers.
 \end{itemize}
-Total: $km + kn = k(m+n)$ values (ignoring the $k$ singular values for the ratio).
+So the exact compressed storage is
+\[
+km+kn+k = k(m+n+1).
+\]
 
-Original image: $mn$ values.
+\textbf{Exact compression ratio:}
+\[
+\boxed{\frac{k(m+n+1)}{mn}.}
+\]
 
-\textbf{Compression ratio:}
+\textbf{Approximate compression ratio:}
 \[
 \boxed{\frac{k(m+n)}{mn} = k\left(\frac{1}{n}+\frac{1}{m}\right).}
 \]
 
-\textbf{(b) Worth doing when} $k(m+n) < mn$, i.e.,
+\textbf{(b) Compression is worthwhile when}
 \[
-\boxed{k < \frac{mn}{m+n}.}
+k(m+n+1)<mn.
+\]
+So the exact criterion is
+\[
+\boxed{k<\frac{mn}{m+n+1}.}
 \]
 
-For square $n\times n$: ratio $= 2k/n$, worth when $k < n/2$. $\square$
+Using the common approximation gives
+\[
+k(m+n)<mn
+\qquad\Longleftrightarrow\qquad
+\boxed{k<\frac{mn}{m+n}.}
+\]
+
+For square $n\times n$ images, this is approximately
+\[
+\frac{2k}{n}<1
+\qquad\Longleftrightarrow\qquad
+k<\frac{n}{2}.
+\]
 \end{solution}
