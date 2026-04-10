@@ -93,16 +93,17 @@ fi
 # ---------------------------------------------------------------------------
 # LaTeX: compile each document twice (for ToC, cross-refs, hyperlinks)
 # ---------------------------------------------------------------------------
-compile_latex() {
+compile_tex() {
   local doc_dir="$1"
   local tex_name="$2"
   local label="$3"
   local output_pdf="$4"
+  local engine="$5"
   local tex_base="${tex_name%.tex}"
   local log_prefix="$LOG_DIR/latex_${label}_${TIMESTAMP}"
 
   echo -n "  Compiling $label (pass 1) ... "
-  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode "$tex_name" \
+  if ( cd "$doc_dir" && "$engine" -interaction=nonstopmode "$tex_name" \
        > "${log_prefix}_pass1.log" 2>&1 ); then
     echo "OK"
   else
@@ -112,7 +113,7 @@ compile_latex() {
   fi
 
   echo -n "  Compiling $label (pass 2) ... "
-  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode "$tex_name" \
+  if ( cd "$doc_dir" && "$engine" -interaction=nonstopmode "$tex_name" \
        > "${log_prefix}_pass2.log" 2>&1 ); then
     echo "OK  (pdf -> $doc_dir/$output_pdf)"
   else
@@ -136,10 +137,11 @@ compile_latex() {
 
 if ! $OCTAVE_ONLY; then
   header "Compiling LaTeX documents"
-  compile_latex "$NOTES_DIR/course_notes" "main.tex" "course_notes" "main.pdf"
-  compile_latex "$NOTES_DIR/solutions" "main.tex" "solutions" "main.pdf"
-  compile_latex "$NOTES_DIR/sample_exams" "main.tex" "practice_exam_1_solutions" "practice_exam_1_solutions.pdf"
-  compile_latex "$NOTES_DIR/sample_exams" "practice_exam_2_1_solutions.tex" "practice_exam_2_1_solutions" "practice_exam_2_1_solutions.pdf"
+  compile_tex "$NOTES_DIR/course_notes" "main.tex" "course_notes" "main.pdf" "pdflatex"
+  compile_tex "$NOTES_DIR/solutions" "main.tex" "solutions" "main.pdf" "pdflatex"
+  compile_tex "$NOTES_DIR/sample_exams" "main.tex" "practice_exam_1_solutions" "practice_exam_1_solutions.pdf" "pdflatex"
+  compile_tex "$NOTES_DIR/sample_exams" "practice_exam_2_1_solutions.tex" "practice_exam_2_1_solutions" "practice_exam_2_1_solutions.pdf" "pdflatex"
+  compile_tex "$NOTES_DIR/practice_exam_cheat_sheet" "main.tex" "practice_exam_cheat_sheet" "practice_exam_cheat_sheet.pdf" "pdflatex"
 fi
 
 # ---------------------------------------------------------------------------

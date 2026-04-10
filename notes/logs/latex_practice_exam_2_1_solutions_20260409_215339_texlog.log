@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.7)  9 APR 2026 20:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.7)  9 APR 2026 21:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
-(./main.tex
+**practice_exam_2_1_solutions.tex
+(./practice_exam_2_1_solutions.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -91,6 +91,17 @@ LaTeX Info: Redefining \Relbar on input line 970.
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 )
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
 (/usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks22
@@ -103,17 +114,6 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headsep=\skip56
 \dth@everypar=\toks27
 )
-(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
-(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup4
-\symAMSb=\mathgroup5
-LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
 (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
@@ -395,27 +395,28 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count326
-) (./main.aux)
-\openout1 = `main.aux'.
+)
+(./practice_exam_2_1_solutions.aux)
+\openout1 = `practice_exam_2_1_solutions.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -451,18 +452,18 @@ LaTeX Font Info:    ... okay on input line 40.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 40.
-(./main.out) (./main.out)
+Package hyperref Info: Link coloring OFF on input line 45.
+(./practice_exam_2_1_solutions.out) (./practice_exam_2_1_solutions.out)
 \@outlinefile=\write3
-\openout3 = `main.out'.
+\openout3 = `practice_exam_2_1_solutions.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 40.
-Package microtype Info: Applying patch `item' on input line 40.
-Package microtype Info: Applying patch `toc' on input line 40.
-Package microtype Info: Applying patch `eqnum' on input line 40.
-Package microtype Info: Applying patch `footnote' on input line 40.
-Package microtype Info: Applying patch `verbatim' on input line 40.
-LaTeX Info: Redefining \microtypesetup on input line 40.
+LaTeX Info: Redefining \microtypecontext on input line 45.
+Package microtype Info: Applying patch `item' on input line 45.
+Package microtype Info: Applying patch `toc' on input line 45.
+Package microtype Info: Applying patch `eqnum' on input line 45.
+Package microtype Info: Applying patch `footnote' on input line 45.
+Package microtype Info: Applying patch `verbatim' on input line 45.
+LaTeX Info: Redefining \microtypesetup on input line 45.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -473,12 +474,14 @@ Package microtype Info: Patching command `\showhyphens'.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
- (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+
+(/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
 \c@lstlisting=\count327
- (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count328
 \scratchdimen=\dimen191
@@ -492,7 +495,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 \makeMPintoPDFobject=\count333
 \everyMPtoPDFconversion=\toks36
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
 
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -500,7 +503,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -508,109 +511,93 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) (./main.toc)
+)
+(./practice_exam_2_1_solutions.toc)
 \tf@toc=\write4
-\openout4 = `main.toc'.
+\openout4 = `practice_exam_2_1_solutions.toc'.
 
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (35.4784pt too wide) in paragraph at lines 77--78
-[]\OT1/cmr/bx/n/10.95 (-20) Least-squares er-ror: $[] \OT1/cmr/m/n/10.95 (-20) 
-= [] = [] = [][] =
- []
-
-[2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ] [3
 
+] [4] [5
+
+] [6
+
+] [7
+
+] [8] [9
+
+] [10] [11
+
+] [12] [13
+
+] [14] [15
+
+]
+[16] [17
+
+] [18
+
+] [19
+
+] [20
+
 ]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 134.
- [4
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 1434.
 
-] [5
+ [21
 
-]
-Overfull \hbox (98.22028pt too wide) in paragraph at lines 200--201
-\OT1/cmr/m/it/10.95 (-20) A 12-vertex graph has Fiedler vec-tor: $\OT1/cmr/bx/n
-/10.95 (-20) v \OT1/cmr/m/n/10.95 (-20) = [0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/1
-0.95 (-20) 37\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.9
-5 :\OT1/cmr/m/n/10.95 (-20) 23\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1
-/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 12\OML/cmm/
-m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.
-95 :\OT1/cmr/m/n/10.95 (-20) 34\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT
-1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 28\OML/cmm
-/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10
-.95 :\OT1/cmr/m/n/10.95 (-20) 04\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\O
-T1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 03\OML/cm
-m/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.9
-5 (-20) 42\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20)
- 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 36\OML/cmm/m/it/10.95 ; \OMS/cm
-sy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.
-95 (-20) 34\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 
-:\OT1/cmr/m/n/10.95 (-20) 42\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OM
-L/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 06][]$\OT1/cmr/m/it/10.95 (-20) .
- []
+] [22] [23
 
+] [24] [25
 
-Overfull \hbox (1.73126pt too wide) in paragraph at lines 245--246
-[][] 
- []
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [26
 
-[6
+] [27] [28
 
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [7
+] [29
 
-]
-[8
+] [30
 
-] [9
-
-] [10
-
-] [11] [12
-
-] [13
-
-] [14
-
-] [15
-
-] (./main.aux)
+] [31]
+(./practice_exam_2_1_solutions.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 051D1A9C75F7B1A099EB645B6ED03052;2564.
+Package rerunfilecheck Info: File `practice_exam_2_1_solutions.out' has not cha
+nged.
+(rerunfilecheck)             Checksum: A94A1EA715E6B0B0CB26A92BF7332532;587.
  ) 
 Here is how much of TeX's memory you used:
- 15240 strings out of 469515
- 225900 string characters out of 5470808
- 987575 words of memory out of 5000000
- 43476 multiletter control sequences out of 15000+600000
- 644038 words of font info for 164 fonts, out of 8000000 for 9000
+ 15188 strings out of 469515
+ 225883 string characters out of 5470808
+ 1042644 words of memory out of 5000000
+ 43470 multiletter control sequences out of 15000+600000
+ 640194 words of font info for 129 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,9n,79p,1001b,1841s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1024b,2080s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super
-/sfrm1095.pfb>
-Output written on main.pdf (15 pages, 261434 bytes).
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts
+/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/cm-super/sfrm1095.pfb>
+Output written on practice_exam_2_1_solutions.pdf (31 pages, 254012 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 249 compressed objects within 3 object streams
- 97 named destinations out of 1000 (max. 500000)
- 35929 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 338 PDF objects out of 1000 (max. 8388607)
+ 272 compressed objects within 3 object streams
+ 113 named destinations out of 1000 (max. 500000)
+ 27681 words of extra memory for PDF output out of 29859 (max. 10000000)
 

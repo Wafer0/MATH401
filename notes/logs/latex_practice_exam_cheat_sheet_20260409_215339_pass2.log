@@ -1,0 +1,63 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texmf-dist/tex/latex/psnfss/helvet.sty
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/share/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/share/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/share/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/share/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/share/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texmf-dist/tex/latex/psnfss/ot1phv.fd)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./main.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+))) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)))
+(/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+(/usr/share/texmf-dist/tex/latex/psnfss/ts1phv.fd) [1{/var/lib/texmf/fonts/map/
+pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+[2] (./main.aux) )</usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
+ex7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/symbols/msbm5.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/
+uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/sha
+re/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on main.pdf (2 pages, 103050 bytes).
+Transcript written on main.log.
