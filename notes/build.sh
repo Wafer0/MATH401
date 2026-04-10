@@ -83,6 +83,7 @@ if ! $LATEX_ONLY; then
     "$CODE_DIR/ex8_svd.m" \
     "$CODE_DIR/ex10_image_compression.m" \
     "$CODE_DIR/ex9_quantum_qubit.m" \
+    "$CODE_DIR/ex_practice_exam_2_1_check.m" \
     "$CODE_DIR/ex12_graph_theory.m"
   do
     run_octave "$script"
@@ -94,11 +95,14 @@ fi
 # ---------------------------------------------------------------------------
 compile_latex() {
   local doc_dir="$1"
-  local label="$2"
+  local tex_name="$2"
+  local label="$3"
+  local output_pdf="$4"
+  local tex_base="${tex_name%.tex}"
   local log_prefix="$LOG_DIR/latex_${label}_${TIMESTAMP}"
 
   echo -n "  Compiling $label (pass 1) ... "
-  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode main.tex \
+  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode "$tex_name" \
        > "${log_prefix}_pass1.log" 2>&1 ); then
     echo "OK"
   else
@@ -108,34 +112,39 @@ compile_latex() {
   fi
 
   echo -n "  Compiling $label (pass 2) ... "
-  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode main.tex \
+  if ( cd "$doc_dir" && pdflatex -interaction=nonstopmode "$tex_name" \
        > "${log_prefix}_pass2.log" 2>&1 ); then
-    echo "OK  (pdf -> $doc_dir/main.pdf)"
+    echo "OK  (pdf -> $doc_dir/$output_pdf)"
   else
     echo "ERROR  (see ${log_prefix}_pass2.log)"
     tail -20 "${log_prefix}_pass2.log" >&2
     return 1
   fi
 
+  if [ "$output_pdf" != "$tex_base.pdf" ] && [ -f "$doc_dir/$tex_base.pdf" ]; then
+    mv -f "$doc_dir/$tex_base.pdf" "$doc_dir/$output_pdf"
+  fi
+
   # Move aux/toc/out files to logs (keep doc_dir clean)
   for ext in aux toc out; do
-    local f="$doc_dir/main.$ext"
-    [ -f "$f" ] && cp "$f" "${log_prefix}_main.${ext}" && rm -f "$f"
+    local f="$doc_dir/$tex_base.$ext"
+    [ -f "$f" ] && cp "$f" "${log_prefix}_${tex_base}.${ext}" && rm -f "$f"
   done
-  # Save main.log in logs
-  [ -f "$doc_dir/main.log" ] && mv "$doc_dir/main.log" "${log_prefix}_texlog.log"
+  # Save TeX log in logs
+  [ -f "$doc_dir/$tex_base.log" ] && mv "$doc_dir/$tex_base.log" "${log_prefix}_texlog.log"
 }
 
 if ! $OCTAVE_ONLY; then
   header "Compiling LaTeX documents"
-  compile_latex "$NOTES_DIR/course_notes"  "course_notes"
-  compile_latex "$NOTES_DIR/solutions"     "solutions"
-  compile_latex "$NOTES_DIR/sample_exams"  "sample_exams"
+  compile_latex "$NOTES_DIR/course_notes" "main.tex" "course_notes" "main.pdf"
+  compile_latex "$NOTES_DIR/solutions" "main.tex" "solutions" "main.pdf"
+  compile_latex "$NOTES_DIR/sample_exams" "main.tex" "practice_exam_1_solutions" "practice_exam_1_solutions.pdf"
+  compile_latex "$NOTES_DIR/sample_exams" "practice_exam_2_1_solutions.tex" "practice_exam_2_1_solutions" "practice_exam_2_1_solutions.pdf"
 fi
 
 # ---------------------------------------------------------------------------
 header "Build complete"
 echo "  PDFs :"
-find "$NOTES_DIR" -name "main.pdf" | sort | sed 's|^|    |'
+find "$NOTES_DIR" -name "*.pdf" | sort | sed 's|^|    |'
 echo "  Logs : $LOG_DIR/"
 ls "$LOG_DIR" | sed 's|^|    |'

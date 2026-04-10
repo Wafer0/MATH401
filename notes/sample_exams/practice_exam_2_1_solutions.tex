@@ -1,0 +1,2073 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{margin=1in}
+
+\lstset{
+  language=Matlab,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  frame=single,
+  breaklines=true,
+  tabsize=2
+}
+
+\newtheoremstyle{sol}{}{}{\normalfont}{}{\bfseries}{.}{ }{}
+\theoremstyle{sol}
+\newtheorem*{solution}{Solution}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Col}{\operatorname{Col}}
+\newcommand{\Nul}{\operatorname{Nul}}
+\newcommand{\Rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ket}[1]{\lvert #1\rangle}
+\newcommand{\bra}[1]{\langle #1\rvert}
+\newcommand{\braket}[2]{\langle #1 \mid #2\rangle}
+
+\title{\textbf{Math 401 --- Practice Exam 2.1: Full Solutions}\\[0.4em]
+\normalsize Spectral Theorem $\cdot$ Singular Value Decomposition $\cdot$ Image Compression $\cdot$ Quantum Information}
+\date{Spring 2026}
+\author{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+% ============================================================
+\section{Spectral Theorem}
+% ============================================================
+
+\subsection*{Problems 25--32 --- True/False}
+
+\begin{solution}
+\textbf{25.} \emph{An $n\times n$ matrix that is orthogonally diagonalizable must be symmetric.}
+
+\textbf{True.} If $A$ is orthogonally diagonalizable, then
+\[
+A=PDP^T
+\]
+for some orthogonal matrix $P$ and diagonal matrix $D$. Taking transposes,
+\[
+A^T=(PDP^T)^T=P D^T P^T=PDP^T=A
+\]
+because $D^T=D$. Hence $A$ is symmetric.
+
+\medskip
+\textbf{26.} \emph{There are symmetric matrices that are not orthogonally diagonalizable.}
+
+\textbf{False.} By the Spectral Theorem, every real symmetric matrix is orthogonally diagonalizable.
+
+\medskip
+\textbf{27.} \emph{An orthogonal matrix is orthogonally diagonalizable.}
+
+\textbf{False.} An orthogonal matrix need not be symmetric. For example,
+\[
+Q=\begin{pmatrix}0&-1\\1&0\end{pmatrix}
+\]
+is orthogonal since $Q^TQ=I$, but it is not symmetric, so by Problem 25 it cannot be orthogonally diagonalizable over $\R$.
+
+\medskip
+\textbf{28.} \emph{If $B=PDP^T$, where $P^T=P^{-1}$ and $D$ is diagonal, then $B$ is symmetric.}
+
+\textbf{True.} Taking the transpose,
+\[
+B^T=(PDP^T)^T=PD^TP^T=PDP^T=B.
+\]
+So $B$ is symmetric.
+
+\medskip
+\textbf{29.} \emph{For a nonzero vector $v\in\R^n$, the matrix $vv^T$ is a projection matrix.}
+
+\textbf{False as stated.} In general,
+\[
+(vv^T)^2=v(v^Tv)v^T=(v^Tv)\,vv^T.
+\]
+This equals $vv^T$ only when $v^Tv=1$. So $vv^T$ is a projection matrix only when $v$ is a \emph{unit} vector. The correct projection matrix onto $\Span\{v\}$ is
+\[
+\frac{1}{v^Tv}vv^T.
+\]
+
+\medskip
+\textbf{30.} \emph{If $A^T=A$ and vectors $u$ and $v$ satisfy $Au=3u$ and $Av=4v$, then $u\cdot v=0$.}
+
+\textbf{True.} Eigenvectors of a symmetric matrix corresponding to different eigenvalues are orthogonal. Since $3\neq4$, we must have $u\cdot v=0$.
+
+\medskip
+\textbf{31.} \emph{An $n\times n$ symmetric matrix has $n$ distinct real eigenvalues.}
+
+\textbf{False.} A symmetric matrix has $n$ real eigenvalues counting multiplicity, but they need not be distinct. For example,
+\[
+I_n
+\]
+is symmetric and has only one eigenvalue, namely $1$, with multiplicity $n$.
+
+\medskip
+\textbf{32.} \emph{The dimension of an eigenspace of a symmetric matrix is sometimes less than the multiplicity of the corresponding eigenvalue.}
+
+\textbf{False.} For symmetric matrices, every eigenvalue has geometric multiplicity equal to its algebraic multiplicity. That is exactly why symmetric matrices are orthogonally diagonalizable.
+\end{solution}
+
+\clearpage
+\subsection*{Problems 33--38 --- Short proofs}
+
+\begin{solution}
+\textbf{33.} \emph{Show that if $A$ is an $n\times n$ symmetric matrix, then $(Ax)\cdot y=x\cdot(Ay)$ for all $x,y\in\R^n$.}
+
+\[
+(Ax)\cdot y=(Ax)^Ty=x^TA^Ty.
+\]
+Since $A$ is symmetric, $A^T=A$, so
+\[
+x^TA^Ty=x^TAy=x\cdot(Ay).
+\]
+Therefore $(Ax)\cdot y=x\cdot(Ay)$.
+
+\medskip
+\textbf{34.} \emph{Suppose $A$ is a symmetric $n\times n$ matrix and $B$ is any $n\times m$ matrix. Show that $B^TAB$, $B^TB$, and $BB^T$ are symmetric matrices.}
+
+Take transposes one at a time:
+\[
+(B^TAB)^T=B^TA^T(B^T)^T=B^TAB
+\]
+because $A^T=A$ and $(B^T)^T=B$.
+
+Also,
+\[
+(B^TB)^T=B^T(B^T)^T=B^TB
+\]
+and
+\[
+(BB^T)^T=(B^T)^TB^T=BB^T.
+\]
+So all three matrices are symmetric.
+
+\medskip
+\textbf{35.} \emph{Suppose $A$ is invertible and orthogonally diagonalizable. Explain why $A^{-1}$ is also orthogonally diagonalizable.}
+
+Since $A$ is orthogonally diagonalizable,
+\[
+A=PDP^T
+\]
+with $P$ orthogonal and $D$ diagonal. Because $A$ is invertible, all diagonal entries of $D$ are nonzero, so $D^{-1}$ exists and is diagonal. Then
+\[
+A^{-1}=(PDP^T)^{-1}=PD^{-1}P^T.
+\]
+This is again an orthogonal diagonalization, so $A^{-1}$ is orthogonally diagonalizable.
+
+\medskip
+\textbf{36.} \emph{Suppose $A$ and $B$ are both orthogonally diagonalizable and $AB=BA$. Explain why $AB$ is also orthogonally diagonalizable.}
+
+If $A$ and $B$ are orthogonally diagonalizable, then both are symmetric. Hence
+\[
+(AB)^T=B^TA^T=BA.
+\]
+Since $AB=BA$, this becomes
+\[
+(AB)^T=AB.
+\]
+So $AB$ is symmetric. By the Spectral Theorem, every symmetric matrix is orthogonally diagonalizable. Therefore $AB$ is orthogonally diagonalizable.
+
+\medskip
+\textbf{37.} \emph{Let $A=PDP^{-1}$, where $P$ is orthogonal and $D$ is diagonal, and let $\lambda$ be an eigenvalue of $A$ of multiplicity $k$. Then $\lambda$ appears $k$ times on the diagonal of $D$. Explain why the dimension of the eigenspace for $\lambda$ is $k$.}
+
+Because
+\[
+A=PDP^T,
+\]
+the columns of $P$ are orthonormal eigenvectors of $A$, and the diagonal entries of $D$ are the corresponding eigenvalues. If $\lambda$ appears $k$ times on the diagonal of $D$, then exactly $k$ columns of $P$ are eigenvectors for $\lambda$. Those $k$ columns are orthonormal, hence linearly independent, and they span the eigenspace for $\lambda$. Therefore the eigenspace has dimension $k$.
+
+\medskip
+\textbf{38.} \emph{Suppose $A=PRP^{-1}$, where $P$ is orthogonal and $R$ is upper triangular. Show that if $A$ is symmetric, then $R$ is symmetric and hence is actually a diagonal matrix.}
+
+Since $P$ is orthogonal, $P^{-1}=P^T$, so
+\[
+A=PRP^T.
+\]
+Taking transposes,
+\[
+A^T=(PRP^T)^T=PR^TP^T.
+\]
+But $A$ is symmetric, so $A^T=A$. Therefore
+\[
+PR^TP^T=PRP^T.
+\]
+Multiply on the left by $P^T$ and on the right by $P$:
+\[
+R^T=R.
+\]
+So $R$ is symmetric. Since $R$ is also upper triangular, being symmetric forces all entries below the diagonal to equal the entries above the diagonal. But the entries below the diagonal are already zero, so the entries above the diagonal must also be zero. Hence $R$ is diagonal.
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Singular Value Decomposition}
+% ============================================================
+
+\subsection*{Exercises 5--12 --- Find an SVD of each matrix}
+
+\subsection*{Exercise 5}
+\[
+A=\begin{pmatrix}-2&0\\0&0\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}-2&0\\0&0\end{pmatrix}
+\begin{pmatrix}-2&0\\0&0\end{pmatrix}
+=
+\begin{pmatrix}4&0\\0&0\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+
+Since $A^TA$ is already diagonal, its eigenvalues are
+\[
+\lambda_1=4,\qquad \lambda_2=0.
+\]
+So the singular values are
+\[
+\sigma_1=\sqrt{4}=2,\qquad \sigma_2=\sqrt{0}=0.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+Take
+\[
+v_1=\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+v_2=\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+Then
+\[
+V=\begin{pmatrix}1&0\\0&1\end{pmatrix}=I_2.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For the nonzero singular value,
+\[
+u_1=\frac{1}{\sigma_1}Av_1
+=\frac{1}{2}
+\begin{pmatrix}-2&0\\0&0\end{pmatrix}
+\begin{pmatrix}1\\0\end{pmatrix}
+=\frac{1}{2}\begin{pmatrix}-2\\0\end{pmatrix}
+=\begin{pmatrix}-1\\0\end{pmatrix}.
+\]
+Choose a unit vector orthogonal to $u_1$:
+\[
+u_2=\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+Thus
+\[
+U=
+\begin{pmatrix}
+-1&0\\
+0&1
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=\begin{pmatrix}2&0\\0&0\end{pmatrix}.
+\]
+Hence
+\[
+\boxed{
+A=U\Sigma V^T=
+\begin{pmatrix}
+-1&0\\
+0&1
+\end{pmatrix}
+\begin{pmatrix}
+2&0\\
+0&0
+\end{pmatrix}
+\begin{pmatrix}
+1&0\\
+0&1
+\end{pmatrix}.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 6}
+\[
+A=\begin{pmatrix}-3&0\\0&-2\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}-3&0\\0&-2\end{pmatrix}
+\begin{pmatrix}-3&0\\0&-2\end{pmatrix}
+=
+\begin{pmatrix}9&0\\0&4\end{pmatrix}.
+\]
+
+\textbf{Step 2: Singular values.}
+
+The eigenvalues of $A^TA$ are $9$ and $4$, so
+\[
+\sigma_1=3,\qquad \sigma_2=2.
+\]
+
+\textbf{Step 3: Right singular vectors.}
+
+Again $A^TA$ is diagonal, so we may take
+\[
+v_1=\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+v_2=\begin{pmatrix}0\\1\end{pmatrix},
+\qquad
+V=I_2.
+\]
+
+\textbf{Step 4: Left singular vectors.}
+\[
+u_1=\frac{1}{3}Av_1
+=\frac{1}{3}\begin{pmatrix}-3\\0\end{pmatrix}
+=\begin{pmatrix}-1\\0\end{pmatrix},
+\qquad
+u_2=\frac{1}{2}Av_2
+=\frac{1}{2}\begin{pmatrix}0\\-2\end{pmatrix}
+=\begin{pmatrix}0\\-1\end{pmatrix}.
+\]
+So
+\[
+U=
+\begin{pmatrix}
+-1&0\\
+0&-1
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=\begin{pmatrix}3&0\\0&2\end{pmatrix}.
+\]
+Therefore
+\[
+\boxed{
+A=U\Sigma V^T=
+\begin{pmatrix}
+-1&0\\
+0&-1
+\end{pmatrix}
+\begin{pmatrix}
+3&0\\
+0&2
+\end{pmatrix}
+I_2.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 7}
+\[
+A=\begin{pmatrix}2&-1\\2&2\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}2&2\\-1&2\end{pmatrix}
+\begin{pmatrix}2&-1\\2&2\end{pmatrix}
+=
+\begin{pmatrix}
+8&2\\
+2&5
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+\[
+\det(A^TA-\lambda I)
+=
+\begin{vmatrix}
+8-\lambda&2\\
+2&5-\lambda
+\end{vmatrix}
+=(8-\lambda)(5-\lambda)-4.
+\]
+Expanding,
+\[
+(8-\lambda)(5-\lambda)-4
+=40-13\lambda+\lambda^2-4
+=\lambda^2-13\lambda+36.
+\]
+Factor:
+\[
+\lambda^2-13\lambda+36=(\lambda-9)(\lambda-4).
+\]
+So the eigenvalues are
+\[
+\lambda_1=9,\qquad \lambda_2=4.
+\]
+Hence the singular values are
+\[
+\sigma_1=3,\qquad \sigma_2=2.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+For $\lambda_1=9$,
+\[
+A^TA-9I=
+\begin{pmatrix}
+-1&2\\
+2&-4
+\end{pmatrix}.
+\]
+Solving $(-1)x+2y=0$ gives $x=2y$, so an eigenvector is
+\[
+\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+Normalize:
+\[
+v_1=\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+
+For $\lambda_2=4$,
+\[
+A^TA-4I=
+\begin{pmatrix}
+4&2\\
+2&1
+\end{pmatrix}.
+\]
+Solving $4x+2y=0$ gives $y=-2x$, so an eigenvector is
+\[
+\begin{pmatrix}1\\-2\end{pmatrix}.
+\]
+Normalize:
+\[
+v_2=\frac{1}{\sqrt5}\begin{pmatrix}1\\-2\end{pmatrix}.
+\]
+
+Thus
+\[
+V=
+\begin{pmatrix}
+2/\sqrt5&1/\sqrt5\\
+1/\sqrt5&-2/\sqrt5
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For $u_1$:
+\[
+Av_1=
+\begin{pmatrix}2&-1\\2&2\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}3\\6\end{pmatrix}.
+\]
+So
+\[
+u_1=\frac{1}{3}Av_1
+=\frac{1}{3\sqrt5}\begin{pmatrix}3\\6\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}1\\2\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+Av_2=
+\begin{pmatrix}2&-1\\2&2\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}1\\-2\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}4\\-2\end{pmatrix}.
+\]
+So
+\[
+u_2=\frac{1}{2}Av_2
+=\frac{1}{2\sqrt5}\begin{pmatrix}4\\-2\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}2\\-1\end{pmatrix}.
+\]
+
+Therefore
+\[
+U=
+\begin{pmatrix}
+1/\sqrt5&2/\sqrt5\\
+2/\sqrt5&-1/\sqrt5
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+3&0\\
+0&2
+\end{pmatrix}.
+\]
+Hence
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+with the $U$, $\Sigma$, and $V$ found above.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 8}
+\[
+A=\begin{pmatrix}4&6\\0&4\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}4&0\\6&4\end{pmatrix}
+\begin{pmatrix}4&6\\0&4\end{pmatrix}
+=
+\begin{pmatrix}
+16&24\\
+24&52
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+\[
+\det(A^TA-\lambda I)
+=
+\begin{vmatrix}
+16-\lambda&24\\
+24&52-\lambda
+\end{vmatrix}
+=(16-\lambda)(52-\lambda)-24^2.
+\]
+Compute:
+\[
+(16-\lambda)(52-\lambda)-576
+=832-68\lambda+\lambda^2-576
+=\lambda^2-68\lambda+256.
+\]
+Factor:
+\[
+\lambda^2-68\lambda+256=(\lambda-64)(\lambda-4).
+\]
+So the eigenvalues are
+\[
+\lambda_1=64,\qquad \lambda_2=4.
+\]
+Hence the singular values are
+\[
+\sigma_1=8,\qquad \sigma_2=2.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+For $\lambda_1=64$,
+\[
+A^TA-64I=
+\begin{pmatrix}
+-48&24\\
+24&-12
+\end{pmatrix}.
+\]
+The equation $-48x+24y=0$ gives $y=2x$, so an eigenvector is
+\[
+\begin{pmatrix}1\\2\end{pmatrix}.
+\]
+Normalize:
+\[
+v_1=\frac{1}{\sqrt5}\begin{pmatrix}1\\2\end{pmatrix}.
+\]
+
+For $\lambda_2=4$,
+\[
+A^TA-4I=
+\begin{pmatrix}
+12&24\\
+24&48
+\end{pmatrix}.
+\]
+The equation $12x+24y=0$ gives $x=-2y$, so an eigenvector is
+\[
+\begin{pmatrix}-2\\1\end{pmatrix}.
+\]
+Normalize:
+\[
+v_2=\frac{1}{\sqrt5}\begin{pmatrix}-2\\1\end{pmatrix}.
+\]
+
+Thus
+\[
+V=
+\begin{pmatrix}
+1/\sqrt5&-2/\sqrt5\\
+2/\sqrt5&1/\sqrt5
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For $u_1$:
+\[
+Av_1=
+\begin{pmatrix}4&6\\0&4\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}1\\2\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}16\\8\end{pmatrix}.
+\]
+Hence
+\[
+u_1=\frac{1}{8}Av_1
+=\frac{1}{8\sqrt5}\begin{pmatrix}16\\8\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+Av_2=
+\begin{pmatrix}4&6\\0&4\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}-2\\1\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}-2\\4\end{pmatrix}.
+\]
+Hence
+\[
+u_2=\frac{1}{2}Av_2
+=\frac{1}{2\sqrt5}\begin{pmatrix}-2\\4\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}-1\\2\end{pmatrix}.
+\]
+
+Therefore
+\[
+U=
+\begin{pmatrix}
+2/\sqrt5&-1/\sqrt5\\
+1/\sqrt5&2/\sqrt5
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+8&0\\
+0&2
+\end{pmatrix}.
+\]
+Thus
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 9}
+\[
+A=\begin{pmatrix}3&-3\\0&0\\1&1\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}
+3&0&1\\
+-3&0&1
+\end{pmatrix}
+\begin{pmatrix}
+3&-3\\
+0&0\\
+1&1
+\end{pmatrix}
+=
+\begin{pmatrix}
+10&-8\\
+-8&10
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+\[
+\det(A^TA-\lambda I)
+=
+\begin{vmatrix}
+10-\lambda&-8\\
+-8&10-\lambda
+\end{vmatrix}
+=(10-\lambda)^2-64.
+\]
+So
+\[
+(10-\lambda)^2-64
+=\lambda^2-20\lambda+36
+=(\lambda-18)(\lambda-2).
+\]
+Hence
+\[
+\lambda_1=18,\qquad \lambda_2=2.
+\]
+So the singular values are
+\[
+\sigma_1=3\sqrt2,\qquad \sigma_2=\sqrt2.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+For $\lambda_1=18$,
+\[
+A^TA-18I=
+\begin{pmatrix}
+-8&-8\\
+-8&-8
+\end{pmatrix},
+\]
+so $x+y=0$, and we may take
+\[
+v_1=\frac{1}{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+\]
+
+For $\lambda_2=2$,
+\[
+A^TA-2I=
+\begin{pmatrix}
+8&-8\\
+-8&8
+\end{pmatrix},
+\]
+so $x-y=0$, and we may take
+\[
+v_2=\frac{1}{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix}.
+\]
+
+Therefore
+\[
+V=
+\begin{pmatrix}
+1/\sqrt2&1/\sqrt2\\
+-1/\sqrt2&1/\sqrt2
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For $u_1$:
+\[
+Av_1=
+\begin{pmatrix}
+3&-3\\
+0&0\\
+1&1
+\end{pmatrix}
+\frac{1}{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}
+=\frac{1}{\sqrt2}\begin{pmatrix}6\\0\\0\end{pmatrix}
+=\begin{pmatrix}3\sqrt2\\0\\0\end{pmatrix}.
+\]
+So
+\[
+u_1=\frac{1}{3\sqrt2}Av_1
+=\begin{pmatrix}1\\0\\0\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+Av_2=
+\begin{pmatrix}
+3&-3\\
+0&0\\
+1&1
+\end{pmatrix}
+\frac{1}{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix}
+=\frac{1}{\sqrt2}\begin{pmatrix}0\\0\\2\end{pmatrix}
+=\begin{pmatrix}0\\0\\\sqrt2\end{pmatrix}.
+\]
+So
+\[
+u_2=\frac{1}{\sqrt2}Av_2
+=\begin{pmatrix}0\\0\\1\end{pmatrix}.
+\]
+
+We need one more unit vector orthogonal to both $u_1$ and $u_2$, so choose
+\[
+u_3=\begin{pmatrix}0\\1\\0\end{pmatrix}.
+\]
+Hence
+\[
+U=
+\begin{pmatrix}
+1&0&0\\
+0&0&1\\
+0&1&0
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+3\sqrt2&0\\
+0&\sqrt2\\
+0&0
+\end{pmatrix}.
+\]
+Thus
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 10}
+\[
+A=\begin{pmatrix}7&1\\5&5\\0&0\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}
+7&5&0\\
+1&5&0
+\end{pmatrix}
+\begin{pmatrix}
+7&1\\
+5&5\\
+0&0
+\end{pmatrix}
+=
+\begin{pmatrix}
+74&32\\
+32&26
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+\[
+\det(A^TA-\lambda I)
+=
+\begin{vmatrix}
+74-\lambda&32\\
+32&26-\lambda
+\end{vmatrix}
+=(74-\lambda)(26-\lambda)-32^2.
+\]
+Compute:
+\[
+(74-\lambda)(26-\lambda)-1024
+=1924-100\lambda+\lambda^2-1024
+=\lambda^2-100\lambda+900.
+\]
+Factor:
+\[
+\lambda^2-100\lambda+900=(\lambda-90)(\lambda-10).
+\]
+Thus
+\[
+\lambda_1=90,\qquad \lambda_2=10.
+\]
+Hence
+\[
+\sigma_1=3\sqrt{10},\qquad \sigma_2=\sqrt{10}.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+For $\lambda_1=90$,
+\[
+A^TA-90I=
+\begin{pmatrix}
+-16&32\\
+32&-64
+\end{pmatrix}.
+\]
+Solving $-16x+32y=0$ gives $x=2y$, so take
+\[
+v_1=\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+
+For $\lambda_2=10$,
+\[
+A^TA-10I=
+\begin{pmatrix}
+64&32\\
+32&16
+\end{pmatrix}.
+\]
+Solving $64x+32y=0$ gives $2x+y=0$, so take
+\[
+v_2=\frac{1}{\sqrt5}\begin{pmatrix}1\\-2\end{pmatrix}.
+\]
+
+Therefore
+\[
+V=
+\begin{pmatrix}
+2/\sqrt5&1/\sqrt5\\
+1/\sqrt5&-2/\sqrt5
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For $u_1$:
+\[
+Av_1=
+\begin{pmatrix}
+7&1\\
+5&5\\
+0&0
+\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}15\\15\\0\end{pmatrix}
+=\begin{pmatrix}3\sqrt5\\3\sqrt5\\0\end{pmatrix}.
+\]
+So
+\[
+u_1=\frac{1}{3\sqrt{10}}Av_1
+=\begin{pmatrix}1/\sqrt2\\1/\sqrt2\\0\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+Av_2=
+\begin{pmatrix}
+7&1\\
+5&5\\
+0&0
+\end{pmatrix}
+\frac{1}{\sqrt5}\begin{pmatrix}1\\-2\end{pmatrix}
+=\frac{1}{\sqrt5}\begin{pmatrix}5\\-5\\0\end{pmatrix}
+=\begin{pmatrix}\sqrt5\\-\sqrt5\\0\end{pmatrix}.
+\]
+So
+\[
+u_2=\frac{1}{\sqrt{10}}Av_2
+=\begin{pmatrix}1/\sqrt2\\-1/\sqrt2\\0\end{pmatrix}.
+\]
+
+Choose
+\[
+u_3=\begin{pmatrix}0\\0\\1\end{pmatrix}
+\]
+to complete an orthonormal basis of $\R^3$.
+
+Hence
+\[
+U=
+\begin{pmatrix}
+1/\sqrt2&1/\sqrt2&0\\
+1/\sqrt2&-1/\sqrt2&0\\
+0&0&1
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+3\sqrt{10}&0\\
+0&\sqrt{10}\\
+0&0
+\end{pmatrix}.
+\]
+Therefore
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 11}
+\[
+A=\begin{pmatrix}-3&1\\6&-2\\6&-2\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}
+-3&6&6\\
+1&-2&-2
+\end{pmatrix}
+\begin{pmatrix}
+-3&1\\
+6&-2\\
+6&-2
+\end{pmatrix}
+=
+\begin{pmatrix}
+81&-27\\
+-27&9
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Find the eigenvalues of $A^TA$.}
+\[
+\det(A^TA-\lambda I)
+=
+\begin{vmatrix}
+81-\lambda&-27\\
+-27&9-\lambda
+\end{vmatrix}
+=(81-\lambda)(9-\lambda)-729.
+\]
+Compute:
+\[
+(81-\lambda)(9-\lambda)-729
+=729-90\lambda+\lambda^2-729
+=\lambda(\lambda-90).
+\]
+Thus
+\[
+\lambda_1=90,\qquad \lambda_2=0.
+\]
+So the singular values are
+\[
+\sigma_1=3\sqrt{10},\qquad \sigma_2=0.
+\]
+
+\textbf{Step 3: Find the right singular vectors.}
+
+For $\lambda_1=90$,
+\[
+A^TA-90I=
+\begin{pmatrix}
+-9&-27\\
+-27&-81
+\end{pmatrix},
+\]
+so $x+3y=0$. Take the eigenvector
+\[
+\begin{pmatrix}3\\-1\end{pmatrix}
+\]
+and normalize:
+\[
+v_1=\frac{1}{\sqrt{10}}\begin{pmatrix}3\\-1\end{pmatrix}.
+\]
+
+An orthonormal vector perpendicular to $v_1$ is
+\[
+v_2=\frac{1}{\sqrt{10}}\begin{pmatrix}1\\3\end{pmatrix}.
+\]
+So
+\[
+V=
+\begin{pmatrix}
+3/\sqrt{10}&1/\sqrt{10}\\
+-1/\sqrt{10}&3/\sqrt{10}
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For the nonzero singular value,
+\[
+Av_1=
+\begin{pmatrix}
+-3&1\\
+6&-2\\
+6&-2
+\end{pmatrix}
+\frac{1}{\sqrt{10}}\begin{pmatrix}3\\-1\end{pmatrix}
+=\frac{1}{\sqrt{10}}\begin{pmatrix}-10\\20\\20\end{pmatrix}
+=\begin{pmatrix}-\sqrt{10}\\2\sqrt{10}\\2\sqrt{10}\end{pmatrix}.
+\]
+Hence
+\[
+u_1=\frac{1}{3\sqrt{10}}Av_1
+=\begin{pmatrix}-1/3\\2/3\\2/3\end{pmatrix}.
+\]
+
+We now choose two unit vectors orthogonal to $u_1$. One convenient orthogonal completion, matching the hint on the exam sheet, is
+\[
+u_2=\begin{pmatrix}2/3\\-1/3\\2/3\end{pmatrix},
+\qquad
+u_3=\begin{pmatrix}2/3\\2/3\\-1/3\end{pmatrix}.
+\]
+Thus
+\[
+U=
+\begin{pmatrix}
+-1/3&2/3&2/3\\
+2/3&-1/3&2/3\\
+2/3&2/3&-1/3
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+3\sqrt{10}&0\\
+0&0\\
+0&0
+\end{pmatrix}.
+\]
+Therefore
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 12}
+\[
+A=\begin{pmatrix}1&1\\0&1\\-1&1\end{pmatrix}
+\]
+
+\begin{solution}
+\textbf{Step 1: Compute $A^TA$.}
+\[
+A^TA=
+\begin{pmatrix}
+1&0&-1\\
+1&1&1
+\end{pmatrix}
+\begin{pmatrix}
+1&1\\
+0&1\\
+-1&1
+\end{pmatrix}
+=
+\begin{pmatrix}
+2&0\\
+0&3
+\end{pmatrix}.
+\]
+
+\textbf{Step 2: Singular values.}
+
+Because $A^TA$ is diagonal, its eigenvalues are
+\[
+\lambda_1=3,\qquad \lambda_2=2.
+\]
+Hence the singular values are
+\[
+\sigma_1=\sqrt3,\qquad \sigma_2=\sqrt2.
+\]
+
+\textbf{Step 3: Right singular vectors.}
+
+For $\lambda_1=3$, the eigenvector is $e_2=(0,1)^T$.
+
+For $\lambda_2=2$, the eigenvector is $e_1=(1,0)^T$.
+
+So we take
+\[
+v_1=\begin{pmatrix}0\\1\end{pmatrix},
+\qquad
+v_2=\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+V=
+\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Find the left singular vectors.}
+
+For $u_1$:
+\[
+u_1=\frac{1}{\sqrt3}Av_1
+=\frac{1}{\sqrt3}
+\begin{pmatrix}1\\1\\1\end{pmatrix}
+=\frac{1}{\sqrt3}\begin{pmatrix}1\\1\\1\end{pmatrix}.
+\]
+
+For $u_2$:
+\[
+u_2=\frac{1}{\sqrt2}Av_2
+=\frac{1}{\sqrt2}
+\begin{pmatrix}1\\0\\-1\end{pmatrix}
+=\frac{1}{\sqrt2}\begin{pmatrix}1\\0\\-1\end{pmatrix}.
+\]
+
+To complete an orthonormal basis of $\R^3$, choose
+\[
+u_3=\frac{1}{\sqrt6}\begin{pmatrix}1\\-2\\1\end{pmatrix},
+\]
+which is exactly the column hinted at on the exam sheet.
+
+Therefore
+\[
+U=
+\begin{pmatrix}
+1/\sqrt3&1/\sqrt2&1/\sqrt6\\
+1/\sqrt3&0&-2/\sqrt6\\
+1/\sqrt3&-1/\sqrt2&1/\sqrt6
+\end{pmatrix}.
+\]
+
+\textbf{Step 5: Assemble the SVD.}
+\[
+\Sigma=
+\begin{pmatrix}
+\sqrt3&0\\
+0&\sqrt2\\
+0&0
+\end{pmatrix}.
+\]
+Thus
+\[
+\boxed{
+A=U\Sigma V^T.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 14 --- Unit vector where $Ax$ has maximum length}
+
+\begin{solution}
+This refers to Exercise 7, where
+\[
+A=\begin{pmatrix}2&-1\\2&2\end{pmatrix}.
+\]
+For any unit vector $x$, the maximum possible value of $\norm{Ax}$ is the largest singular value $\sigma_1$, and it occurs when $x$ is a first right singular vector.
+
+From Exercise 7, the largest singular value is
+\[
+\sigma_1=3
+\]
+and one corresponding right singular vector is
+\[
+v_1=\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}.
+\]
+Therefore one unit vector at which $Ax$ has maximum length is
+\[
+\boxed{x=\frac{1}{\sqrt5}\begin{pmatrix}2\\1\end{pmatrix}.}
+\]
+Then
+\[
+\norm{Ax}=\sigma_1=3.
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 15 --- Read rank, column space, and null space from the SVD}
+
+\begin{solution}
+The exam sheet gives an SVD of the form
+\[
+A=U\Sigma V^T
+\]
+with
+\[
+U=
+\begin{pmatrix}
+.40&-.78&.47\\
+.37&-.33&-.87\\
+-.84&-.52&-.16
+\end{pmatrix},
+\qquad
+\Sigma=
+\begin{pmatrix}
+7.10&0&0\\
+0&3.10&0\\
+0&0&0
+\end{pmatrix},
+\]
+and
+\[
+V^T=
+\begin{pmatrix}
+.30&-.51&-.81\\
+.76&.64&-.12\\
+.58&-.58&.58
+\end{pmatrix}.
+\]
+
+\textbf{(a) Rank.}
+
+The rank of $A$ is the number of nonzero singular values. Here the singular values are $7.10$, $3.10$, and $0$, so
+\[
+\boxed{\Rank(A)=2.}
+\]
+
+\textbf{(b) Basis for $\Col(A)$.}
+
+In an SVD, the columns of $U$ corresponding to the nonzero singular values form a basis for the column space. So a basis for $\Col(A)$ is the first two columns of $U$:
+\[
+\boxed{
+\left\{
+\begin{pmatrix}.40\\.37\\-.84\end{pmatrix},
+\begin{pmatrix}-.78\\-.33\\-.52\end{pmatrix}
+\right\}.
+}
+\]
+
+\textbf{Basis for $\Nul(A)$.}
+
+The columns of $V$ corresponding to zero singular values form a basis for the null space. Since the third singular value is zero, we need the third column of $V$.
+
+Because the matrix on the exam is $V^T$, its rows are the transposes of the columns of $V$. Hence
+\[
+v_3=
+\begin{pmatrix}
+.58\\
+-.58\\
+.58
+\end{pmatrix}.
+\]
+Therefore
+\[
+\boxed{
+\Nul(A)=\Span\left\{
+\begin{pmatrix}
+.58\\
+-.58\\
+.58
+\end{pmatrix}
+\right\}.
+}
+\]
+\end{solution}
+
+\clearpage
+\subsection*{Exercises 17--18}
+
+\begin{solution}
+\textbf{17.} \emph{Show that if $A$ is square, then $|\det A|$ is the product of the singular values of $A$.}
+
+Let
+\[
+A=U\Sigma V^T
+\]
+be an SVD of the square matrix $A$. Then
+\[
+\det(A)=\det(U)\det(\Sigma)\det(V^T).
+\]
+Since $U$ and $V$ are orthogonal,
+\[
+|\det(U)|=|\det(V^T)|=1.
+\]
+Also, $\Sigma$ is diagonal with diagonal entries $\sigma_1,\dots,\sigma_n$, so
+\[
+\det(\Sigma)=\sigma_1\sigma_2\cdots\sigma_n.
+\]
+Taking absolute values gives
+\[
+|\det(A)|=|\det(U)|\,|\det(\Sigma)|\,|\det(V^T)|
+=\sigma_1\sigma_2\cdots\sigma_n.
+\]
+Thus
+\[
+\boxed{|\det(A)|=\sigma_1\sigma_2\cdots\sigma_n.}
+\]
+
+\medskip
+\textbf{18.} \emph{Suppose $A$ is square and invertible. Find a singular value decomposition of $A^{-1}$.}
+
+If
+\[
+A=U\Sigma V^T
+\]
+is an SVD of $A$, then invertibility means every singular value is positive, so $\Sigma^{-1}$ exists. Taking inverses:
+\[
+A^{-1}=(U\Sigma V^T)^{-1}=V\Sigma^{-1}U^T.
+\]
+Here $V$ and $U$ are orthogonal, and $\Sigma^{-1}$ is diagonal with entries
+\[
+\frac{1}{\sigma_1},\dots,\frac{1}{\sigma_n}.
+\]
+So an SVD of $A^{-1}$ is
+\[
+\boxed{A^{-1}=V\Sigma^{-1}U^T.}
+\]
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Image Compression}
+% ============================================================
+
+\subsection*{Exercise 10.1}
+
+\begin{solution}
+\textbf{(a) Enter the image as a matrix.}
+
+Reading the $4\times4$ image from the exam page and using
+\[
+0=\text{black},\qquad 0.5=\text{gray},\qquad 1=\text{white},
+\]
+we obtain
+\[
+A=
+\begin{pmatrix}
+1&0.5&1&0\\
+0.5&1&0&1\\
+0.5&0.5&1&1\\
+1&0&0&0.5
+\end{pmatrix}.
+\]
+
+\textbf{(b) Find the SVD of $A$.}
+
+Since this is a $4\times4$ matrix, this is no longer a good by-hand determinant problem. The clean approach is to use Matlab:
+\begin{lstlisting}
+A = [1 0.5 1 0; 0.5 1 0 1; 0.5 0.5 1 1; 1 0 0 0.5];
+[U,S,V] = svd(A);
+svals = diag(S);
+fprintf('Singular values: ');
+disp(svals');
+\end{lstlisting}
+
+\textbf{Octave output:}
+\begin{lstlisting}
+Singular values: 2.4503 1.1180 0.8350 0.5464
+\end{lstlisting}
+
+The singular values are approximately
+\[
+\sigma_1\approx2.4503,\qquad
+\sigma_2\approx1.1180,\qquad
+\sigma_3\approx0.8350,\qquad
+\sigma_4\approx0.5464.
+\]
+
+\textbf{(c) Keep only 3, then 2, then 1 singular value.}
+
+For each $k$, the rank-$k$ approximation is
+\[
+A_k=U\Sigma_kV^T,
+\]
+where $\Sigma_k$ is obtained from $\Sigma$ by keeping only the first $k$ singular values.
+
+The proportion of image energy preserved is
+\[
+\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\sigma_2^2+\sigma_3^2+\sigma_4^2}.
+\]
+
+Using Matlab:
+\begin{lstlisting}
+for k = [3 2 1]
+  Sk = S;
+  Sk((k+1):4,(k+1):4) = 0;
+  Ak = U*Sk*V';
+  quality = sum(svals(1:k).^2) / sum(svals.^2);
+  fprintf('k=%d, quality=%.4f\n', k, quality);
+  disp(Ak);
+end
+\end{lstlisting}
+
+\textbf{Octave output:}
+\begin{lstlisting}
+k=3, quality=0.9638
+k=2, quality=0.8793
+k=1, quality=0.7278
+\end{lstlisting}
+
+The preserved quality is approximately
+\[
+\begin{aligned}
+k=3&:\quad 96.38\%,\\
+k=2&:\quad 87.93\%,\\
+k=1&:\quad 72.78\%.
+\end{aligned}
+\]
+
+The approximating matrices are
+\[
+A_3\approx
+\begin{pmatrix}
+0.984&0.285&1.052&0.151\\
+0.484&0.785&0.052&1.151\\
+0.520&0.761&0.937&0.817\\
+1.013&0.177&-0.043&0.375
+\end{pmatrix},
+\]
+\[
+A_2\approx
+\begin{pmatrix}
+0.965&0.292&1.066&0.153\\
+0.465&0.792&0.066&1.153\\
+0.851&0.645&0.674&0.777\\
+0.480&0.364&0.380&0.438
+\end{pmatrix},
+\]
+\[
+A_1\approx
+\begin{pmatrix}
+0.715&0.542&0.566&0.653\\
+0.715&0.542&0.566&0.653\\
+0.851&0.645&0.674&0.777\\
+0.480&0.364&0.380&0.438
+\end{pmatrix}.
+\]
+
+To sketch the images, round entries near $1$ to white, entries near $0.5$ to gray, and entries near $0$ to black. Values slightly above $1$ or below $0$ are numerical overshoot from the low-rank approximation.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 10.3}
+
+\begin{solution}
+This problem depends on \emph{which} $200\times200$ image you choose, so there is no single universal numeric answer. The correct full solution is the workflow below.
+
+\textbf{(a) Load the image, convert to grayscale if needed, and scale to $[0,1]$.}
+\begin{lstlisting}
+img_path = 'image.jpg';
+A = imread(img_path);
+if ndims(A) == 3
+  A = rgb2gray(A);
+end
+A = im2double(A);
+A = A - min(A(:));
+A = A / max(A(:));
+\end{lstlisting}
+
+\textbf{(b) Find the SVD.}
+\begin{lstlisting}
+[U,S,V] = svd(A);
+svals = diag(S);
+\end{lstlisting}
+
+\textbf{(c) Count the singular values.}
+
+If the image is $n\times n$, then there are $n$ singular values. So for a $200\times200$ image,
+\[
+\boxed{200\text{ singular values}.}
+\]
+In Matlab:
+\begin{lstlisting}
+count = length(svals);
+fprintf('Number of singular values: %d\n', count);
+\end{lstlisting}
+
+If you run the script without first adding an image file, the current Octave output in this repository is:
+\begin{lstlisting}
+Place a square image at image.jpg to run Exercise 10.3.
+\end{lstlisting}
+
+\textbf{(d), (e), (f) Keep 75\%, 50\%, and 25\% of the singular values.}
+
+The quality preserved by keeping the first $k$ singular values is
+\[
+\text{quality}(k)=\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_n^2}.
+\]
+Use:
+\begin{lstlisting}
+for pct = [0.75 0.50 0.25]
+  k = round(pct * count);
+  quality = sum(svals(1:k).^2) / sum(svals.^2);
+  fprintf('keep %.0f%%: k=%d, quality=%.4f%%\n', ...
+    100*pct, k, 100*quality);
+end
+\end{lstlisting}
+
+For a chosen $200\times200$ image, the output will have the form
+\begin{lstlisting}
+keep 75%: k=150, quality=...
+keep 50%: k=100, quality=...
+keep 25%: k=50, quality=...
+\end{lstlisting}
+with the actual percentages depending on the image.
+
+\textbf{(g) Minimum number of singular values for 99.9\% quality.}
+
+We want the smallest $k$ such that
+\[
+\frac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots+\sigma_n^2}\ge 0.999.
+\]
+In Matlab:
+\begin{lstlisting}
+target = 0.999;
+cum = cumsum(svals.^2);
+total = cum(end);
+k_min = find(cum/total >= target, 1);
+fprintf('Minimum k for 99.9%% quality: %d\n', k_min);
+\end{lstlisting}
+
+Again, the numerical output depends on the particular image chosen; the script prints the actual value of $k_{\min}$ once the image is supplied.
+
+\textbf{Compression ratio.}
+
+For an $n\times n$ image, keeping $k$ singular values uses about
+\[
+2kn
+\]
+numbers instead of $n^2$, so the approximate compression ratio is
+\[
+\boxed{\frac{2k}{n}.}
+\]
+For the exact count, include the $k$ singular values too:
+\[
+\boxed{\frac{k(2n+1)}{n^2}.}
+\]
+
+So the complete solution to this problem is: run the code on your chosen image, report the three quality percentages, report the smallest $k$ for $99.9\%$ quality, and then report the resulting compression ratio.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 10.6}
+
+\begin{solution}
+Suppose an $m\times n$ grayscale image is approximated by keeping $k$ singular values:
+\[
+A_k=\sigma_1u_1v_1^T+\cdots+\sigma_ku_kv_k^T.
+\]
+
+\textbf{How much data do we store?}
+
+The original image uses
+\[
+mn
+\]
+numbers.
+
+The rank-$k$ approximation uses:
+\begin{itemize}
+  \item $km$ numbers for the $k$ left singular vectors,
+  \item $kn$ numbers for the $k$ right singular vectors,
+  \item $k$ numbers for the $k$ singular values.
+\end{itemize}
+So the exact compressed storage is
+\[
+k(m+n+1).
+\]
+
+\textbf{Compression ratio.}
+
+Therefore the exact compression ratio is
+\[
+\boxed{\frac{k(m+n+1)}{mn}.}
+\]
+
+If we ignore the extra $k$ singular values, the usual approximation is
+\[
+\boxed{\frac{k(m+n)}{mn}.}
+\]
+
+\textbf{When is compression worthwhile?}
+
+Compression is worthwhile exactly when the compressed storage is smaller than the original storage:
+\[
+k(m+n+1)<mn.
+\]
+So the exact criterion is
+\[
+\boxed{k<\frac{mn}{m+n+1}.}
+\]
+
+Using the approximate formula, this becomes
+\[
+k(m+n)<mn
+\quad\Longleftrightarrow\quad
+\boxed{k<\frac{mn}{m+n}.}
+\]
+
+For a square $n\times n$ image, this is approximately
+\[
+\frac{2k}{n}<1
+\quad\Longleftrightarrow\quad
+\boxed{k<\frac{n}{2}.}
+\]
+\end{solution}
+
+\clearpage
+% ============================================================
+\section{Quantum Information}
+% ============================================================
+
+\subsection*{Exercise 2.2}
+
+\begin{solution}
+Two expressions represent the same quantum state exactly when they differ by a nonzero global phase $e^{i\theta}$.
+
+\textbf{(a)} $\ket{0}$ and $-\ket{0}$.
+
+These are the same state, because
+\[
+-\ket{0}=e^{i\pi}\ket{0}.
+\]
+
+\textbf{(b)} $\ket{1}$ and $i\ket{1}$.
+
+These are the same state, because
+\[
+i\ket{1}=e^{i\pi/2}\ket{1}.
+\]
+
+\textbf{(c)} $\frac{1}{\sqrt2}(\ket{0}+\ket{1})$ and $\frac{1}{\sqrt2}(-\ket{0}+i\ket{1})$.
+
+These are \emph{different}. If they differed only by a global phase, the coefficients of $\ket{0}$ and $\ket{1}$ would have to be multiplied by the same complex number, but $-1$ and $i$ are not the same phase factor relative to $1$ and $1$.
+
+Measure in the Hadamard basis $\{\ket{+},\ket{-}\}$.
+
+The first state is exactly $\ket{+}$, so
+\[
+P(\ket{+})=1,\qquad P(\ket{-})=0.
+\]
+For the second state $\ket{\psi}=\frac{1}{\sqrt2}(-\ket{0}+i\ket{1})$,
+\[
+\braket{+}{\psi}
+=\frac{1}{2}(\bra{0}+\bra{1})(-\ket{0}+i\ket{1})
+=\frac{-1+i}{2},
+\]
+so
+\[
+P(\ket{+})=\left|\frac{-1+i}{2}\right|^2=\frac12.
+\]
+Thus the measurement probabilities differ.
+
+\textbf{(d)} $\frac{1}{\sqrt2}(\ket{0}+\ket{1})$ and $\frac{1}{\sqrt2}(\ket{0}-\ket{1})$.
+
+These are $\ket{+}$ and $\ket{-}$, so they are different states. In the basis $\{\ket{+},\ket{-}\}$ one gives probability $1$ of $\ket{+}$ and the other gives probability $1$ of $\ket{-}$.
+
+\textbf{(e)} $\frac{1}{\sqrt2}(\ket{0}-\ket{1})$ and $\frac{1}{\sqrt2}(\ket{1}-\ket{0})$.
+
+Since
+\[
+\frac{1}{\sqrt2}(\ket{1}-\ket{0})
+=-\frac{1}{\sqrt2}(\ket{0}-\ket{1}),
+\]
+these differ by the global phase $-1$, so they are the same state.
+
+\textbf{(f)} $\frac{1}{\sqrt2}(\ket{0}+i\ket{1})$ and $\frac{1}{\sqrt2}(i\ket{1}-\ket{0})$.
+
+These are different. Write
+\[
+\ket{i}=\frac{1}{\sqrt2}(\ket{0}+i\ket{1}),
+\qquad
+\ket{\phi}=\frac{1}{\sqrt2}(-\ket{0}+i\ket{1}).
+\]
+Then
+\[
+\braket{i}{\phi}
+=\frac{1}{2}(\bra{0}-i\bra{1})(-\ket{0}+i\ket{1})
+=\frac{-1+1}{2}=0.
+\]
+So they are orthogonal, hence definitely different states. Measuring in the basis $\{\ket{i},\ket{-i}\}$ distinguishes them perfectly.
+
+\textbf{(g)} $\frac{1}{\sqrt2}(\ket{+}+\ket{-})$ and $\ket{0}$.
+
+Use the definitions:
+\[
+\frac{1}{\sqrt2}(\ket{+}+\ket{-})
+=\frac{1}{\sqrt2}\left(
+\frac{\ket{0}+\ket{1}}{\sqrt2}
++\frac{\ket{0}-\ket{1}}{\sqrt2}
+\right)
+=\ket{0}.
+\]
+So these are the same state.
+
+\textbf{(h)} $\frac{1}{\sqrt2}(\ket{i}-\ket{-i})$ and $\ket{1}$.
+
+Compute:
+\[
+\frac{1}{\sqrt2}(\ket{i}-\ket{-i})
+=\frac{1}{\sqrt2}\left(
+\frac{\ket{0}+i\ket{1}}{\sqrt2}
+-\frac{\ket{0}-i\ket{1}}{\sqrt2}
+\right)
+=i\ket{1}.
+\]
+This differs from $\ket{1}$ by the global phase $i$, so they are the same state.
+
+\textbf{(i)} $\frac{1}{\sqrt2}(\ket{i}+\ket{-i})$ and $\frac{1}{\sqrt2}(\ket{-}+\ket{+})$.
+
+The first is
+\[
+\frac{1}{\sqrt2}(\ket{i}+\ket{-i})
+=\frac{1}{2}\bigl((\ket{0}+i\ket{1})+(\ket{0}-i\ket{1})\bigr)
+=\ket{0},
+\]
+and the second is
+\[
+\frac{1}{\sqrt2}(\ket{-}+\ket{+})
+=\frac{1}{2}\bigl((\ket{0}-\ket{1})+(\ket{0}+\ket{1})\bigr)
+=\ket{0}.
+\]
+So these are the same state.
+
+\textbf{(j)} $\frac{1}{\sqrt2}(\ket{0}+e^{i\pi/4}\ket{1})$ and $\frac{1}{\sqrt2}(e^{-i\pi/4}\ket{0}+\ket{1})$.
+
+Multiply the first state by the global phase $e^{-i\pi/4}$:
+\[
+e^{-i\pi/4}\cdot\frac{1}{\sqrt2}(\ket{0}+e^{i\pi/4}\ket{1})
+=\frac{1}{\sqrt2}(e^{-i\pi/4}\ket{0}+\ket{1}).
+\]
+So they are the same state.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 2.3}
+
+\begin{solution}
+The standard basis is $\{\ket{0},\ket{1}\}$. A state is a superposition with respect to this basis when both basis coefficients are nonzero.
+
+\textbf{(a)} $\ket{+}$.
+
+Since
+\[
+\ket{+}=\frac{1}{\sqrt2}(\ket{0}+\ket{1}),
+\]
+this is a superposition in the standard basis. In the Hadamard basis $\{\ket{+},\ket{-}\}$ it is just the basis vector $\ket{+}$, so in that basis it is \emph{not} a superposition.
+
+\textbf{(b)} $\frac{1}{\sqrt2}(\ket{+}+\ket{-})$.
+
+As above,
+\[
+\frac{1}{\sqrt2}(\ket{+}+\ket{-})=\ket{0},
+\]
+so it is not a superposition in the standard basis.
+
+\textbf{(c)} $\frac{1}{\sqrt2}(\ket{+}-\ket{-})$.
+
+Compute:
+\[
+\frac{1}{\sqrt2}(\ket{+}-\ket{-})
+=\frac{1}{2}\bigl((\ket{0}+\ket{1})-(\ket{0}-\ket{1})\bigr)
+=\ket{1}.
+\]
+So it is not a superposition in the standard basis.
+
+\textbf{(d)} $\frac{\sqrt3}{2}\ket{+}-\frac12\ket{-}$.
+
+Rewrite in the standard basis:
+\[
+\frac{\sqrt3}{2}\cdot\frac{\ket{0}+\ket{1}}{\sqrt2}
+-\frac12\cdot\frac{\ket{0}-\ket{1}}{\sqrt2}
+=\frac{\sqrt3-1}{2\sqrt2}\ket{0}
++\frac{\sqrt3+1}{2\sqrt2}\ket{1}.
+\]
+Both coefficients are nonzero, so this is a superposition in the standard basis.
+
+It is not a superposition in any orthonormal basis that uses this state itself as a basis vector. For example, in the basis
+\[
+\left\{
+\frac{\sqrt3}{2}\ket{+}-\frac12\ket{-},
+\frac12\ket{+}+\frac{\sqrt3}{2}\ket{-}
+\right\}
+\]
+it is just the first basis vector.
+
+\textbf{(e)} $\frac{1}{\sqrt2}(\ket{i}-\ket{-i})$.
+
+From Exercise 2.2(h),
+\[
+\frac{1}{\sqrt2}(\ket{i}-\ket{-i})=i\ket{1}.
+\]
+So it is not a superposition in the standard basis.
+
+\textbf{(f)} $\frac{1}{\sqrt2}(\ket{0}-\ket{1})$.
+
+This is $\ket{-}$, so
+\[
+\ket{-}=\frac{1}{\sqrt2}(\ket{0}-\ket{1}),
+\]
+which \emph{is} a superposition in the standard basis. In the Hadamard basis $\{\ket{+},\ket{-}\}$ it is just the basis vector $\ket{-}$, so there it is not a superposition.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 2.4}
+
+\begin{solution}
+Now the measurement basis is the Hadamard basis $\{\ket{+},\ket{-}\}$.
+
+\textbf{(a)} $\ket{+}$ is \emph{not} a superposition in the Hadamard basis.
+
+\textbf{(b)} From Exercise 2.3(b), the state is $\ket{0}$. Since
+\[
+\ket{0}=\frac{1}{\sqrt2}\ket{+}+\frac{1}{\sqrt2}\ket{-},
+\]
+it \emph{is} a superposition in the Hadamard basis.
+
+\textbf{(c)} From Exercise 2.3(c), the state is $\ket{1}$. Since
+\[
+\ket{1}=\frac{1}{\sqrt2}\ket{+}-\frac{1}{\sqrt2}\ket{-},
+\]
+it \emph{is} a superposition in the Hadamard basis.
+
+\textbf{(d)} The state
+\[
+\frac{\sqrt3}{2}\ket{+}-\frac12\ket{-}
+\]
+already has both Hadamard-basis coefficients nonzero, so it \emph{is} a superposition in the Hadamard basis.
+
+\textbf{(e)} From Exercise 2.3(e), the state is $i\ket{1}$, which is the same physical state as $\ket{1}$. Since
+\[
+\ket{1}=\frac{1}{\sqrt2}\ket{+}-\frac{1}{\sqrt2}\ket{-},
+\]
+it \emph{is} a superposition in the Hadamard basis.
+
+\textbf{(f)} The state is $\ket{-}$, so it is \emph{not} a superposition in the Hadamard basis.
+\end{solution}
+
+\clearpage
+\subsection*{Exercise 2.6}
+
+\begin{solution}
+For each state, write it in the given basis and square the absolute values of the coefficients.
+
+\textbf{(a)} $\frac{\sqrt3}{2}\ket{0}-\frac12\ket{1}$ in the basis $\{\ket{0},\ket{1}\}$.
+
+So the outcomes are $\ket{0}$ and $\ket{1}$ with probabilities
+\[
+P(\ket{0})=\left|\frac{\sqrt3}{2}\right|^2=\frac34,
+\qquad
+P(\ket{1})=\left|-\frac12\right|^2=\frac14.
+\]
+
+\textbf{(b)} $\frac{\sqrt3}{2}\ket{1}-\frac12\ket{0}$ in the basis $\{\ket{0},\ket{1}\}$.
+
+Rewrite as
+\[
+-\frac12\ket{0}+\frac{\sqrt3}{2}\ket{1}.
+\]
+Hence
+\[
+P(\ket{0})=\frac14,
+\qquad
+P(\ket{1})=\frac34.
+\]
+
+\textbf{(c)} $\ket{-i}$ in the basis $\{\ket{0},\ket{1}\}$.
+
+Since
+\[
+\ket{-i}=\frac{1}{\sqrt2}(\ket{0}-i\ket{1}),
+\]
+we get
+\[
+P(\ket{0})=\frac12,
+\qquad
+P(\ket{1})=\frac12.
+\]
+
+\textbf{(d)} $\ket{0}$ in the basis $\{\ket{+},\ket{-}\}$.
+
+Use
+\[
+\ket{0}=\frac{1}{\sqrt2}\ket{+}+\frac{1}{\sqrt2}\ket{-}.
+\]
+Therefore
+\[
+P(\ket{+})=\frac12,
+\qquad
+P(\ket{-})=\frac12.
+\]
+
+\textbf{(e)} $\frac{1}{\sqrt2}(\ket{0}-\ket{1})=\ket{-}$ in the basis $\{\ket{i},\ket{-i}\}$.
+
+Compute the amplitudes:
+\[
+\braket{i}{-}
+=\frac{1}{2}(\bra{0}-i\bra{1})(\ket{0}-\ket{1})
+=\frac{1+i}{2},
+\]
+so
+\[
+P(\ket{i})=\left|\frac{1+i}{2}\right|^2=\frac12.
+\]
+Also
+\[
+\braket{-i}{-}
+=\frac{1}{2}(\bra{0}+i\bra{1})(\ket{0}-\ket{1})
+=\frac{1-i}{2},
+\]
+so
+\[
+P(\ket{-i})=\left|\frac{1-i}{2}\right|^2=\frac12.
+\]
+
+\textbf{(f)} $\ket{1}$ in the basis $\{\ket{i},\ket{-i}\}$.
+
+We have
+\[
+\braket{i}{1}
+=\frac{1}{\sqrt2}(\bra{0}-i\bra{1})\ket{1}
+=-\frac{i}{\sqrt2},
+\]
+so
+\[
+P(\ket{i})=\frac12.
+\]
+Likewise,
+\[
+\braket{-i}{1}
+=\frac{1}{\sqrt2}(\bra{0}+i\bra{1})\ket{1}
+=\frac{i}{\sqrt2},
+\]
+so
+\[
+P(\ket{-i})=\frac12.
+\]
+
+\textbf{(g)} $\ket{+}$ in the basis
+\[
+\left\{
+\frac12\ket{0}+\frac{\sqrt3}{2}\ket{1},
+\frac{\sqrt3}{2}\ket{0}-\frac12\ket{1}
+\right\}.
+\]
+
+Let
+\[
+\ket{u}=\frac12\ket{0}+\frac{\sqrt3}{2}\ket{1},
+\qquad
+\ket{v}=\frac{\sqrt3}{2}\ket{0}-\frac12\ket{1}.
+\]
+Then
+\[
+\braket{u}{+}
+=\left(\frac12\bra{0}+\frac{\sqrt3}{2}\bra{1}\right)
+\frac{1}{\sqrt2}(\ket{0}+\ket{1})
+=\frac{1+\sqrt3}{2\sqrt2}.
+\]
+Hence
+\[
+P(\ket{u})
+=\left|\frac{1+\sqrt3}{2\sqrt2}\right|^2
+=\frac{(1+\sqrt3)^2}{8}
+=\frac{2+\sqrt3}{4}.
+\]
+
+Similarly,
+\[
+\braket{v}{+}
+=\left(\frac{\sqrt3}{2}\bra{0}-\frac12\bra{1}\right)
+\frac{1}{\sqrt2}(\ket{0}+\ket{1})
+=\frac{\sqrt3-1}{2\sqrt2},
+\]
+so
+\[
+P(\ket{v})
+=\left|\frac{\sqrt3-1}{2\sqrt2}\right|^2
+=\frac{(\sqrt3-1)^2}{8}
+=\frac{2-\sqrt3}{4}.
+\]
+
+As a check,
+\[
+\frac{2+\sqrt3}{4}+\frac{2-\sqrt3}{4}=1.
+\]
+\end{solution}
+
+\end{document}

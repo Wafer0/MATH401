@@ -1,0 +1,131 @@
+=== Spectral Theorem spot checks ===
+[OK]   2.1.29 corrected: vv^T is not idempotent for non-unit v
+[OK]   unit-vector version gives a projection matrix
+[OK]   2.1.34: B^T A B is symmetric
+[OK]   2.1.34: B^T B is symmetric
+[OK]   2.1.34: B B^T is symmetric
+ 
+=== SVD exercises 5-12 ===
+
+=== Exercise 5 ===
+  expected singular values = [ 2.000000 0.000000 ]
+  actual singular values = [ 2.000000 0.000000 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 6 ===
+  expected singular values = [ 3.000000 2.000000 ]
+  actual singular values = [ 3.000000 2.000000 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 7 ===
+  expected singular values = [ 3.000000 2.000000 ]
+  actual singular values = [ 3.000000 2.000000 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 8 ===
+  expected singular values = [ 8.000000 2.000000 ]
+  actual singular values = [ 8.000000 2.000000 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 9 ===
+  expected singular values = [ 4.242641 1.414214 ]
+  actual singular values = [ 4.242641 1.414214 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 10 ===
+  expected singular values = [ 9.486833 3.162278 ]
+  actual singular values = [ 9.486833 3.162278 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 11 ===
+  expected singular values = [ 9.486833 0.000000 ]
+  actual singular values = [ 9.486833 0.000000 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+
+=== Exercise 12 ===
+  expected singular values = [ 1.732051 1.414214 ]
+  actual singular values = [ 1.732051 1.414214 ]
+[OK]   singular values match
+[OK]   candidate U orthogonal
+[OK]   candidate V orthogonal
+[OK]   candidate decomposition reconstructs A
+ 
+=== Exercise 14 ===
+  ||x||: 1.0000000000
+  ||A7*x||: 3.0000000000
+[OK]   Exercise 14 maximum length equals sigma_1 = 3
+ 
+=== Exercise 15 ===
+[OK]   U columns are approximately orthonormal
+[OK]   V columns are approximately orthonormal
+[OK]   rank(A) from singular values is 2
+[OK]   listed null-space basis vector is in Nul(A)
+ 
+=== Image Compression 10.1 and 10.6 ===
+  10.1 singular values = [ 2.450334 1.118034 0.835045 0.546412 ]
+  quality k=3: 0.9638101924
+  quality k=2: 0.8792890370
+  quality k=1: 0.7277738855
+[OK]   10.1 quality values match LaTeX rounded values
+  10.6 exact ratio for m=200, n=150, k=30: 0.3510000000
+  10.6 approximate ratio for m=200, n=150, k=30: 0.3500000000
+[OK]   10.6 worthwhile criterion holds for k=30
+ 
+=== Quantum Information 2.2 ===
+[OK]   2.2(a) same state
+[OK]   2.2(b) same state
+[OK]   2.2(c) different state
+[OK]   2.2(d) different state
+[OK]   2.2(e) same state
+[OK]   2.2(f) different state
+[OK]   2.2(g) same state
+[OK]   2.2(h) same state
+[OK]   2.2(i) same state
+[OK]   2.2(j) same state
+  2.2(c) P(+ | second state): 0.5000000000
+ 
+=== Quantum Information 2.3 and 2.4 ===
+  2.3(d) standard-basis coefficients = [ 0.258819 0.965926 ]
+[OK]   2.3(e) equals i|1>
+  2.4(b) coeff of |+> in |0>: 0.7071067812
+  2.4(c) coeff of |-> in |1>: 0.7071067812
+ 
+=== Quantum Information 2.6 ===
+  2.6(a) P(|0>): 0.7500000000
+  2.6(a) P(|1>): 0.2500000000
+  2.6(b) P(|0>): 0.2500000000
+  2.6(b) P(|1>): 0.7500000000
+  2.6(c) P(|0>): 0.5000000000
+  2.6(c) P(|1>): 0.5000000000
+  2.6(d) P(|+>): 0.5000000000
+  2.6(d) P(|->): 0.5000000000
+  2.6(e) P(|i>): 0.5000000000
+  2.6(e) P(|-i>): 0.5000000000
+  2.6(f) P(|i>): 0.5000000000
+  2.6(f) P(|-i>): 0.5000000000
+  2.6(g) P(u): 0.9330127019
+  2.6(g) P(v): 0.0669872981
+[OK]   2.6(g) exact formulas match
+ 
+Verification complete.
