@@ -1,0 +1,14 @@
+\contentsline {chapter}{\numberline {1}Linear Algebra Review --- Solutions}{4}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Least Squares --- Solutions}{7}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Curve Fitting --- Solutions}{10}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Team Ranking --- Solutions}{13}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Graph Theory --- Solutions}{16}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Markov Chains --- Solutions}{23}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Google PageRank --- Solutions}{26}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Spectral Theorem --- Solutions}{29}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Singular Value Decomposition --- Solutions}{31}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Single-Qubit Quantum Systems --- Solutions}{35}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Image Compression --- Solutions}{40}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Multiple-Qubit Systems and Cryptography --- Solutions}{45}{chapter.12}%
+\contentsline {paragraph}{Remark.}{45}{section*.13}%
+\contentsline {paragraph}{Check (first five bits):}{47}{section*.15}%

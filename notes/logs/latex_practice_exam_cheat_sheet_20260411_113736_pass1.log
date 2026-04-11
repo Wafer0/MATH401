@@ -33,7 +33,8 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/tools/array.sty)
 (/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty)
 (/usr/share/texmf-dist/tex/latex/psnfss/ot1phv.fd)
-(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./main.aux)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file main.aux.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
